@@ -81,7 +81,7 @@
     "statsIntro": "Dated insights from verified platform analytics.",
     "contactLabel": "LET’S BUILD SOMETHING USEFUL",
     "contactTitle": "Your product. A clear story.",
-    "contactText": "Share your brand, product, campaign objective, timeline and proposed budget. Let’s discuss the right collaboration.",
+    "contactText": "For brand partnerships, sponsorships and business inquiries, email is the preferred contact. Share your product, campaign objective, timeline and proposed budget.",
     "emailLabel": "Email for partnerships",
     "footer": "AI. Technology. Practical ideas.",
     "back": "Back to top",
@@ -98,7 +98,15 @@
       "Content and brand collaborations in Arabic, English, Russian and Ukrainian, tailored to the campaign brief."
     ],
     "internationalHistory": "His international perspective is shaped by approximately 18 years of study and visits in Ukraine and around five years of living in Belgium.",
-    "location": "Based in Belgium & Ukraine | Serving Clients Internationally"
+    "location": "Based in Belgium & Ukraine | Serving Clients Internationally",
+    "businessEmail": "Business Email",
+    "moreContactOptions": "More Contact Options",
+    "belgium": "Belgium",
+    "ukraine": "Ukraine",
+    "directCall": "Direct call",
+    "personalWhatsApp": "Personal WhatsApp",
+    "businessWhatsApp": "WhatsApp Business",
+    "otherMessaging": "Also available on the Ukrainian number: Telegram, Viber, BOTIM and Signal."
   },
   "ar": {
     "home": "الرئيسية",
@@ -182,7 +190,7 @@
     "statsIntro": "بيانات مؤرخة من تحليلات المنصات الموثقة.",
     "contactLabel": "لنقدّم شيئًا مفيدًا",
     "contactTitle": "منتجك. وقصة واضحة.",
-    "contactText": "شارك اسم علامتك ومنتجك وهدف الحملة والجدول الزمني والميزانية المقترحة، لنناقش التعاون المناسب.",
+    "contactText": "للشراكات مع العلامات التجارية والرعايات والاستفسارات التجارية، يُفضّل التواصل عبر البريد الإلكتروني. اذكر منتجك وهدف الحملة والجدول الزمني والميزانية المقترحة.",
     "emailLabel": "بريد الشراكات التجارية",
     "footer": "ذكاء اصطناعي. تقنية. أفكار عملية.",
     "back": "العودة للأعلى",
@@ -199,7 +207,15 @@
       "محتوى وشراكات بالعربية والإنجليزية والروسية والأوكرانية، حسب أهداف الحملة."
     ],
     "internationalHistory": "تشكّل منظوره الدولي من الدراسة والزيارات في أوكرانيا على مدى نحو 18 عامًا، ومن الإقامة في بلجيكا منذ نحو خمس سنوات.",
-    "location": "مقيم في بلجيكا وأوكرانيا | أخدم عملاء حول العالم"
+    "location": "مقيم في بلجيكا وأوكرانيا | أخدم عملاء حول العالم",
+    "businessEmail": "البريد التجاري",
+    "moreContactOptions": "خيارات تواصل إضافية",
+    "belgium": "بلجيكا",
+    "ukraine": "أوكرانيا",
+    "directCall": "اتصال مباشر",
+    "personalWhatsApp": "واتساب شخصي",
+    "businessWhatsApp": "واتساب للأعمال",
+    "otherMessaging": "متاح أيضًا على الرقم الأوكراني: Telegram وViber وBOTIM وSignal."
   },
   "fr": {
     "home": "Accueil",
@@ -283,7 +299,7 @@
     "statsIntro": "Des données datées issues des statistiques vérifiées des plateformes.",
     "contactLabel": "CRÉONS QUELQUE CHOSE D’UTILE",
     "contactTitle": "Votre produit. Un récit clair.",
-    "contactText": "Présentez votre marque, votre produit, l’objectif de campagne, le calendrier et le budget proposé pour discuter du partenariat adapté.",
+    "contactText": "Pour les partenariats de marque, les collaborations sponsorisées et les demandes professionnelles, privilégiez l’e-mail. Précisez le produit, l’objectif de campagne, le calendrier et le budget envisagé.",
     "emailLabel": "Contact partenariats",
     "footer": "IA. Technologie. Idées concrètes.",
     "back": "Retour en haut",
@@ -300,7 +316,15 @@
       "Contenu et collaborations en arabe, anglais, russe et ukrainien, selon les objectifs de la campagne."
     ],
     "internationalHistory": "Son regard international s’est construit au fil d’environ 18 ans d’études et de visites en Ukraine et d’environ cinq ans de vie en Belgique.",
-    "location": "Basé en Belgique et en Ukraine | Au service de clients à l’international"
+    "location": "Basé en Belgique et en Ukraine | Au service de clients à l’international",
+    "businessEmail": "E-mail professionnel",
+    "moreContactOptions": "Autres moyens de contact",
+    "belgium": "Belgique",
+    "ukraine": "Ukraine",
+    "directCall": "Appel direct",
+    "personalWhatsApp": "WhatsApp personnel",
+    "businessWhatsApp": "WhatsApp Business",
+    "otherMessaging": "Également disponibles sur le numéro ukrainien : Telegram, Viber, BOTIM et Signal."
   },
   "ru": {
     "home": "Главная",
@@ -384,7 +408,7 @@
     "statsIntro": "Датированные данные из проверенной аналитики платформ.",
     "contactLabel": "СОЗДАДИМ ЧТО-ТО ПОЛЕЗНОЕ",
     "contactTitle": "Ваш продукт. Понятная история.",
-    "contactText": "Расскажите о бренде, продукте, цели кампании, сроках и предлагаемом бюджете, чтобы обсудить сотрудничество.",
+    "contactText": "По вопросам партнёрства с брендами, спонсорства и деловых предложений предпочтительно обращаться по электронной почте. Укажите продукт, цель кампании, сроки и предлагаемый бюджет.",
     "emailLabel": "Почта для партнёрств",
     "footer": "ИИ. Технологии. Практические идеи.",
     "back": "Наверх",
@@ -401,6 +425,14 @@
       "Контент и партнёрство на арабском, английском, русском и украинском в соответствии с задачами кампании."
     ],
     "internationalHistory": "Его международный опыт складывается из примерно 18 лет учёбы и визитов в Украину и около пяти лет жизни в Бельгии.",
-    "location": "Базируюсь в Бельгии и Украине | Работаю с клиентами по всему миру"
+    "location": "Базируюсь в Бельгии и Украине | Работаю с клиентами по всему миру",
+    "businessEmail": "Деловая почта",
+    "moreContactOptions": "Другие способы связи",
+    "belgium": "Бельгия",
+    "ukraine": "Украина",
+    "directCall": "Прямой звонок",
+    "personalWhatsApp": "Личный WhatsApp",
+    "businessWhatsApp": "WhatsApp Business",
+    "otherMessaging": "На украинском номере также доступны Telegram, Viber, BOTIM и Signal."
   }
 }
