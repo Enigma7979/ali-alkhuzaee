@@ -1,0 +1,52 @@
+{
+  "updated": "2026-10-25",
+  "platforms": {
+    "Instagram": "https://www.instagram.com/alialkhuzaee_startups",
+    "TikTok": "https://www.tiktok.com/@ali.ai.automation",
+    "YouTube": "https://youtube.com/@alialkhuzaee_startups?si=R4hAp1R5Nk3awxu0",
+    "Snapchat": "https://snapchat.com/t/vdy8jGkt",
+    "LinkedIn": "https://www.linkedin.com/in/ali-alkhuzaee-140bb01ba",
+    "X": "https://x.com/alialkhuzaee_?s=11"
+  },
+  "metrics": [],
+  "audience": null,
+  "work": [
+    {
+      "id": "Zj8ni1qqIBo",
+      "title": {
+        "en": "AI video, with sound",
+        "ar": "فيديو بالذكاء الاصطناعي مع الصوت",
+        "fr": "La vidéo IA avec le son",
+        "ru": "ИИ-видео со звуком"
+      },
+      "topic": "Google Flow",
+      "url": "https://www.youtube.com/shorts/Zj8ni1qqIBo"
+    },
+    {
+      "id": "q6BLhS16MwU",
+      "title": {
+        "en": "From PDF to podcast",
+        "ar": "من ملف PDF إلى بودكاست",
+        "fr": "Du PDF au podcast",
+        "ru": "Из PDF в подкаст"
+      },
+      "topic": "AI & productivity",
+      "url": "https://www.youtube.com/shorts/q6BLhS16MwU"
+    },
+    {
+      "id": "zqtCrgt0FjM",
+      "title": {
+        "en": "Build a practical workflow",
+        "ar": "بناء سير عمل عملي",
+        "fr": "Créer un workflow concret",
+        "ru": "Создание рабочего процесса"
+      },
+      "topic": "AI & n8n",
+      "url": "https://www.youtube.com/shorts/zqtCrgt0FjM"
+    }
+  ],
+  "sources": {
+    "work": "https://www.youtube.com/@alialkhuzaee_startups/shorts",
+    "verifiedOn": "2026-10-25"
+  }
+}
