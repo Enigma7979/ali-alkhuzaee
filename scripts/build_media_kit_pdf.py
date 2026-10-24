@@ -10,6 +10,7 @@ from reportlab.lib.utils import ImageReader
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
 DATA=json.loads((ROOT/'media-kit/data.json').read_text())
+COPY=json.loads((ROOT/'media-kit/translations.json').read_text())['en']
 OUT=ROOT/'media-kit/Ali-Alkhuzaee-Media-Kit.pdf'
 for name,file in [('Inter','DejaVuSans.ttf'),('InterBold','DejaVuSans-Bold.ttf')]:pdfmetrics.registerFont(TTFont(name,'/usr/share/fonts/truetype/dejavu/'+file))
 W,H=595.28,841.89
@@ -40,14 +41,15 @@ text(42,715,'Partner with',29);text(42,673,'Ali Alkhuzaee',32,BLUE,True)
 text(42,643,'AI & Tech Creator',12);text(42,622,'Founder of Study UA Plus',10,MUTED)
 C.drawImage(optimized_image(ROOT/'ali-alkhuzaee.jpeg'),390,615,160,160,mask='auto',preserveAspectRatio=True)
 y=para(42,580,'Make useful technology part of everyday life.',size=17,leading=24,color=WHITE)
-y=para(42,y-10,'Connect your brand with an Arabic-speaking audience interested in AI, technology and productivity through practical, engaging creator-led content. Clear explanations bring useful tools, workflows and emerging technologies into everyday context.',size=10,leading=17)
+y=para(42,y-10,COPY['intro'],size=10,leading=17)
 label(454,'WHY PARTNER WITH ALI?')
 items=[('A focused niche','AI, technology, productivity and automation.'),('Clear Arabic storytelling','Complex features connected to everyday needs.'),('Short-form creative','Relatable problems and practical applications.'),('Technical perspective','A PhD in Computer Engineering and hands-on automation projects.')]
 for i,(title,body) in enumerate(items):
  x=42+(i%2)*260;y=425-(i//2)*86;card(x,y-60,249,75);text(x+15,y-6,title,10,WHITE,True);para(x+15,y-25,body,218,9,14)
 label(238,'MULTILINGUAL CREATOR & INTERNATIONAL PERSPECTIVE')
-para(42,214,'Fluent in Arabic, English, Russian and Ukrainian, Ali can develop content and brand partnerships in all four languages. His perspective is shaped by approximately 18 years of study and visits in Ukraine and five years of living in Belgium.',size=10,leading=17)
-para(42,131,'For SaaS and AI brands: multilingual campaigns can be tailored to the product, language and creative brief. Each partnership can be shaped around the brand objectives, creative format and intended language.',size=9,leading=15)
+para(42,214,COPY['location'],size=9,leading=15,color=WHITE)
+para(42,188,COPY['internationalText'],size=9,leading=15)
+para(42,107,COPY['internationalHistory'],size=9,leading=15)
 C.showPage();bg(2);label(756,'COLLABORATION FORMATS');text(42,720,'A format that fits your product.',24)
 formats=['Sponsored Reels & Short-form Videos','AI Tool Reviews & Demonstrations','Product Integrations','Brand Partnerships','Educational Technology Campaigns','Long-term Brand Ambassadorships','Multilingual Campaigns']
 for i,f in enumerate(formats):text(42,685-i*23,f'{i+1:02}   {f}',10)
