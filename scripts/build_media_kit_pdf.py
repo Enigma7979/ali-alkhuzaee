@@ -51,7 +51,7 @@ para(42,214,COPY['location'],size=9,leading=15,color=WHITE)
 para(42,188,COPY['internationalText'],size=9,leading=15)
 para(42,107,COPY['internationalHistory'],size=9,leading=15)
 C.showPage();bg(2);label(756,'COLLABORATION FORMATS');text(42,720,'A format that fits your product.',24)
-formats=['Sponsored Reels & Short-form Videos','AI Tool Reviews & Demonstrations','Product Integrations','Brand Partnerships','Educational Technology Campaigns','Long-term Brand Ambassadorships','Multilingual Campaigns']
+formats=[item[0] for item in COPY['formats']]
 for i,f in enumerate(formats):text(42,685-i*23,f'{i+1:02}   {f}',10)
 label(493,'SELECTED PUBLISHED CONTENT')
 for i,v in enumerate(DATA['work']):
