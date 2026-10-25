@@ -6,7 +6,7 @@ This is part of the existing static GitHub Pages website. Publish the repository
 
 - `index.html`: English fallback content, links, SEO and structured data.
 - `translations.json`: Arabic, English, French and Russian interface copy.
-- Spoken languages are Arabic, English, Russian and Ukrainian. Ukrainian is not currently an interface language.
+- Professional content and campaign languages are Arabic, English and Russian. Interface languages remain Arabic, English, French and Russian; the language lists are independent.
 - `data.json`: selected content, platform references and dated metrics. Keep platform links in the HTML, JSON-LD and PDF in sync when updating.
 - Preserve the existing Snapchat URL unless Ali confirms a replacement.
 
@@ -26,7 +26,7 @@ The generator uses the original site portrait, local thumbnails and verified cha
 
 ## Validation before publishing
 
-Check both pages in all four languages at phone, tablet and desktop widths; test Arabic RTL, language persistence, mail links, thumbnail/video links, PDF downloads and direct-page refreshes. Preserve every existing homepage section and link. Confirm robots/sitemap remain accessible, and verify the live page and PDF after GitHub Pages deployment completes.
+Check both pages in all four languages at phone, tablet and desktop widths; confirm the primary contact cards are visible without expansion and only Other Messaging Apps is collapsible; test Arabic RTL, language persistence, mail links, thumbnail/video links, PDF downloads and direct-page refreshes. Preserve every existing homepage section and link. Confirm robots/sitemap remain accessible, and verify the live page and PDF after GitHub Pages deployment completes.
 
 ## Rollback
 
