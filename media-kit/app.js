@@ -2,7 +2,7 @@
 (async()=>{
  const select=document.getElementById('language');
  let copy,data;
- try{[copy,data]=await Promise.all([fetch('/media-kit/translations.json?v=visible-contact-3langs-1').then(r=>{if(!r.ok)throw Error('translations');return r.json()}),fetch('/media-kit/data.json').then(r=>{if(!r.ok)throw Error('data');return r.json()})]);}catch{return;}
+ try{[copy,data]=await Promise.all([fetch('/media-kit/translations.json?v=visible-contact-3langs-1').then(r=>{if(!r.ok)throw Error('translations');return r.json()}),fetch('/media-kit/data.json?v=mobile-video-1').then(r=>{if(!r.ok)throw Error('data');return r.json()})]);}catch{return;}
  function setLanguage(lang,updateUrl=false){
   if(!copy[lang])lang='en';const c=copy[lang];
   document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';select.value=lang;
