@@ -12,15 +12,16 @@
   "audience": null,
   "work": [
     {
-      "id": "Zj8ni1qqIBo",
+      "id": "XrUiMpdjRwE",
       "title": {
-        "en": "AI video, with sound",
-        "ar": "فيديو بالذكاء الاصطناعي مع الصوت",
-        "fr": "La vidéo IA avec le son",
-        "ru": "ИИ-видео со звуком"
+        "en": "Better mobile framing: two simple settings",
+        "ar": "تصويرك بالموبايل مائل؟ جرّب هالميزتين!",
+        "fr": "Mieux cadrer au mobile : deux réglages simples",
+        "ru": "Ровный кадр на смартфоне: две простые настройки"
       },
-      "topic": "Google Flow",
-      "url": "https://www.youtube.com/shorts/Zj8ni1qqIBo"
+      "topic": "Mobile filmmaking",
+      "url": "https://www.youtube.com/shorts/XrUiMpdjRwE",
+      "source": "Video URL and title supplied by Ali on 2026-10-25"
     },
     {
       "id": "q6BLhS16MwU",
