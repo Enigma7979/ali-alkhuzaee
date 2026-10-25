@@ -3,3 +3,4 @@
 .portrait{height:auto}.portrait-stage,.hero-copy{min-width:0}
 .portrait-stage{overflow:clip;border-radius:24px}
 @media(max-width:360px){.hero h1{font-size:36px}}
+.language-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.language-grid div{padding:18px 12px}.language-grid span{display:block;overflow-wrap:anywhere}

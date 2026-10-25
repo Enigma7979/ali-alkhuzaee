@@ -14,7 +14,7 @@ COPY=json.loads((ROOT/'media-kit/translations.json').read_text())['en']
 OUT=ROOT/'media-kit/Ali-Alkhuzaee-Media-Kit.pdf'
 for name,file in [('Inter','DejaVuSans.ttf'),('InterBold','DejaVuSans-Bold.ttf')]:pdfmetrics.registerFont(TTFont(name,'/usr/share/fonts/truetype/dejavu/'+file))
 W,H=595.28,841.89
-C=canvas.Canvas(str(OUT),pagesize=(W,H));C.setTitle('Ali Alkhuzaee | Media Kit & Brand Partnerships');C.setAuthor('Ali Alkhuzaee');C.setSubject('AI, technology and multilingual creator partnerships')
+C=canvas.Canvas(str(OUT),pagesize=(W,H));C.setTitle('Ali Alkhuzaee | Media Kit & Brand Partnerships');C.setAuthor('Ali Alkhuzaee');C.setKeywords('AI, automation, Arabic, English, Russian, Belgium, Ukraine, brand partnerships');C.setSubject('AI, technology and multilingual creator partnerships')
 BG='#08090b';PANEL='#111722';MUTED='#a2aabd';WHITE='#f3f3f4';BLUE='#8eb9ff'
 def optimized_image(path):
  im=Image.open(path).convert('RGB');im.thumbnail((700,700));buffer=BytesIO();im.save(buffer,format='JPEG',quality=88,optimize=True);buffer.seek(0);return ImageReader(buffer)
