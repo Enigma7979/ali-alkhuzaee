@@ -109,3 +109,10 @@ The regenerated PDF opens and renders correctly as a local standalone file, with
 ## Image extraction provenance
 
 The built-in image editing tool was used in background-extraction mode. The effective brief for each portrait was: remove only the white background into true transparent alpha; preserve exact face, body, pose, hand/finger, hair, skin texture, suit colors and framing; no redraw, generated face, retouching or relighting. The generated RGB output is deliberately not used. `scripts/prepare_portraits.py` combines only the reviewed alpha masks with the original photograph RGB pixels. The original supplied photographs remain preserved separately.
+
+## Review screenshots
+
+- `docs/previews/home-desktop.jpg`
+- `docs/previews/home-mobile-ar.jpg`
+- `docs/previews/media-kit-desktop.jpg`
+- `docs/previews/media-kit-mobile.jpg`
