@@ -1,67 +1,79 @@
-"""Rebuild the English media kit: python scripts/build_media_kit_pdf.py"""
+"""Build the standalone English Media Kit from the current verified website content."""
 from pathlib import Path
-import json
 from io import BytesIO
+import json
+from PIL import Image
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.utils import ImageReader
-from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
 DATA=json.loads((ROOT/'media-kit/data.json').read_text())
+HOME=json.loads((ROOT/'assets/translations.json').read_text())['en']
 COPY=json.loads((ROOT/'media-kit/translations.json').read_text())['en']
 OUT=ROOT/'media-kit/Ali-Alkhuzaee-Media-Kit.pdf'
-for name,file in [('Inter','DejaVuSans.ttf'),('InterBold','DejaVuSans-Bold.ttf')]:pdfmetrics.registerFont(TTFont(name,'/usr/share/fonts/truetype/dejavu/'+file))
+for n,f in [('Regular','DejaVuSans.ttf'),('Bold','DejaVuSans-Bold.ttf')]:pdfmetrics.registerFont(TTFont(n,'/usr/share/fonts/truetype/dejavu/'+f))
 W,H=595.28,841.89
-C=canvas.Canvas(str(OUT),pagesize=(W,H));C.setTitle('Ali Alkhuzaee | Media Kit & Brand Partnerships');C.setAuthor('Ali Alkhuzaee');C.setKeywords('AI, automation, Arabic, English, Russian, Belgium, Ukraine, brand partnerships');C.setSubject('AI, technology and multilingual creator partnerships')
-BG='#08090b';PANEL='#111722';MUTED='#a2aabd';WHITE='#f3f3f4';BLUE='#8eb9ff'
-def optimized_image(path):
- im=Image.open(path).convert('RGB');im.thumbnail((700,700));buffer=BytesIO();im.save(buffer,format='JPEG',quality=88,optimize=True);buffer.seek(0);return ImageReader(buffer)
-def text(x,y,t,size=10,color=WHITE,bold=False):C.setFillColor(HexColor(color));C.setFont('InterBold' if bold else 'Inter',size);C.drawString(x,y,t)
-def para(x,y,t,width=490,size=10,leading=17,color=MUTED):
- words=t.split();line=''
- for word in words:
-  next=(line+' '+word).strip()
-  if pdfmetrics.stringWidth(next,'Inter',size)>width:
-   text(x,y,line,size,color);y-=leading;line=word
-  else:line=next
- if line:text(x,y,line,size,color)
+C=canvas.Canvas(str(OUT),pagesize=(W,H));C.setTitle('Ali Alkhuzaee | Media Kit & Brand Partnerships');C.setAuthor('Ali Alkhuzaee');C.setSubject('AI, technology, SaaS and multilingual creator partnerships');C.setKeywords('Ali Alkhuzaee, AI, automation, Arabic, English, Russian, Ukrainian, Belgium, Ukraine')
+INK='#15233c';BLUE='#2563eb';MUTED='#53647c';NAVY='#111d35';PAPER='#f8fafc';CYAN='#86dcff'
+def txt(x,y,t,size=10,color=INK,bold=False):
+ C.setFillColor(HexColor(color));C.setFont('Bold' if bold else 'Regular',size);C.drawString(x,y,t)
+def para(x,y,t,width=505,size=10,leading=16,color=MUTED,bold=False):
+ font='Bold' if bold else 'Regular';line=''
+ for w in t.split():
+  test=(line+' '+w).strip()
+  if pdfmetrics.stringWidth(test,font,size)>width and line:txt(x,y,line,size,color,bold);y-=leading;line=w
+  else:line=test
+ if line:txt(x,y,line,size,color,bold)
  return y-leading
 
-def bg(n):
- C.setFillColor(HexColor(BG));C.rect(0,0,W,H,fill=1,stroke=0)
- C.setStrokeColor(HexColor('#273247'));C.line(42,793,W-42,793);text(42,810,'Ali Alkhuzaee',11);text(405,810,'MEDIA KIT / 2026',8,BLUE)
- C.line(42,45,W-42,45);text(42,28,'alialkhuzaee.com',8,MUTED);C.linkURL('https://alialkhuzaee.com',(42,20,180,40),relative=0);text(W-68,28,f'0{n}',8,MUTED)
-def label(y,t):text(42,y,t,8,BLUE)
-def card(x,y,w,h):C.setFillColor(HexColor(PANEL));C.roundRect(x,y,w,h,12,fill=1,stroke=0)
-def link(x,y,t,url,size=9):text(x,y,t,size,BLUE);C.linkURL(url,(x,y-3,x+pdfmetrics.stringWidth(t,'Inter',size),y+12),relative=0)
-bg(1);label(756,'BRAND PARTNERSHIPS')
-text(42,715,'Partner with',29);text(42,673,'Ali Alkhuzaee',32,BLUE,True)
-text(42,643,'AI & Tech Creator',12);text(42,622,'Founder of Study UA Plus',10,MUTED)
-C.drawImage(optimized_image(ROOT/'ali-alkhuzaee.jpeg'),390,615,160,160,mask='auto',preserveAspectRatio=True)
-y=para(42,580,'Make useful technology part of everyday life.',size=17,leading=24,color=WHITE)
-y=para(42,y-10,COPY['intro'],size=10,leading=17)
-label(454,'WHY PARTNER WITH ALI?')
-items=[('A focused niche','AI, technology, productivity and automation.'),('Clear Arabic storytelling','Complex features connected to everyday needs.'),('Short-form creative','Relatable problems and practical applications.'),('Technical perspective','A PhD in Computer Engineering and hands-on automation projects.')]
-for i,(title,body) in enumerate(items):
- x=42+(i%2)*260;y=425-(i//2)*86;card(x,y-60,249,75);text(x+15,y-6,title,10,WHITE,True);para(x+15,y-25,body,218,9,14)
-label(238,'MULTILINGUAL CREATOR & INTERNATIONAL PERSPECTIVE')
-para(42,214,COPY['location'],size=9,leading=15,color=WHITE)
-para(42,188,COPY['internationalText'],size=9,leading=15)
-para(42,107,COPY['internationalHistory'],size=9,leading=15)
-C.showPage();bg(2);label(756,'COLLABORATION FORMATS');text(42,720,'A format that fits your product.',24)
-formats=[item[0] for item in COPY['formats']]
-for i,f in enumerate(formats):text(42,685-i*23,f'{i+1:02}   {f}',10)
-label(493,'SELECTED PUBLISHED CONTENT')
+def image(path,x,y,w,h):
+ im=Image.open(path).convert('RGBA');bg=Image.new('RGBA',im.size,'#f8fafc');bg.alpha_composite(im);im=bg.convert('RGB');im.thumbnail((900,900));b=BytesIO();im.save(b,format='JPEG',quality=92,optimize=True);b.seek(0);C.drawImage(ImageReader(b),x,y,w,h,preserveAspectRatio=True,anchor='c')
+def rect(x,y,w,h,color,r=0):
+ C.setFillColor(HexColor(color));C.roundRect(x,y,w,h,r,stroke=0,fill=1)
+def rule(y,color='#d7dfeb'):C.setStrokeColor(HexColor(color));C.line(40,y,W-40,y)
+def link(x,y,label,url,size=9,color=BLUE):
+ txt(x,y,label,size,color);C.linkURL(url,(x,y-3,x+pdfmetrics.stringWidth(label,'Regular',size),y+12),relative=0)
+def bg(page):
+ rect(0,0,W,H,PAPER);txt(40,806,'ALI ALKHUZAEE',10,INK,True);txt(398,806,'MEDIA KIT / 2026',8,BLUE,True);rule(791)
+ rule(39);link(40,23,'alialkhuzaee.com','https://alialkhuzaee.com',8);txt(W-57,23,f'0{page}',8,MUTED)
+def label(y,s):txt(40,y,s,8,BLUE,True)
+bg(1);label(755,'AI & TECHNOLOGY CREATOR')
+txt(40,715,'Technology,',31,INK,True);txt(40,675,'made human.',31,BLUE,True)
+txt(40,642,'Ali Alkhuzaee',18,INK,True)
+para(40,620,'AI & Tech Creator | N8N Automation Engineer',300,9,14)
+para(40,599,'PhD in Computer Engineering',300,9,14)
+para(40,579,'Founder & CEO of Study UA Plus',300,9,14)
+image(ROOT/'assets/portraits/ali-partnership-900.webp',363,565,190,190)
+rect(40,448,515,97,NAVY,12)
+txt(57,523,'Partner with Ali Alkhuzaee',15,'#ffffff',True)
+para(57,499,COPY['intro'],480,9,15,'#c9d9ef')
+label(416,'WHY PARTNER WITH ALI?')
+for i,(title,body) in enumerate(COPY['whyCards']):
+ x=40+(i%2)*265;y=389-(i//2)*78
+ para(x,y,title,245,10,14,INK,True);para(x,y-21,body,245,8.6,13)
+rule(226);label(204,'MULTILINGUAL CREATOR / INTERNATIONAL PERSPECTIVE')
+para(40,181,'Arabic. English. Russian. Ukrainian.',505,13,18,INK,True)
+para(40,153,HOME['globalText'],505,9,14)
+para(40,109,HOME['globalHistory'],505,8.5,14)
+para(40,66,HOME['location'],505,8,12,BLUE,True)
+C.showPage();bg(2)
+label(755,'BRAND PARTNERSHIPS')
+txt(40,720,'Useful products. Clear stories.',24,INK,True)
+para(40,695,'Campaigns for AI, SaaS, technology, automation and creator-tool brands.',505,9,15)
+for i,(title,desc) in enumerate(COPY['formats']):
+ x=40+(i%2)*266;y=659-(i//2)*35
+ txt(x,y,f'{i+1:02}',8,BLUE,True);para(x+22,y,title,229,8.7,12,INK,True)
+rule(516);label(494,'SELECTED PUBLISHED CONTENT')
 for i,v in enumerate(DATA['work']):
- x=42+i*174;im=optimized_image(ROOT/'assets/media-kit'/f'{v["id"]}.webp');# preserve the full original frame
- C.drawImage(im,x,303,156,174,preserveAspectRatio=True,anchor='c',mask='auto')
- title=v['title']['en'];para(x,286,title,155,9,13,color=WHITE);link(x,252,'Watch on YouTube',v['url'],8)
-label(215,'EXPLORE THE CHANNELS')
-for i,(name,url) in enumerate(DATA['platforms'].items()):link(42+(i%3)*174,190-(i//3)*22,name+'  /',url,9)
-C.setStrokeColor(HexColor('#273247'));C.line(42,146,W-42,146)
-text(42,122,'Let’s collaborate.',19,WHITE,True)
-para(42,101,'Share your product, campaign objective, timeline and proposed budget.',490,9,14)
-link(42,64,'ali@alialkhuzaee.com','mailto:ali@alialkhuzaee.com?subject=Brand%20Partnership%20Inquiry%20%E2%80%94%20Ali%20Alkhuzaee',11)
+ x=40+i*176;image(ROOT/'assets/media-kit'/f'{v["id"]}.webp',x,350,162,128)
+ para(x,333,v['title']['en'],160,9,13,INK,True);link(x,293,'Watch on YouTube',v['url'],8)
+label(255,'EXPLORE THE CHANNELS')
+for i,(name,url) in enumerate(DATA['platforms'].items()):link(40+(i%3)*176,230-(i//3)*22,name+'  /',url,9)
+rect(40,63,515,119,NAVY,12)
+txt(57,159,'Let’s build something worth watching.',16,'#ffffff',True)
+para(57,137,'Share your product, campaign objective, timeline and proposed budget.',480,8.7,14,'#c9d9ef')
+link(57,108,'ali@alialkhuzaee.com','mailto:ali@alialkhuzaee.com?subject=Brand%20Partnership%20Inquiry%20%E2%80%94%20Ali%20Alkhuzaee',13,CYAN)
+link(57,82,'Belgium: +32 467 68 52 50','tel:+32467685250',8,'#d9e7fa');link(318,82,'Ukraine: +380 63 717 17 71','tel:+380637171771',8,'#d9e7fa')
 C.save();print(OUT)
