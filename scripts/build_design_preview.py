@@ -102,14 +102,14 @@ def copy():
   c['videos']=[{'title':v['title'][l],'description':v.get('description',{}).get(l,'')} for v in DATA['work']]
   c.update(NEW[l]);out[l]=c
  return out
-GUIDE_REUSE=['toc','builtAfter','prev','next','sectionsLabel','swipeHint','productTitle','videos']
-GUIDE_PHOTOS=['a-1-dark-creator-studio','b-1-phone-ring-light','b-2-phones-tripod-ring-lights','a-2-camera-mic-desk-setup','c-1-octabox-studio','c-2-softboxes-silhouette','d-2-rgb-laptop-setup','d-1-purple-desk-boom-mic','h-2-editor-dark-room']
+GUIDE_REUSE=['toc','builtAfter','prev','next','sectionsLabel','swipeHint','productTitle','videos','inside1','inside2','inside3','inside4','inside5','checkoutBtn','checkoutPending']
+GUIDE_PHOTOS=['a-1-dark-creator-studio','b-1-phone-ring-light','b-2-phones-tripod-ring-lights','a-2-camera-mic-desk-setup','c-1-octabox-studio','c-2-softboxes-silhouette','d-2-rgb-laptop-setup','d-1-purple-desk-boom-mic','h-2-editor-dark-room','e-1-boom-arm-mic','f-1-tabletop-softbox-setup','f-2-cosmetics-shoot-bw','h-1-editing-dark-desk']
 PHOTO_DIR=ROOT/'assets/presentation/photos'
 def data_uri(path):
  mime='image/webp' if path.suffix=='.webp' else 'image/jpeg'
  return 'data:'+mime+';base64,'+base64.b64encode(path.read_bytes()).decode()
 def guide_js(inline=False):
- base=copy();out={l:{**{k:base[l][k] for k in GUIDE_REUSE},**GUIDE[l]} for l in base}
+ base=copy();out={l:{**{k:base[l][k] for k in GUIDE_REUSE},'slidesCopy':[{'title':x['title'],'text':x['text']} for x in PROD[l]['slides']],'previewAlt':PROD[l]['previewAlt'],**GUIDE[l]} for l in base}
  lic={Path(e['file']).stem:e for e in json.loads((PHOTO_DIR/'LICENSES.json').read_text())}
  photos={}
  for name in GUIDE_PHOTOS:
