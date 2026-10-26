@@ -47,8 +47,14 @@
       "topic": "AI & study",
       "url": "https://www.youtube.com/shorts/6m0NC1etQIU",
       "embed": "https://www.youtube-nocookie.com/embed/6m0NC1etQIU",
-      "thumbnail": "https://i.ytimg.com/vi/6m0NC1etQIU/hqdefault.jpg",
-      "source": "Video URL, ID and localized titles supplied by Ali on 2026-10-26; channel ownership confirmed via YouTube oEmbed on 2026-10-26. Replaces zqtCrgt0FjM in the third card position."
+      "source": "Video URL, ID and localized titles supplied by Ali on 2026-10-26; channel ownership confirmed via YouTube oEmbed on 2026-10-26. Replaces zqtCrgt0FjM in the third card position.",
+      "thumbnails": [
+        "https://i.ytimg.com/vi/6m0NC1etQIU/oardefault.jpg",
+        "https://i.ytimg.com/vi/6m0NC1etQIU/maxresdefault.jpg",
+        "https://i.ytimg.com/vi/6m0NC1etQIU/sddefault.jpg",
+        "https://i.ytimg.com/vi/6m0NC1etQIU/hqdefault.jpg"
+      ],
+      "thumbnailNote": "Tried in order at runtime; YouTube answers a missing size with a 120x90 placeholder, which the card skips. A locally hosted cover at assets/media-kit/6m0NC1etQIU.(webp|jpg) is used first when present."
     }
   ],
   "sources": {
