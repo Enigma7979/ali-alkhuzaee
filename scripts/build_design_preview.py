@@ -140,6 +140,7 @@ def main():
  js='window.PREVIEW_COPY='+json.dumps(copy(),ensure_ascii=False)+';\n'
  (ROOT/'design-preview/copy.js').write_text(js)
  (ROOT/'design-preview/guide-copy.js').write_text(guide_js())
+ (ROOT/'assets/products/guide-copy.js').write_text(guide_js())  # used by the live product page
  args=sys.argv[1:]
  if not args:return
  if args[0]=='--guide':

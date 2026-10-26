@@ -8,11 +8,11 @@
  menu.addEventListener('click',()=>{const opened=menu.getAttribute('aria-expanded')!=='true';nav.classList.toggle('open',opened);menu.setAttribute('aria-expanded',String(opened));menu.setAttribute('aria-label',translations[current]?.[opened?'closeMenu':'menu']||'Navigation')});
  nav.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();menu.focus()}});
  try{
-  const files=await Promise.all(['/assets/translations.json?v=short-1','/media-kit/data.json?v=short-3',...(kit?['/media-kit/translations.json?v=premium-3']:[])].map(async url=>{const r=await fetch(url);if(!r.ok)throw Error(url);return r.json()}));
-  [translations,data]=files;if(kit)kitCopy=files[2];if(product){const r=await fetch('/assets/products/translations.json?v=1');if(!r.ok)throw Error('product copy');productCopy=await r.json()}
+  const files=await Promise.all(['/assets/translations.json?v=v2-1','/media-kit/data.json?v=short-3',...(kit?['/media-kit/translations.json?v=v2-1']:[])].map(async url=>{const r=await fetch(url);if(!r.ok)throw Error(url);return r.json()}));
+  [translations,data]=files;if(kit)kitCopy=files[2];if(product){const r=await fetch('/assets/products/translations.json?v=v2-1');if(!r.ok)throw Error('product copy');productCopy=await r.json()}
  }catch{document.documentElement.dataset.translationError='true';return}
  function setLanguage(lang,updateUrl=true){
-  if(!supported.includes(lang))lang='en';current=lang;const c={...translations[lang],...(product?productCopy[lang]:{})};if(kit)for(const key of ['eyebrow','hero','name','intro','cta','whyLabel','why','whyIntro','whyCards','formatsLabel','formatsTitle','formatsIntro','formats','statsLabel','statsTitle','statsIntro'])c[key]=kitCopy[lang][key];
+  if(!supported.includes(lang))lang='en';current=lang;const c={...translations[lang],...(product?productCopy[lang]:{})};if(kit)for(const key of ['eyebrow','hero','name','lead','intro','cta','pill1','pill2','pill3','whyLabel','why','whyIntro','whyCards','formatsLabel','formatsTitle','formatsIntro','formats','statsLabel','statsTitle','statsIntro'])c[key]=kitCopy[lang][key];
   document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';select.value=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const value=c[el.dataset.i18n];if(typeof value==='string')el.textContent=value});
   document.querySelectorAll('[data-array]').forEach(el=>{const value=resolve(c,el.dataset.array);if(typeof value==='string')el.textContent=value});

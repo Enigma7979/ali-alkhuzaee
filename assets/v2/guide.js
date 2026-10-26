@@ -55,6 +55,7 @@
  });
  /* ds.js re-applies copy on every language change; follow it. */
  document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>render()));
+ document.addEventListener('ali:language',()=>render());
  /* Warm the cache for tab photos so switching is instant. */
  const warm=()=>document.querySelectorAll('[data-tab][data-photo]').forEach(b=>{const p=PHOTOS[b.dataset.photo];if(p){const i=new Image();i.decoding='async';i.src=p.src}});
  'requestIdleCallback' in window?requestIdleCallback(warm):setTimeout(warm,1500);

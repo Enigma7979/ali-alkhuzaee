@@ -8,7 +8,7 @@
  let lang='ar';
  const fromHash=location.hash.slice(1);
  if(LANGS.includes(fromHash))lang=fromHash;
- else{const q=new URLSearchParams(location.search).get('lang');if(LANGS.includes(q))lang=q;else{try{const s=localStorage.getItem('ali-preview-lang');if(LANGS.includes(s))lang=s}catch(e){}}}
+ else{const q=new URLSearchParams(location.search).get('lang');if(LANGS.includes(q))lang=q;else{try{const s=localStorage.getItem('ali-language')||localStorage.getItem('ali-preview-lang');if(LANGS.includes(s))lang=s}catch(e){}}}
 
  if(window.PV_NO_REMOTE===true)document.querySelectorAll('img[data-remote]').forEach(img=>img.remove());
  else document.querySelectorAll('[data-standalone-only]').forEach(el=>el.remove());
@@ -25,6 +25,8 @@
   renderToc(c);renderTier(c);
  }
  document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>apply(b.dataset.lang)));
+ /* On the live site, assets/site.js owns the language and announces each change. */
+ document.addEventListener('ali:language',e=>apply(e.detail.lang));
 
  /* Click-to-play Short: the YouTube player loads only after the visitor asks for it. */
  document.addEventListener('click',e=>{
