@@ -15,7 +15,7 @@ COPY=json.loads((ROOT/'media-kit/translations.json').read_text())['en']
 OUT=ROOT/'media-kit/Ali-Alkhuzaee-Media-Kit.pdf'
 for n,f in [('Regular','DejaVuSans.ttf'),('Bold','DejaVuSans-Bold.ttf')]:pdfmetrics.registerFont(TTFont(n,'/usr/share/fonts/truetype/dejavu/'+f))
 W,H=595.28,841.89
-C=canvas.Canvas(str(OUT),pagesize=(W,H));C.setTitle('Ali Alkhuzaee | Media Kit & Brand Partnerships');C.setAuthor('Ali Alkhuzaee');C.setSubject('AI, technology, SaaS and multilingual creator partnerships');C.setKeywords('Ali Alkhuzaee, AI, automation, Arabic, English, Russian, Ukrainian, Belgium, Ukraine')
+C=canvas.Canvas(str(OUT),pagesize=(W,H));C.setTitle('Ali Alkhuzaee | Media Kit & Brand Partnerships');C.setAuthor('Ali Alkhuzaee');C.setSubject('AI, technology, SaaS and multilingual creator partnerships');C.setKeywords('Ali Alkhuzaee, AI, automation, Arabic, English, Russian, Belgium, Ukraine')
 INK='#15233c';BLUE='#2563eb';MUTED='#53647c';NAVY='#111d35';PAPER='#f8fafc';CYAN='#86dcff'
 def txt(x,y,t,size=10,color=INK,bold=False):
  C.setFillColor(HexColor(color));C.setFont('Bold' if bold else 'Regular',size);C.drawString(x,y,t)
@@ -54,7 +54,7 @@ for i,(title,body) in enumerate(COPY['whyCards']):
  x=40+(i%2)*265;y=389-(i//2)*78
  para(x,y,title,245,10,14,INK,True);para(x,y-21,body,245,8.6,13)
 rule(226);label(204,'MULTILINGUAL CREATOR / INTERNATIONAL PERSPECTIVE')
-para(40,181,'Arabic. English. Russian. Ukrainian.',505,13,18,INK,True)
+para(40,181,'Arabic. English. Russian.',505,13,18,INK,True)
 para(40,153,HOME['globalText'],505,9,14)
 para(40,109,HOME['globalHistory'],505,8.5,14)
 para(40,66,HOME['location'],505,8,12,BLUE,True)

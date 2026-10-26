@@ -21,7 +21,7 @@ NEW={
 'en':dict(
  previewBar='Design preview · Stage B · not the live website',samples='Samples',
  s1='Homepage hero',s2='Homepage section: selected work',s3='Featured Short card',s4='Media Kit introduction',s5='Media Kit metrics',s6='Digital Products',s7='Presentation introduction',s8='Studio lesson',
- rec='REC',frame='9:16 · VERTICAL',focusTag='AI · AUTOMATION · n8n',basedShort='Belgium & Ukraine',worksIn='Works in Arabic, English, Russian & Ukrainian',
+ rec='REC',frame='9:16 · VERTICAL',focusTag='AI · AUTOMATION · n8n',basedShort='Belgium & Ukraine',worksIn='Works in Arabic, English & Russian',
  newBadge='New',channelCta='All Shorts on YouTube',
  thumbNote='Preview note: this review page cannot load images from YouTube, so the new card shows its titled fallback. On the website the official YouTube thumbnail loads in its place.',
  cardAnatomy='Click-to-play: nothing loads from YouTube until the visitor taps. Then the privacy-enhanced player opens in 9:16. Sound never starts by itself.',
@@ -45,7 +45,7 @@ NEW={
 'ar':dict(
  previewBar='معاينة التصميم · المرحلة B · ليست الموقع المنشور',samples='العينات',
  s1='واجهة الصفحة الرئيسية',s2='قسم من الرئيسية: أعمال مختارة',s3='بطاقة فيديو Shorts المميزة',s4='مقدمة الملف الإعلامي',s5='أرقام الملف الإعلامي',s6='المنتجات الرقمية',s7='مقدمة العرض التفاعلي',s8='درس الاستوديو',
- rec='تسجيل',frame='9:16 · عمودي',focusTag='AI · أتمتة · n8n',basedShort='بلجيكا وأوكرانيا',worksIn='أعمل بالعربية والإنجليزية والروسية والأوكرانية',
+ rec='تسجيل',frame='9:16 · عمودي',focusTag='AI · أتمتة · n8n',basedShort='بلجيكا وأوكرانيا',worksIn='أعمل بالعربية والإنجليزية والروسية',
  newBadge='جديد',channelCta='كل الفيديوهات على YouTube',
  thumbNote='ملاحظة المعاينة: صفحة المراجعة هذه لا تستطيع تحميل الصور من YouTube، لذلك تظهر البطاقة الجديدة بعنوانها البديل. على الموقع تظهر الصورة المصغرة الرسمية من YouTube مكانها.',
  cardAnatomy='تشغيل عند الضغط: لا يُحمَّل شيء من YouTube حتى يضغط الزائر. بعدها يفتح المشغل المحسّن للخصوصية بمقاس 9:16، ولا يبدأ الصوت وحده أبدًا.',
@@ -69,7 +69,7 @@ NEW={
 'ru':dict(
  previewBar='Предпросмотр дизайна · этап B · не опубликованный сайт',samples='Образцы',
  s1='Первый экран главной',s2='Раздел главной: избранные работы',s3='Карточка нового Short',s4='Вступление медиакита',s5='Показатели медиакита',s6='Цифровые продукты',s7='Вступление презентации',s8='Урок о студии',
- rec='REC',frame='9:16 · ВЕРТИКАЛЬ',focusTag='ИИ · АВТОМАТИЗАЦИЯ · n8n',basedShort='Бельгия и Украина',worksIn='Работаю на арабском, английском, русском и украинском',
+ rec='REC',frame='9:16 · ВЕРТИКАЛЬ',focusTag='ИИ · АВТОМАТИЗАЦИЯ · n8n',basedShort='Бельгия и Украина',worksIn='Работаю на арабском, английском и русском',
  newBadge='Новое',channelCta='Все Shorts на YouTube',
  thumbNote='Примечание: эта страница предпросмотра не может загружать изображения с YouTube, поэтому новая карточка показывает запасную обложку с названием. На сайте на её месте загрузится официальная обложка YouTube.',
  cardAnatomy='Запуск по нажатию: ничего не загружается с YouTube, пока посетитель не нажмёт. Затем открывается плеер с повышенной конфиденциальностью в формате 9:16. Звук сам не включается.',
