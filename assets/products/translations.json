@@ -151,7 +151,9 @@
       "Editing and publishing",
       "Small business marketing",
       "Thirty-day action plan"
-    ]
+    ],
+    "comingSoon": "Coming soon",
+    "comingSoonNote": "The guide is in final review. Purchasing opens soon."
   },
   "ar": {
     "navProducts": "المنتجات الرقمية",
@@ -305,7 +307,9 @@
       "المونتاج والنشر",
       "تسويق المشروعات الصغيرة",
       "خطة ثلاثين يومًا"
-    ]
+    ],
+    "comingSoon": "قريبًا",
+    "comingSoonNote": "الدليل في المراجعة النهائية. سيُفتح الشراء قريبًا."
   },
   "ru": {
     "navProducts": "Цифровые продукты",
@@ -459,6 +463,8 @@
       "Монтаж и публикация",
       "Маркетинг малого бизнеса",
       "План на 30 дней"
-    ]
+    ],
+    "comingSoon": "Скоро",
+    "comingSoonNote": "Руководство на финальной проверке. Покупка скоро откроется."
   }
 }
