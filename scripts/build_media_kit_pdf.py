@@ -1,79 +1,133 @@
-"""Build the standalone English Media Kit from the current verified website content."""
+"""Build the standalone English Media Kit PDF in design system v2 from the current verified website content.
+
+python scripts/build_media_kit_pdf.py   -> media-kit/Ali-Alkhuzaee-Media-Kit.pdf (two A4 pages, printed with Chromium)
+Metrics stay out of the PDF until dated, sourced data is approved in media-kit/data.json.
+"""
 from pathlib import Path
-from io import BytesIO
-import json
-from PIL import Image
-from reportlab.pdfgen import canvas
-from reportlab.lib.colors import HexColor
-from reportlab.lib.utils import ImageReader
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+from html import escape as e
+import json,subprocess,tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DATA=json.loads((ROOT/'media-kit/data.json').read_text())
 HOME=json.loads((ROOT/'assets/translations.json').read_text())['en']
 COPY=json.loads((ROOT/'media-kit/translations.json').read_text())['en']
 OUT=ROOT/'media-kit/Ali-Alkhuzaee-Media-Kit.pdf'
-for n,f in [('Regular','DejaVuSans.ttf'),('Bold','DejaVuSans-Bold.ttf')]:pdfmetrics.registerFont(TTFont(n,'/usr/share/fonts/truetype/dejavu/'+f))
-W,H=595.28,841.89
-C=canvas.Canvas(str(OUT),pagesize=(W,H));C.setTitle('Ali Alkhuzaee | Media Kit & Brand Partnerships');C.setAuthor('Ali Alkhuzaee');C.setSubject('AI, technology, SaaS and multilingual creator partnerships');C.setKeywords('Ali Alkhuzaee, AI, automation, Arabic, English, Russian, Ukrainian, Belgium, Ukraine')
-INK='#15233c';BLUE='#2563eb';MUTED='#53647c';NAVY='#111d35';PAPER='#f8fafc';CYAN='#86dcff'
-def txt(x,y,t,size=10,color=INK,bold=False):
- C.setFillColor(HexColor(color));C.setFont('Bold' if bold else 'Regular',size);C.drawString(x,y,t)
-def para(x,y,t,width=505,size=10,leading=16,color=MUTED,bold=False):
- font='Bold' if bold else 'Regular';line=''
- for w in t.split():
-  test=(line+' '+w).strip()
-  if pdfmetrics.stringWidth(test,font,size)>width and line:txt(x,y,line,size,color,bold);y-=leading;line=w
-  else:line=test
- if line:txt(x,y,line,size,color,bold)
- return y-leading
-
-def image(path,x,y,w,h):
- im=Image.open(path).convert('RGBA');bg=Image.new('RGBA',im.size,'#f8fafc');bg.alpha_composite(im);im=bg.convert('RGB');im.thumbnail((900,900));b=BytesIO();im.save(b,format='JPEG',quality=92,optimize=True);b.seek(0);C.drawImage(ImageReader(b),x,y,w,h,preserveAspectRatio=True,anchor='c')
-def rect(x,y,w,h,color,r=0):
- C.setFillColor(HexColor(color));C.roundRect(x,y,w,h,r,stroke=0,fill=1)
-def rule(y,color='#d7dfeb'):C.setStrokeColor(HexColor(color));C.line(40,y,W-40,y)
-def link(x,y,label,url,size=9,color=BLUE):
- txt(x,y,label,size,color);C.linkURL(url,(x,y-3,x+pdfmetrics.stringWidth(label,'Regular',size),y+12),relative=0)
-def bg(page):
- rect(0,0,W,H,PAPER);txt(40,806,'ALI ALKHUZAEE',10,INK,True);txt(398,806,'MEDIA KIT / 2026',8,BLUE,True);rule(791)
- rule(39);link(40,23,'alialkhuzaee.com','https://alialkhuzaee.com',8);txt(W-57,23,f'0{page}',8,MUTED)
-def label(y,s):txt(40,y,s,8,BLUE,True)
-bg(1);label(755,'AI & TECHNOLOGY CREATOR')
-txt(40,715,'Technology,',31,INK,True);txt(40,675,'made human.',31,BLUE,True)
-txt(40,642,'Ali Alkhuzaee',18,INK,True)
-para(40,620,'AI & Tech Creator | N8N Automation Engineer',300,9,14)
-para(40,599,'PhD in Computer Engineering',300,9,14)
-para(40,579,'Founder & CEO of Study UA Plus',300,9,14)
-image(ROOT/'assets/portraits/ali-partnership-900.webp',363,565,190,190)
-rect(40,448,515,97,NAVY,12)
-txt(57,523,'Partner with Ali Alkhuzaee',15,'#ffffff',True)
-para(57,499,COPY['intro'],480,9,15,'#c9d9ef')
-label(416,'WHY PARTNER WITH ALI?')
-for i,(title,body) in enumerate(COPY['whyCards']):
- x=40+(i%2)*265;y=389-(i//2)*78
- para(x,y,title,245,10,14,INK,True);para(x,y-21,body,245,8.6,13)
-rule(226);label(204,'MULTILINGUAL CREATOR / INTERNATIONAL PERSPECTIVE')
-para(40,181,'Arabic. English. Russian. Ukrainian.',505,13,18,INK,True)
-para(40,153,HOME['globalText'],505,9,14)
-para(40,109,HOME['globalHistory'],505,8.5,14)
-para(40,66,HOME['location'],505,8,12,BLUE,True)
-C.showPage();bg(2)
-label(755,'BRAND PARTNERSHIPS')
-txt(40,720,'Useful products. Clear stories.',24,INK,True)
-para(40,695,'Campaigns for AI, SaaS, technology, automation and creator-tool brands.',505,9,15)
-for i,(title,desc) in enumerate(COPY['formats']):
- x=40+(i%2)*266;y=659-(i//2)*35
- txt(x,y,f'{i+1:02}',8,BLUE,True);para(x+22,y,title,229,8.7,12,INK,True)
-rule(516);label(494,'SELECTED PUBLISHED CONTENT')
-for i,v in enumerate(DATA['work']):
- x=40+i*176;image(ROOT/'assets/media-kit'/f'{v["id"]}.webp',x,350,162,128)
- para(x,333,v['title']['en'],160,9,13,INK,True);link(x,293,'Watch on YouTube',v['url'],8)
-label(255,'EXPLORE THE CHANNELS')
-for i,(name,url) in enumerate(DATA['platforms'].items()):link(40+(i%3)*176,230-(i//3)*22,name+'  /',url,9)
-rect(40,63,515,119,NAVY,12)
-txt(57,159,'Let’s build something worth watching.',16,'#ffffff',True)
-para(57,137,'Share your product, campaign objective, timeline and proposed budget.',480,8.7,14,'#c9d9ef')
-link(57,108,'ali@alialkhuzaee.com','mailto:ali@alialkhuzaee.com?subject=Brand%20Partnership%20Inquiry%20%E2%80%94%20Ali%20Alkhuzaee',13,CYAN)
-link(57,82,'Belgium: +32 467 68 52 50','tel:+32467685250',8,'#d9e7fa');link(318,82,'Ukraine: +380 63 717 17 71','tel:+380637171771',8,'#d9e7fa')
-C.save();print(OUT)
+MAIL='mailto:ali@alialkhuzaee.com?subject=Brand%20Partnership%20Inquiry%20%E2%80%94%20Ali%20Alkhuzaee'
+FONTS='https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;700&family=JetBrains+Mono:wght@500;600&family=Manrope:wght@400;500;600;700&display=block'
+JPG=Path(tempfile.gettempdir())/'media-kit-jpg'
+def uri(rel):
+ # Chromium embeds JPEG as-is but re-encodes WebP losslessly, so photos go in as JPEG to keep the PDF small.
+ from PIL import Image
+ src=ROOT/rel;dst=JPG/(src.stem+'.jpg');JPG.mkdir(exist_ok=True)
+ Image.open(src).convert('RGB').save(dst,quality=86,optimize=True);return dst.as_uri()
+CSS='''
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font:400 9.4pt/1.55 Manrope,sans-serif;color:#eef3ff;background:#060b18}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:Geologica,sans-serif;font-weight:600;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+.page{position:relative;width:210mm;height:297mm;overflow:hidden;break-after:page;padding:14mm 15mm 16mm}
+.page:last-child{break-after:auto}
+.dark{background:radial-gradient(120% 70% at 85% 8%,#16306f 0,rgba(22,48,111,0) 55%),radial-gradient(60% 50% at 0 100%,rgba(141,128,255,.16),transparent 70%),#060b18}
+.paper{background:#f2f4f9;color:#0c1630}
+.top{display:flex;justify-content:space-between;align-items:center;padding-bottom:5mm;border-bottom:.3mm solid rgba(150,178,255,.25);font:600 7.5pt/1 Geologica;letter-spacing:.14em}
+.paper .top{border-color:#d8deea}
+.brand{display:flex;align-items:center;gap:2.6mm}
+.mark{width:8mm;height:8mm;border-radius:2.4mm;display:grid;place-items:center;background:linear-gradient(145deg,#3563f5,#8d80ff);color:#fff;font-size:10pt;letter-spacing:0}
+.top .tag{font:500 6.8pt "JetBrains Mono";color:#56d9ff;letter-spacing:.16em}
+.paper .top .tag{color:#2f56e0}
+.foot{position:absolute;left:15mm;right:15mm;bottom:7mm;display:flex;justify-content:space-between;font:500 6.5pt "JetBrains Mono";letter-spacing:.12em;color:#8593b5}
+.label{font:500 6.8pt/1.4 "JetBrains Mono";letter-spacing:.16em;text-transform:uppercase;color:#56d9ff;margin-bottom:2.5mm}
+.paper .label{color:#2f56e0}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:7mm;align-items:center;margin-top:7mm}
+.hero h1{font-size:30pt;line-height:1.02}
+.hero h1 em{display:block;font-style:normal;font-weight:300;color:#56d9ff}
+.lead{font:500 12pt/1.4 Geologica;margin:4mm 0 3mm}
+.intro{color:#b3c0dc}
+.pills{display:flex;flex-wrap:wrap;gap:2mm;margin-top:4mm}
+.pills span{padding:1.2mm 3.2mm;border-radius:9mm;border:.3mm solid rgba(150,178,255,.35);font-size:7.6pt;background:rgba(86,217,255,.06)}
+.vf{position:relative;aspect-ratio:5/6;border-radius:5mm;overflow:hidden;border:.3mm solid rgba(150,178,255,.35);background:#000;box-shadow:0 10mm 30mm rgba(0,0,0,.5)}
+.vf img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.vf::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(6,11,24,.85))}
+.vf i{position:absolute;z-index:2;width:6mm;height:6mm;border:.5mm solid rgba(238,243,255,.8)}
+.vf .tl{top:4mm;left:4mm;border-right:0;border-bottom:0;border-top-left-radius:2mm}.vf .tr{top:4mm;right:4mm;border-left:0;border-bottom:0;border-top-right-radius:2mm}
+.vf .bl{bottom:4mm;left:4mm;border-right:0;border-top:0;border-bottom-left-radius:2mm}.vf .br{bottom:4mm;right:4mm;border-left:0;border-top:0;border-bottom-right-radius:2mm}
+.chip{position:absolute;z-index:2;top:5.5mm;font:500 6pt/1 "JetBrains Mono";letter-spacing:.08em;padding:1.4mm 2.4mm;border-radius:9mm;background:rgba(6,11,24,.65);border:.3mm solid rgba(150,178,255,.35)}
+.chip.rec{left:12mm}.chip.rec::before{content:"";display:inline-block;width:1.6mm;height:1.6mm;border-radius:50%;background:#ff5d6c;margin-right:1.4mm}
+.chip.fmt{right:12mm;color:#56d9ff}
+.vf figcaption{position:absolute;z-index:2;left:6mm;right:6mm;bottom:6mm;display:grid;gap:.6mm}
+.vf figcaption b{font:600 7.5pt Geologica;letter-spacing:.14em}
+.vf figcaption span{font-size:7pt;color:#b3c0dc}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:.3mm;margin-top:6mm;border-radius:3.5mm;overflow:hidden;background:rgba(150,178,255,.2);border:.3mm solid rgba(150,178,255,.2)}
+.facts div{background:#0b1636;padding:2.6mm 3.4mm}
+.facts dt{font:500 5.8pt "JetBrains Mono";letter-spacing:.1em;text-transform:uppercase;color:#8593b5;margin-bottom:.6mm}
+.facts dd{margin:0;font-weight:600;font-size:8pt}
+h2{font-size:15pt;line-height:1.15;margin-bottom:3mm}
+h2 em{font-style:normal;font-weight:300;color:#56d9ff}
+.paper h2 em{color:#2f56e0}
+.block{margin-top:5mm}
+.why{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm}
+.card{border-radius:3.5mm;border:.3mm solid rgba(150,178,255,.2);background:linear-gradient(180deg,rgba(17,33,75,.8),rgba(10,20,48,.7));padding:3.6mm}
+.card b{display:block;font:500 6.4pt "JetBrains Mono";color:#56d9ff;margin-bottom:2.4mm}
+.card h3{font-size:8.8pt;line-height:1.3;margin-bottom:1.6mm}
+.card p{font-size:7.4pt;line-height:1.45;color:#b3c0dc}
+.paper .card{background:#fff;border-color:#d8deea}
+.paper .card b{color:#2f56e0}
+.paper .card p{color:#4a5774}
+.intl{display:grid;grid-template-columns:1.15fr .85fr;gap:7mm;align-items:center}
+.intl p{color:#b3c0dc;font-size:8.4pt}
+.intl .loc{color:#eef3ff;font-weight:600;margin-top:2mm}
+.langs{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4mm}
+.langs div{aspect-ratio:1/1;border-radius:3.5mm;border:.3mm solid rgba(150,178,255,.3);background:radial-gradient(80% 60% at 50% 20%,rgba(86,217,255,.18),transparent 70%),rgba(6,11,24,.6);padding:3mm;display:flex;flex-direction:column;justify-content:space-between}
+.langs span{font:600 16pt Geologica;color:#56d9ff}
+.langs strong{font-size:7.6pt}
+.formats{display:grid;grid-template-columns:repeat(3,1fr);gap:2.6mm}
+.formats .card{padding:2.2mm 3.4mm}.formats .card b{margin-bottom:1.2mm}.formats .card h3{margin-bottom:.6mm}
+.formats .card:last-child{grid-column:1/-1}
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm}
+.short .th{position:relative;aspect-ratio:4/3;border-radius:3.5mm;overflow:hidden;background:#0b1530;border:.3mm solid #d8deea}
+.short .th img{width:100%;height:100%;object-fit:cover}
+.short .th span{position:absolute;left:2.4mm;bottom:2.4mm;font:500 5.6pt "JetBrains Mono";letter-spacing:.08em;color:#fff;padding:1mm 2mm;border-radius:9mm;background:rgba(6,11,24,.6)}
+.short small{display:block;margin-top:2.4mm;font:500 5.8pt "JetBrains Mono";letter-spacing:.1em;text-transform:uppercase;color:#2f56e0}
+.short h3{font-size:8.6pt;line-height:1.35;margin:.8mm 0}
+.short a{font-size:7.2pt;font-weight:700;color:#2f56e0}
+.channels{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4mm}
+.channels a{display:flex;justify-content:space-between;padding:1.8mm 3.4mm;border-radius:3mm;background:#fff;border:.3mm solid #d8deea;font-weight:700;font-size:8pt}
+.channels a span{color:#2f56e0}
+.contact{margin-top:5mm;border-radius:5mm;padding:5mm 7mm;color:#eef3ff;background:radial-gradient(70% 90% at 90% 50%,rgba(141,128,255,.35),transparent 70%),linear-gradient(120deg,#1d3fb8,#2f56e0 60%,#3a3fd0)}
+.contact h2{color:#fff;margin-bottom:2mm}
+.contact p{color:#dde6ff;font-size:8.4pt}
+.contact .mail{display:inline-block;margin-top:3mm;font:600 14pt Geologica;color:#fff}
+.contact .phones{display:flex;gap:8mm;margin-top:3mm;font-size:8.4pt;color:#dde6ff}
+'''
+def page(cls,tag,body,n):
+ return f'<section class="page {cls}"><div class="top"><span class="brand"><span class="mark">A</span>ALI ALKHUZAEE</span><span class="tag">{e(tag)}</span></div>{body}<div class="foot"><a href="https://alialkhuzaee.com">ALIALKHUZAEE.COM</a><span>0{n} / 02</span></div></section>'
+def build_html():
+ facts=[('Content focus',HOME['factFocusV']),('Format',HOME['factFormatV']),('Content language',HOME['factLangV']),('Works in','AR · EN · RU'),('Based in',HOME['basedShort']),('Main channels','YouTube · Instagram · TikTok')]
+ p1=('<div class="hero"><div><p class="label">'+e(COPY['eyebrow'])+'</p><h1>'+e(COPY['hero'])+'<em>'+e(COPY['name'])+'</em></h1><p class="lead">'+e(COPY['lead'])+'</p><p class="intro">'+e(COPY['intro'])+'</p>'
+  '<div class="pills">'+''.join(f'<span>{e(COPY[k])}</span>' for k in ('pill1','pill2','pill3'))+'</div></div>'
+  f'<figure class="vf" style="margin:0"><img src="{uri("assets/portraits/ali-kit-dark-900.webp")}" alt=""><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span class="chip rec">REC</span><span class="chip fmt">9:16 · VERTICAL</span><figcaption><b>ALI ALKHUZAEE</b><span>AI &amp; Tech Creator · N8N Automation Engineer</span><span>{e(HOME["credential"])} · {e(HOME["founder"])}</span></figcaption></figure></div>'
+  '<dl class="facts">'+''.join(f'<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>' for k,v in facts)+'</dl>'
+  '<div class="block"><p class="label">'+e(COPY['whyLabel'])+'</p><h2>'+e(COPY['why'])+'</h2><div class="why">'+''.join(f'<div class="card"><b>{i+1:02d}</b><h3>{e(t)}</h3><p>{e(d)}</p></div>' for i,(t,d) in enumerate(COPY['whyCards']))+'</div></div>'
+  '<div class="block intl"><div><p class="label">'+e(COPY['internationalLabel'])+'</p><h2>'+e(HOME['globalTitle'])+' <em>'+e(HOME['internationalAccent'])+'</em></h2><p>'+e(HOME['globalText'])+'</p><p style="margin-top:2mm">'+e(HOME['globalHistory'])+'</p><p class="loc">'+e(HOME['location'])+'</p></div>'
+  '<div class="langs">'+''.join(f'<div><span>{m}</span><strong>{e(n)}</strong></div>' for m,n in zip(['ع','En','Ру'],HOME['languages']))+'</div></div>')
+ shorts=''.join(f'<div class="short"><div class="th"><img src="{uri("assets/media-kit/"+v["id"]+".webp")}" alt=""><span>YOUTUBE SHORTS</span></div><small>{e(HOME["workTopics"][i])}</small><h3>{e(v["title"]["en"])}</h3><a href="{e(v["url"])}">Watch on YouTube ↗</a></div>' for i,v in enumerate(DATA['work']))
+ p2=('<div class="block" style="margin-top:7mm"><p class="label">'+e(COPY['formatsLabel'])+'</p><h2>'+e(COPY['formatsTitle'])+'</h2><div class="formats">'+''.join(f'<div class="card"><b>{i+1:02d}</b><h3>{e(t)}</h3><p>{e(d)}</p></div>' for i,(t,d) in enumerate(COPY['formats']))+'</div></div>'
+  '<div class="block"><p class="label">'+e(COPY['workLabel'])+'</p><div class="work">'+shorts+'</div></div>'
+  '<div class="block"><p class="label">'+e(COPY['socialLabel'])+'</p><div class="channels">'+''.join(f'<a href="{e(u)}">{e(n)}<span>↗</span></a>' for n,u in DATA['platforms'].items())+'</div></div>'
+  '<div class="contact"><h2>'+e(HOME['contactTitle'])+' '+e(HOME['contactAccent'])+'</h2><p>'+e(COPY['contactText'])+'</p><a class="mail" href="'+MAIL+'">ali@alialkhuzaee.com ↗</a>'
+  '<div class="phones"><a href="tel:+32467685250">Belgium: +32 467 68 52 50</a><a href="tel:+380637171771">Ukraine: +380 63 717 17 71</a></div></div>')
+ return ('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Ali Alkhuzaee | Media Kit &amp; Brand Partnerships</title>'
+  f'<meta name="author" content="Ali Alkhuzaee"><link rel="stylesheet" href="{FONTS}"><style>{CSS}</style></head><body>'
+  +page('dark','MEDIA KIT / 2026',p1,1)+page('paper','BRAND PARTNERSHIPS',p2,2)+'</body></html>')
+RENDER_JS='''const {chromium}=require('playwright');(async()=>{const [src,pdf]=process.argv.slice(2);const b=await chromium.launch();const p=await b.newPage();
+await p.goto(src,{waitUntil:'networkidle'});await p.evaluate(()=>document.fonts.ready);
+const overflow=await p.evaluate(()=>[...document.querySelectorAll('.page')].map((s,i)=>s.scrollHeight>s.clientHeight+2?i+1:0).filter(Boolean));
+await p.pdf({path:pdf,preferCSSPageSize:true,printBackground:true,tagged:true});console.log(JSON.stringify({overflow}));await b.close()})();'''
+def main():
+ with tempfile.TemporaryDirectory() as tmp:
+  html=Path(tmp)/'media-kit.html';html.write_text(build_html());js=Path(tmp)/'render.js';js.write_text(RENDER_JS)
+  res=subprocess.run(['node',str(js),html.as_uri(),str(OUT)],check=True,capture_output=True,text=True)
+ print(OUT,res.stdout.strip())
+if __name__=='__main__':main()

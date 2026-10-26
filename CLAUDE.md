@@ -13,7 +13,7 @@ Permanent project rules for Claude working in this repository. Follow them in ev
 - The website supports **Arabic, English, and Russian only** (`ar`, `en`, `ru`). Do not add other UI languages.
 - Arabic must read correctly right-to-left (`dir="rtl"`), with readable typography.
 - Copy lives in `assets/translations.json` (site) and `media-kit/translations.json` (Media Kit). Every new string needs all three languages.
-- UI languages are separate from the languages Ali communicates in (Arabic, English, Russian, Ukrainian). Neither says anything about audience demographics.
+- UI languages are separate from the languages Ali works and creates content in (Arabic, English, Russian; Ukrainian is not offered). Belgium and Ukraine remain factual locations. Neither says anything about audience demographics.
 
 ## What requires Ali's approval first
 

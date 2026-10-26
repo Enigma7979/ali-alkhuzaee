@@ -1,0 +1,8 @@
+# GitHub Pages: keep build tools, docs, previews and the store server source out of the public site.
+exclude:
+  - store_service/
+  - scripts/
+  - docs/
+  - design-preview/
+  - CLAUDE.md
+  - README.md

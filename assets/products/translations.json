@@ -1,0 +1,470 @@
+{
+  "en": {
+    "navProducts": "Digital Products",
+    "productTitle": "From Zero to AI-Powered Content Creation",
+    "productEyebrow": "THE CREATOR FIELD GUIDE",
+    "productIntro": "Start with your phone. Build a practical process for filming, useful short videos, AI-assisted ideas and honest small business marketing.",
+    "presentationCta": "Explore the interactive guide",
+    "buyCta": "Choose your edition",
+    "oneTime": "One-time purchase · No subscription",
+    "launchPrice": "Planned launch price",
+    "checkoutPending": "Checkout is not open yet. Publication review and secure payment configuration are in progress.",
+    "checkoutLive": "Continue to secure checkout",
+    "checkoutTest": "Test checkout — no real purchase",
+    "editionLabel": "Your PDF language",
+    "editionNotice": "You receive one PDF: the edition selected at checkout. No account is required.",
+    "catalogTitle": "Learn something. Make something.",
+    "catalogIntro": "Practical digital guides by Ali Alkhuzaee. Thoughtful learning, real exercises and tools you can put to work.",
+    "viewProduct": "View the guide",
+    "inside": "Inside the guide",
+    "insideIntro": "Ten chapters, 50 original hooks, 30 adaptable AI prompts, 15 tool profiles and a 30-day practice plan.",
+    "previewTitle": "Actual pages. A closer look.",
+    "previewNote": "Selected pages from the current editorial editions (about 70 pages each). These are real page previews; publication approval is still pending.",
+    "previewAlt": "A selected page from the creator guide",
+    "previousSlide": "Previous section",
+    "nextSlide": "Next section",
+    "presentationTitle": "A practical path from idea to publication.",
+    "presentationIntro": "Explore 16 short lessons and product previews before deciding whether the guide fits your needs.",
+    "presentationLabel": "INTERACTIVE PREVIEW",
+    "contents": "Contents",
+    "legalLabel": "Purchase, delivery & privacy",
+    "legalIntro": "Please review these details before buying. Sales remain closed until the seller and tax details are confirmed.",
+    "deliveryTerms": "After verified payment, the selected language edition is delivered through an expiring private link. A confirmation email provides the same access. Lost-link recovery uses the purchase email.",
+    "refundTerms": "For download problems or refund requests, contact ali@alialkhuzaee.com. Statutory rights for defective or non-conforming digital content remain applicable. Early digital delivery requires a separate, explicit consent and acknowledgement at checkout; it is not a blanket “no refunds” policy. Final withdrawal terms require owner/legal review before launch.",
+    "privacyTerms": "Guest checkout collects the email and payment information needed to process and deliver the order. Card details are handled by the payment provider. The site does not require an account or enable marketing email. Final processor, retention and tax disclosures require owner confirmation.",
+    "taxTerms": "€2.99 is the intended final consumer price. VAT treatment, selling territories, seller business details and receipt requirements must be confirmed before live checkout opens.",
+    "contactProduct": "Questions about the guide?",
+    "email": "Email address",
+    "provider": "Payment method",
+    "language": "Language",
+    "terms": "I accept the purchase terms and privacy notice.",
+    "immediate": "I expressly request immediate delivery of the digital PDF and acknowledge that I lose the withdrawal right once delivery starts, where permitted by applicable law. My statutory rights for defective content remain.",
+    "unavailable": "Checkout is not available. Please return to the guide or contact us.",
+    "rateLimited": "Too many attempts. Please try again in 15 minutes.",
+    "paymentError": "Payment could not be confirmed yet. Do not pay again immediately. Check your payment provider and contact us if needed.",
+    "cancelled": "Checkout cancelled. You have not been given download access.",
+    "invalid": "This payment request is not valid.",
+    "expired": "This download link has expired or is not available. Request a new link using your purchase email.",
+    "recoverySent": "If a paid order matches this email, a recovery link has been queued. Please check your inbox.",
+    "recover": "Recover my download link",
+    "statusTitle": "Your order",
+    "pending": "Payment verification is pending. This page never grants access based only on a redirect.",
+    "paid": "Payment verified. Your private download link is being emailed.",
+    "notPaid": "This order does not currently have download access.",
+    "capture": "Confirm PayPal payment",
+    "download": "Download your PDF",
+    "emailSubject": "Your Creator Guide — private download",
+    "emailBody": "Thank you for your purchase. Your selected PDF is available using the private link below for seven days. Do not share the link. If it expires, request recovery using your purchase email.",
+    "emailEdition": "Purchased edition:",
+    "testMode": "Sandbox mode. No live payment.",
+    "backProduct": "Back to the guide",
+    "slides": [
+      {
+        "title": "Start with what you already have",
+        "text": "A phone, a useful question and one clear demonstration are enough for a first experiment. The guide is for beginners, freelancers and small businesses.",
+        "art": "workflow"
+      },
+      {
+        "title": "Replace confusion with a process",
+        "text": "Choose the problem, plan a few shots, film a test, edit for understanding and publish one useful next step.",
+        "art": "workflow"
+      },
+      {
+        "title": "Your first studio can be simple",
+        "text": "A window, stable phone support and a quiet corner come before decorative lighting. Compare a test recording before buying.",
+        "art": "studio"
+      },
+      {
+        "title": "Buy for the bottleneck",
+        "text": "Illustrative budgets: €0–€20 using existing gear; €40–€80 prioritizing support and audio; €100–€180 considering one diffused light. These are targets, not current quotations.",
+        "art": "budget"
+      },
+      {
+        "title": "Light is more useful than an effect",
+        "text": "LED is a source; a softbox softens light; RGB controls color; a spotlight directs a beam; a GOBO projects a pattern. Start with a neutral key light.",
+        "art": "lighting"
+      },
+      {
+        "title": "Film a clear vertical story",
+        "text": "Use 9:16 framing, check the horizon and microphone, then record an opening, demonstration and next step as separate clips.",
+        "art": "frame"
+      },
+      {
+        "title": "Show a product honestly",
+        "text": "Show scale, texture and use. The comparison below is an original schematic, not a claimed photographic result. Real colors and portions must stay truthful.",
+        "art": "product"
+      },
+      {
+        "title": "A hook makes a testable promise",
+        "text": "Weak: “The best video trick ever.” Clearer: “Your horizon looks tilted? Check the grid and level.” The guide includes 50 original openings.",
+        "art": "hook"
+      },
+      {
+        "title": "AI assists; you verify",
+        "text": "Fifteen tool profiles cover writing, visuals, editing, audio and automation. Official access information was checked on 26 October 2026. Limits and rights can change.",
+        "art": "workflow"
+      },
+      {
+        "title": "Free does not mean unlimited",
+        "text": "ChatGPT offers a limited free plan. Runway’s free credits are one-time. ElevenLabs Free does not include commercial rights. Always check the plan and license.",
+        "art": "comparison"
+      },
+      {
+        "title": "A prompt needs a real brief",
+        "text": "“Using only [approved facts], write a 20-second video for [audience]. Give three shots, one CTA and a list of missing information.” Thirty adaptable prompts are included.",
+        "art": "prompt"
+      },
+      {
+        "title": "Edit for understanding",
+        "text": "Remove repetition, correct captions, keep speech clear and license your music. A useful cut explains the action rather than adding movement for its own sake.",
+        "art": "timeline"
+      },
+      {
+        "title": "Thirty days, one project",
+        "text": "The plan separates research, filming, editing, publishing and review. It is a practice sequence, not a daily-posting rule or a growth guarantee.",
+        "art": "plan"
+      },
+      {
+        "title": "Look inside the actual pages",
+        "text": "The preview gallery below is rendered from the current PDF editions. You can inspect the layout before purchase; the complete guide stays private.",
+        "art": "pages"
+      },
+      {
+        "title": "One purchase, one selected edition",
+        "text": "Choose Arabic, English or Russian at checkout. You receive that language only. No account, recurring billing or bundled language files.",
+        "art": "editions"
+      },
+      {
+        "title": "Decide after you explore",
+        "text": "Planned launch price: €2.99, one-time. Secure Stripe and PayPal checkout will open only after publication, payment tests and business/tax review are complete.",
+        "art": "purchase"
+      }
+    ],
+    "chapters": [
+      "Getting started",
+      "Budget home studio",
+      "Filming professional videos",
+      "Products and services",
+      "Effective hooks",
+      "AI and creator tools",
+      "Prompt library",
+      "Editing and publishing",
+      "Small business marketing",
+      "Thirty-day action plan"
+    ],
+    "comingSoon": "Coming soon",
+    "comingSoonNote": "The guide is in final review. Purchasing opens soon."
+  },
+  "ar": {
+    "navProducts": "المنتجات الرقمية",
+    "productTitle": "من الصفر إلى صناعة المحتوى بالذكاء الاصطناعي",
+    "productEyebrow": "دليل صانع المحتوى",
+    "productIntro": "ابدأ بهاتفك، وابنِ أسلوبًا عمليًا للتصوير والفيديو القصير وأفكار الذكاء الاصطناعي وتسويق مشروعك بصدق.",
+    "presentationCta": "استكشف العرض التفاعلي",
+    "buyCta": "اختر نسختك",
+    "oneTime": "شراء لمرة واحدة · دون اشتراك",
+    "launchPrice": "سعر الإطلاق المخطط",
+    "checkoutPending": "الشراء غير متاح بعد. تجري مراجعة الدليل وإعداد الدفع الآمن.",
+    "checkoutLive": "متابعة إلى الدفع الآمن",
+    "checkoutTest": "دفع تجريبي — ليس شراءً حقيقيًا",
+    "editionLabel": "لغة ملف PDF",
+    "editionNotice": "ستحصل على ملف PDF واحد باللغة المختارة عند الدفع، دون إنشاء حساب.",
+    "catalogTitle": "تعلّم شيئًا، واصنع شيئًا.",
+    "catalogIntro": "أدلة رقمية عملية من علي الخزاعي، بتعلم منظم وتدريبات وأدوات قابلة للتطبيق.",
+    "viewProduct": "شاهد الدليل",
+    "inside": "داخل الدليل",
+    "insideIntro": "عشرة فصول و50 افتتاحية أصلية و30 طلب AI قابلًا للتعديل و15 بطاقة أدوات وخطة تدريب لثلاثين يومًا.",
+    "previewTitle": "صفحات فعلية، بنظرة أقرب.",
+    "previewNote": "صفحات مختارة من نسخ المراجعة الحالية (نحو 70 صفحة لكل نسخة). هذه معاينات فعلية، ولم يُعتمد الإصدار للبيع بعد.",
+    "previewAlt": "صفحة مختارة من دليل صانع المحتوى",
+    "previousSlide": "القسم السابق",
+    "nextSlide": "القسم التالي",
+    "presentationTitle": "مسار عملي من الفكرة إلى النشر.",
+    "presentationIntro": "استكشف 16 قسمًا تعليميًا ومعاينات قبل أن تقرر إن كان الدليل يناسبك.",
+    "presentationLabel": "معاينة تفاعلية",
+    "contents": "المحتويات",
+    "legalLabel": "الشراء والتسليم والخصوصية",
+    "legalIntro": "راجع هذه التفاصيل قبل الشراء. يبقى البيع مغلقًا حتى تأكيد بيانات البائع والضرائب.",
+    "deliveryTerms": "بعد التحقق من الدفع، تُسلَّم النسخة المختارة برابط خاص ينتهي مفعوله، ويُرسل التأكيد بالبريد. استعادة الرابط بالبريد المستخدم للشراء.",
+    "refundTerms": "لمشكلات التنزيل وطلبات الاسترداد تواصل مع ali@alialkhuzaee.com. تبقى الحقوق النظامية للمحتوى الرقمي المعيب أو غير المطابق. يتطلب التسليم الفوري موافقة وإقرارًا صريحين منفصلين عند الدفع؛ وليس هذا منعًا مطلقًا للاسترداد. شروط العدول النهائية تحتاج مراجعة قبل الإطلاق.",
+    "privacyTerms": "يجمع الدفع دون حساب البريد والبيانات اللازمة لمعالجة الطلب وتسليمه. يعالج مزود الدفع بيانات البطاقة. لا يُطلب حساب ولا تُفعّل رسائل تسويقية. تتطلب بيانات المعالجين والاحتفاظ والضرائب تأكيد المالك.",
+    "taxTerms": "€2.99 هو السعر النهائي المقصود للمستهلك. يجب تأكيد معالجة الضريبة ومناطق البيع وبيانات المنشأة ومتطلبات الإيصال قبل فتح الدفع.",
+    "contactProduct": "سؤال عن الدليل؟",
+    "email": "البريد الإلكتروني",
+    "provider": "طريقة الدفع",
+    "language": "اللغة",
+    "terms": "أوافق على شروط الشراء وإشعار الخصوصية.",
+    "immediate": "أطلب صراحة التسليم الفوري لملف PDF الرقمي وأقر بفقد حق العدول عند بدء التسليم حيث يسمح القانون، مع بقاء حقوقي النظامية للمحتوى المعيب.",
+    "unavailable": "الدفع غير متاح. عد إلى الدليل أو تواصل معنا.",
+    "rateLimited": "محاولات كثيرة. حاول بعد 15 دقيقة.",
+    "paymentError": "لم يُؤكد الدفع بعد. لا تدفع مرة أخرى فورًا. افحص حساب الدفع وتواصل معنا عند الحاجة.",
+    "cancelled": "أُلغي الدفع ولم تُمنح صلاحية تنزيل.",
+    "invalid": "طلب الدفع غير صالح.",
+    "expired": "انتهى الرابط أو أصبح غير متاح. اطلب رابطًا جديدًا ببريد الشراء.",
+    "recoverySent": "إذا طابق البريد طلبًا مدفوعًا، فستصلك رسالة استعادة. راجع بريدك.",
+    "recover": "استعادة رابط التنزيل",
+    "statusTitle": "طلبك",
+    "pending": "التحقق من الدفع قيد الانتظار. لا تمنح هذه الصفحة التنزيل اعتمادًا على إعادة التوجيه وحدها.",
+    "paid": "تم التحقق من الدفع ويُرسل رابطك الخاص بالبريد.",
+    "notPaid": "هذا الطلب لا يملك صلاحية تنزيل حاليًا.",
+    "capture": "تأكيد دفع PayPal",
+    "download": "نزّل ملف PDF",
+    "emailSubject": "دليل صانع المحتوى — رابطك الخاص",
+    "emailBody": "شكرًا لشرائك. نسختك المختارة متاحة بالرابط الخاص أدناه لسبعة أيام. لا تشارك الرابط. عند انتهائه، اطلب استعادته ببريد الشراء.",
+    "emailEdition": "النسخة المشتراة:",
+    "testMode": "وضع تجريبي دون دفع حي.",
+    "backProduct": "العودة إلى الدليل",
+    "slides": [
+      {
+        "title": "ابدأ بما تملكه",
+        "text": "هاتف وسؤال مفيد وتطبيق واضح تكفي للتجربة الأولى. الدليل للمبتدئين والمستقلين والمشروعات الصغيرة.",
+        "art": "workflow"
+      },
+      {
+        "title": "استبدل الحيرة بعملية واضحة",
+        "text": "اختر المشكلة وخطط للقطات وصوّر اختبارًا ومونتج للفهم وانشر خطوة مفيدة.",
+        "art": "workflow"
+      },
+      {
+        "title": "استوديوك الأول قد يكون بسيطًا",
+        "text": "نافذة وتثبيت آمن وركن هادئ قبل إضاءة الزينة. قارن اختبارًا قبل الشراء.",
+        "art": "studio"
+      },
+      {
+        "title": "اشترِ لحل العائق",
+        "text": "ميزانيات توضيحية: €0–€20 للموجود، و€40–€80 للتثبيت والصوت، و€100–€180 لضوء منتشر بعد الأساسيات. أهداف لا أسعار حالية.",
+        "art": "budget"
+      },
+      {
+        "title": "الضوء أهم من المؤثر",
+        "text": "LED مصدر، والسوفت بوكس يلطّف الضوء، وRGB للألوان، والسبوت لشعاع موجه، وGOBO لنقش. ابدأ بضوء محايد.",
+        "art": "lighting"
+      },
+      {
+        "title": "صوّر قصة عمودية واضحة",
+        "text": "استخدم 9:16 وافحص الأفق والميكروفون ثم سجّل البداية والتطبيق والخطوة التالية منفصلة.",
+        "art": "frame"
+      },
+      {
+        "title": "اعرض المنتج بصدق",
+        "text": "أظهر الحجم والملمس والاستخدام. الرسم المقارن توضيحي أصلي لا نتيجة فوتوغرافية. حافظ على اللون والحصة الحقيقيين.",
+        "art": "product"
+      },
+      {
+        "title": "الافتتاحية تقدم وعدًا قابلًا للتجربة",
+        "text": "ضعيف: «أفضل خدعة فيديو». أوضح: «تصويرك مائل؟ افحص الشبكة والميزان». يتضمن الدليل 50 افتتاحية أصلية.",
+        "art": "hook"
+      },
+      {
+        "title": "الذكاء الاصطناعي يساعد وأنت تتحقق",
+        "text": "15 بطاقة للكتابة والصور والمونتاج والصوت والأتمتة. فُحصت معلومات الوصول الرسمية في 26 أكتوبر 2026 وقد تتغير الحدود والحقوق.",
+        "art": "workflow"
+      },
+      {
+        "title": "مجاني لا يعني بلا حدود",
+        "text": "لـChatGPT خطة مجانية بحدود، وأرصدة Runway المجانية لمرة واحدة، ولا تتضمن ElevenLabs Free حقوقًا تجارية. افحص الخطة والترخيص.",
+        "art": "comparison"
+      },
+      {
+        "title": "الطلب يحتاج موجزًا حقيقيًا",
+        "text": "«باستخدام [حقائق معتمدة] فقط، اكتب فيديو 20 ثانية لـ[الجمهور] بثلاث لقطات ودعوة واحدة والمعلومات الناقصة». يتضمن الدليل 30 طلبًا.",
+        "art": "prompt"
+      },
+      {
+        "title": "مونتج للفهم",
+        "text": "احذف التكرار وصحح النص ووضّح الكلام ورخّص الموسيقى. القص المفيد يشرح لا يحرك الصورة فقط.",
+        "art": "timeline"
+      },
+      {
+        "title": "ثلاثون يومًا ومشروع واحد",
+        "text": "تفصل الخطة البحث والتصوير والمونتاج والنشر والمراجعة. تدريب لا شرط نشر يومي ولا ضمان نمو.",
+        "art": "plan"
+      },
+      {
+        "title": "تصفح صفحات فعلية",
+        "text": "المعرض أدناه ناتج من ملفات PDF الحالية. افحص التنسيق قبل الشراء، ويبقى الدليل الكامل خاصًا.",
+        "art": "pages"
+      },
+      {
+        "title": "شراء واحد لنسخة مختارة",
+        "text": "اختر العربية أو الإنجليزية أو الروسية عند الدفع، وتستلم تلك اللغة فقط دون حساب أو اشتراك أو حزمة لغات.",
+        "art": "editions"
+      },
+      {
+        "title": "قرر بعد الاستكشاف",
+        "text": "سعر الإطلاق المخطط €2.99 لمرة واحدة. يفتح Stripe وPayPal بعد اعتماد الدليل واختبارات الدفع ومراجعة البيانات والضرائب.",
+        "art": "purchase"
+      }
+    ],
+    "chapters": [
+      "البدء من الصفر",
+      "استوديو منزلي اقتصادي",
+      "تصوير فيديو احترافي",
+      "المنتجات والخدمات",
+      "الافتتاحيات الفعّالة",
+      "أدوات الذكاء الاصطناعي",
+      "مكتبة الطلبات",
+      "المونتاج والنشر",
+      "تسويق المشروعات الصغيرة",
+      "خطة ثلاثين يومًا"
+    ],
+    "comingSoon": "قريبًا",
+    "comingSoonNote": "الدليل في المراجعة النهائية. سيُفتح الشراء قريبًا."
+  },
+  "ru": {
+    "navProducts": "Цифровые продукты",
+    "productTitle": "С нуля до создания контента с помощью ИИ",
+    "productEyebrow": "ПРАКТИКУМ АВТОРА",
+    "productIntro": "Начните с телефона. Освойте съёмку, полезные короткие видео, идеи с ИИ и честный маркетинг малого бизнеса.",
+    "presentationCta": "Открыть интерактивный обзор",
+    "buyCta": "Выбрать издание",
+    "oneTime": "Разовая покупка · Без подписки",
+    "launchPrice": "Планируемая цена запуска",
+    "checkoutPending": "Покупка пока закрыта. Идут проверка издания и настройка безопасной оплаты.",
+    "checkoutLive": "Перейти к безопасной оплате",
+    "checkoutTest": "Тестовая оплата — не настоящая покупка",
+    "editionLabel": "Язык PDF",
+    "editionNotice": "Вы получите один PDF на языке, выбранном при оплате. Аккаунт не нужен.",
+    "catalogTitle": "Учитесь. Создавайте.",
+    "catalogIntro": "Практические цифровые руководства Ali Alkhuzaee: понятное обучение, упражнения и рабочие инструменты.",
+    "viewProduct": "Посмотреть руководство",
+    "inside": "Внутри руководства",
+    "insideIntro": "Десять глав, 50 оригинальных хуков, 30 адаптируемых ИИ-запросов, 15 инструментов и план на 30 дней.",
+    "previewTitle": "Настоящие страницы крупным планом.",
+    "previewNote": "Выбранные страницы текущих редакционных изданий (около 70 страниц каждое). Это реальные страницы; публикация для продажи ещё не утверждена.",
+    "previewAlt": "Выбранная страница руководства",
+    "previousSlide": "Предыдущий раздел",
+    "nextSlide": "Следующий раздел",
+    "presentationTitle": "Практический путь от идеи к публикации.",
+    "presentationIntro": "Изучите 16 разделов и примеры, прежде чем решить, подходит ли вам руководство.",
+    "presentationLabel": "ИНТЕРАКТИВНЫЙ ОБЗОР",
+    "contents": "Содержание",
+    "legalLabel": "Покупка, доставка и конфиденциальность",
+    "legalIntro": "Проверьте сведения до покупки. Продажи закрыты до подтверждения продавца и налогов.",
+    "deliveryTerms": "После проверки оплаты выбранное издание доступно по временной частной ссылке, также отправленной по почте. Восстановление — через почту покупки.",
+    "refundTerms": "При проблемах загрузки и запросах возврата пишите на ali@alialkhuzaee.com. Законные права при дефектном или несоответствующем цифровом контенте сохраняются. Немедленная доставка требует отдельного согласия и подтверждения при оплате; это не общий запрет возврата. Условия отказа требуют проверки до запуска.",
+    "privacyTerms": "Гостевая оплата использует почту и необходимые данные заказа. Карточные реквизиты обрабатывает платёжный провайдер. Аккаунт и маркетинговая рассылка не требуются. Сведения о процессорах, хранении и налогах должен подтвердить владелец.",
+    "taxTerms": "€2.99 — предполагаемая итоговая цена. НДС, территории продаж, реквизиты продавца и требования к чеку подтверждаются до запуска.",
+    "contactProduct": "Вопросы о руководстве?",
+    "email": "Электронная почта",
+    "provider": "Способ оплаты",
+    "language": "Язык",
+    "terms": "Я принимаю условия покупки и уведомление о конфиденциальности.",
+    "immediate": "Я прямо прошу немедленную доставку PDF и подтверждаю утрату права отказа после начала доставки в предусмотренных законом случаях. Права при дефектном контенте сохраняются.",
+    "unavailable": "Оплата недоступна. Вернитесь к руководству или свяжитесь с нами.",
+    "rateLimited": "Слишком много попыток. Повторите через 15 минут.",
+    "paymentError": "Оплата пока не подтверждена. Не платите повторно сразу. Проверьте провайдера и свяжитесь с нами при необходимости.",
+    "cancelled": "Оплата отменена. Доступ к загрузке не предоставлен.",
+    "invalid": "Недействительный платёжный запрос.",
+    "expired": "Ссылка устарела или недоступна. Запросите новую через почту покупки.",
+    "recoverySent": "Если оплаченный заказ найден, письмо восстановления поставлено в очередь. Проверьте почту.",
+    "recover": "Восстановить ссылку",
+    "statusTitle": "Ваш заказ",
+    "pending": "Проверка оплаты ожидается. Один переход на эту страницу не даёт доступа.",
+    "paid": "Оплата проверена. Частная ссылка отправляется по почте.",
+    "notPaid": "Доступ к загрузке для заказа сейчас отсутствует.",
+    "capture": "Подтвердить оплату PayPal",
+    "download": "Скачать PDF",
+    "emailSubject": "Ваш Creator Guide — частная ссылка",
+    "emailBody": "Спасибо за покупку. Выбранный PDF доступен по частной ссылке ниже семь дней. Не передавайте ссылку. После истечения восстановите её через почту покупки.",
+    "emailEdition": "Купленное издание:",
+    "testMode": "Песочница. Не настоящая оплата.",
+    "backProduct": "Вернуться к руководству",
+    "slides": [
+      {
+        "title": "Начните с того, что есть",
+        "text": "Телефона, полезного вопроса и ясного показа достаточно для первого опыта. Для новичков, фрилансеров и малого бизнеса.",
+        "art": "workflow"
+      },
+      {
+        "title": "Вместо растерянности — процесс",
+        "text": "Выберите задачу, кадры, тест, понятный монтаж и полезное действие.",
+        "art": "workflow"
+      },
+      {
+        "title": "Первая студия может быть простой",
+        "text": "Окно, устойчивый телефон и тишина важнее декора. Сравните тест до покупок.",
+        "art": "studio"
+      },
+      {
+        "title": "Покупайте под проблему",
+        "text": "Ориентиры: €0–€20 со своей техникой; €40–€80 для опоры и звука; €100–€180 для одного мягкого света. Не текущие цены.",
+        "art": "budget"
+      },
+      {
+        "title": "Свет полезнее эффекта",
+        "text": "LED — источник, софтбокс смягчает, RGB меняет цвет, спот направляет луч, GOBO даёт рисунок. Начните с нейтрального света.",
+        "art": "lighting"
+      },
+      {
+        "title": "Снимите ясную вертикальную историю",
+        "text": "Используйте 9:16, проверьте горизонт и микрофон; снимайте начало, показ и действие отдельно.",
+        "art": "frame"
+      },
+      {
+        "title": "Показывайте товар честно",
+        "text": "Покажите размер, фактуру и применение. Сравнение — оригинальная схема, не фотодоказательство. Цвет и порции должны быть честными.",
+        "art": "product"
+      },
+      {
+        "title": "Хук даёт проверяемое обещание",
+        "text": "Слабо: «Лучший видеотрюк». Яснее: «Горизонт завален? Проверьте сетку и уровень». В книге 50 оригинальных начал.",
+        "art": "hook"
+      },
+      {
+        "title": "ИИ помогает — вы проверяете",
+        "text": "15 инструментов для текста, изображений, монтажа, звука и автоматизации. Доступ проверен 26 октября 2026; лимиты и права меняются.",
+        "art": "workflow"
+      },
+      {
+        "title": "Бесплатно не значит безлимитно",
+        "text": "У ChatGPT есть ограниченный бесплатный тариф, у Runway — разовые кредиты, ElevenLabs Free не даёт коммерческой лицензии. Проверяйте условия.",
+        "art": "comparison"
+      },
+      {
+        "title": "Запросу нужен настоящий бриф",
+        "text": "«По [подтверждённым фактам] напиши видео на 20 секунд для [аудитории]: три кадра, один призыв и недостающие данные». В книге 30 запросов.",
+        "art": "prompt"
+      },
+      {
+        "title": "Монтируйте ради понимания",
+        "text": "Уберите повторы, исправьте субтитры, сохраните ясную речь и лицензируйте музыку. Склейка должна объяснять.",
+        "art": "timeline"
+      },
+      {
+        "title": "Тридцать дней — один проект",
+        "text": "План разделяет исследование, съёмку, монтаж, публикацию и обзор. Это практика, не обязанность постить ежедневно и не гарантия роста.",
+        "art": "plan"
+      },
+      {
+        "title": "Посмотрите настоящие страницы",
+        "text": "Галерея ниже создана из текущих PDF. Проверьте оформление до покупки; полная книга остаётся закрытой.",
+        "art": "pages"
+      },
+      {
+        "title": "Одна покупка — одно издание",
+        "text": "Выберите арабский, английский или русский при оплате. Получите только этот язык, без аккаунта и подписки.",
+        "art": "editions"
+      },
+      {
+        "title": "Решайте после знакомства",
+        "text": "Планируемая цена €2.99 разово. Stripe и PayPal откроются после проверки издания, платежей и юридических/налоговых сведений.",
+        "art": "purchase"
+      }
+    ],
+    "chapters": [
+      "Начало работы",
+      "Бюджетная студия",
+      "Съёмка видео",
+      "Товары и услуги",
+      "Эффективные хуки",
+      "ИИ-инструменты",
+      "Библиотека запросов",
+      "Монтаж и публикация",
+      "Маркетинг малого бизнеса",
+      "План на 30 дней"
+    ],
+    "comingSoon": "Скоро",
+    "comingSoonNote": "Руководство на финальной проверке. Покупка скоро откроется."
+  }
+}

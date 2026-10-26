@@ -1,0 +1,1 @@
+{% extends 'orders/base.html' %}{% block content %}<h1>{{ c.recover }}</h1><form method="post">{% csrf_token %}<label for="{{ form.email.id_for_label }}">{{ c.email }}</label>{{ form.email }}{{ form.email.errors }}<button class="btn primary" type="submit">{{ c.recover }}</button></form>{% endblock %}

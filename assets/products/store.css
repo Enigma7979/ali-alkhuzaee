@@ -1,0 +1,43 @@
+/* Digital Products pages in design system v2. Shared tokens and components come from assets/v2/site.css. */
+.product-hero .hero-layout{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
+.product-hero h1{font-size:clamp(2.3rem,4.6vw,4.4rem);line-height:1.08}
+html[lang=ar] .product-hero h1{line-height:1.4}
+.book-stage{position:relative;justify-self:center;width:min(100%,360px);margin:0}
+.book-stage::before{content:"";position:absolute;inset:-14% -26%;z-index:0;background:radial-gradient(45% 45% at 50% 45%,rgba(61,107,255,.55),transparent 70%);filter:blur(12px);pointer-events:none}
+.book-stage img,.catalog-cover img{position:relative;width:100%;height:auto;border-radius:6px 14px 14px 6px;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(150,178,255,.18)}
+.product-hero>.shell>.hero-content{padding-block:clamp(56px,8vw,96px) 0;max-width:760px}
+.catalog-card{margin-block:40px clamp(56px,8vw,96px);display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(24px,5vw,56px);align-items:center;padding:clamp(20px,3vw,36px);border-radius:var(--r-l);border:1px solid var(--line-2);background:var(--glass)}
+.catalog-card>div{display:grid;gap:14px}
+.catalog-card h2{font-size:clamp(1.6rem,2.8vw,2.5rem);line-height:1.2}
+.catalog-cover{margin:0}
+.price-small{font:600 2.2rem/1 var(--f-display);color:var(--ink)}
+.deck-section{background:var(--night);border-top:1px solid var(--line)}
+.chapter-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.chapter-grid li{display:flex;align-items:center;gap:14px;min-height:60px;padding:12px 18px;border-radius:var(--r-m);border:1px solid var(--line);background:rgba(6,11,24,.45);font-weight:600}
+.chapter-grid b{color:var(--cyan);font-size:.8rem}
+.book-previews{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.book-previews a{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--paper-line);background:#fff;box-shadow:0 14px 40px rgba(12,22,48,.12);transition:transform .25s var(--ease)}
+.book-previews a:hover{transform:translateY(-5px)}
+.book-previews img{width:100%;height:auto}
+.purchase-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(28px,6vw,80px);align-items:center}
+.purchase-copy{display:grid;gap:14px}
+.purchase-box{display:grid;gap:14px;padding:clamp(22px,3vw,34px);border-radius:var(--r-l);border:1px solid var(--line-2);background:var(--glass)}
+.product-price{font:600 clamp(3rem,6vw,4.4rem)/1 var(--f-display);color:var(--ink)}
+.purchase-box label{font-size:.85rem;color:var(--ink-2)}
+#edition{min-height:48px;padding:0 14px;border-radius:12px;border:1px solid var(--line-2);background:rgba(6,11,24,.6);color:var(--ink)}
+#edition option{background:var(--navy)}
+.purchase-box .btn{justify-content:center}
+.checkout-status{font-size:.85rem}
+.legal-copy{max-width:760px;display:grid;gap:18px}
+.legal-copy h1{font-size:clamp(2rem,4vw,3.2rem)}
+@media(max-width:960px){
+ .product-hero .hero-layout{grid-template-columns:1fr}
+ .book-stage{width:min(70%,280px);order:-1}
+ .book-previews{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .purchase-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+ .catalog-card{grid-template-columns:1fr}
+ .catalog-cover{width:min(70%,240px);margin-inline:auto}
+ .chapter-grid{grid-template-columns:1fr}
+}
