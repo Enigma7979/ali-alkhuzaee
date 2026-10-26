@@ -1,0 +1,1 @@
+{% extends 'orders/base.html' %}{% block content %}<h1>{{ c.download }}</h1><p>{{ c.emailEdition }} {{ edition }}</p><form action="/store/download/{{ download_token }}/file/?lang={{ lang }}" method="post">{% csrf_token %}<button class="btn primary" type="submit">{{ c.download }} · {{ edition }}</button></form>{% endblock %}

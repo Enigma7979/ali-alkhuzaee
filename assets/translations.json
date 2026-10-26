@@ -105,7 +105,8 @@
     "globalHistory": "My international perspective is shaped by approximately 18 years of study and visits in Ukraine and around five years of living in Belgium.",
     "mediaKit": "Media Kit",
     "portraitAlt": "Ali Alkhuzaee in a navy suit",
-    "partnershipAlt": "Ali Alkhuzaee pointing towards the partnership message"
+    "partnershipAlt": "Ali Alkhuzaee pointing towards the partnership message",
+    "navProducts": "Digital Products"
   },
   "ar": {
     "navAbout": "عن علي",
@@ -213,7 +214,8 @@
     "globalHistory": "تشكّل منظوري الدولي عبر نحو 18 عامًا من الدراسة والزيارات في أوكرانيا، ونحو خمس سنوات من الإقامة في بلجيكا.",
     "mediaKit": "الملف الإعلامي",
     "portraitAlt": "علي الخزاعي مرتديًا بدلة كحلية",
-    "partnershipAlt": "علي الخزاعي يشير نحو رسالة التعاون"
+    "partnershipAlt": "علي الخزاعي يشير نحو رسالة التعاون",
+    "navProducts": "المنتجات الرقمية"
   },
   "ru": {
     "navAbout": "Обо мне",
@@ -321,6 +323,7 @@
     "globalHistory": "Мой международный взгляд сформирован примерно 18 годами учёбы и поездок в Украину и около пяти годами жизни в Бельгии.",
     "mediaKit": "Медиакит",
     "portraitAlt": "Али Альхузаи в тёмно-синем костюме",
-    "partnershipAlt": "Али Альхузаи указывает на предложение о сотрудничестве"
+    "partnershipAlt": "Али Альхузаи указывает на предложение о сотрудничестве",
+    "navProducts": "Цифровые продукты"
   }
 }

@@ -1,2 +1,13 @@
 .openai/
 dist/
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.sqlite3-*
+.env
+.env.*
+!.env.example
+store_service/private-files/
+store_service/static-collected/
+output/
+tmp/

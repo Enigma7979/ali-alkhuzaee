@@ -1,0 +1,1 @@
+{% extends 'orders/base.html' %}{% block content %}<h1>{{ c.statusTitle }}</h1>{% for k,v in c.items %}{% if k == key %}<p role="status">{{ v }}</p>{% endif %}{% endfor %}{% endblock %}
