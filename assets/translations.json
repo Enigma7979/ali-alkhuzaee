@@ -98,7 +98,7 @@
     "workTopics": [
       "Mobile filmmaking",
       "AI & productivity",
-      "AI & n8n"
+      "AI & study"
     ],
     "globalTitle": "More languages.",
     "globalText": "I can work and communicate in Arabic, English, Russian and Ukrainian. Content, product demonstrations and multilingual campaigns can be tailored to your brief.",
@@ -106,7 +106,10 @@
     "mediaKit": "Media Kit",
     "portraitAlt": "Ali Alkhuzaee in a navy suit",
     "partnershipAlt": "Ali Alkhuzaee pointing towards the partnership message",
-    "navProducts": "Digital Products"
+    "navProducts": "Digital Products",
+    "playVideo": "Play video",
+    "openYouTube": "Open on YouTube",
+    "videoPlayer": "Video player: "
   },
   "ar": {
     "navAbout": "عن علي",
@@ -207,7 +210,7 @@
     "workTopics": [
       "التصوير بالموبايل",
       "الذكاء الاصطناعي والإنتاجية",
-      "الذكاء الاصطناعي وn8n"
+      "الذكاء الاصطناعي والدراسة"
     ],
     "globalTitle": "لغات أكثر.",
     "globalText": "أستطيع العمل والتواصل بالعربية والإنجليزية والروسية والأوكرانية، وتقديم المحتوى وعروض المنتجات والحملات متعددة اللغات وفق احتياجات التعاون.",
@@ -215,7 +218,10 @@
     "mediaKit": "الملف الإعلامي",
     "portraitAlt": "علي الخزاعي مرتديًا بدلة كحلية",
     "partnershipAlt": "علي الخزاعي يشير نحو رسالة التعاون",
-    "navProducts": "المنتجات الرقمية"
+    "navProducts": "المنتجات الرقمية",
+    "playVideo": "تشغيل الفيديو",
+    "openYouTube": "افتح على YouTube",
+    "videoPlayer": "مشغل الفيديو: "
   },
   "ru": {
     "navAbout": "Обо мне",
@@ -316,7 +322,7 @@
     "workTopics": [
       "Съёмка на смартфон",
       "ИИ и продуктивность",
-      "ИИ и n8n"
+      "ИИ и учёба"
     ],
     "globalTitle": "Больше языков.",
     "globalText": "Я работаю и общаюсь на арабском, английском, русском и украинском языках. Контент, демонстрации продуктов и многоязычные кампании можно адаптировать к вашей задаче.",
@@ -324,6 +330,9 @@
     "mediaKit": "Медиакит",
     "portraitAlt": "Али Альхузаи в тёмно-синем костюме",
     "partnershipAlt": "Али Альхузаи указывает на предложение о сотрудничестве",
-    "navProducts": "Цифровые продукты"
+    "navProducts": "Цифровые продукты",
+    "playVideo": "Смотреть видео",
+    "openYouTube": "Открыть на YouTube",
+    "videoPlayer": "Видеоплеер: "
   }
 }

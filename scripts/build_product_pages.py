@@ -14,7 +14,7 @@ def artwork(kind='workflow'):
   return '<svg viewBox="0 0 460 240" aria-hidden="true"><rect x="15" y="25" width="200" height="185" rx="20" fill="#cbd5e1"/><rect x="245" y="25" width="200" height="185" rx="20" fill="#dbeafe"/><ellipse cx="110" cy="182" rx="60" ry="15" fill="#94a3b8"/><ellipse cx="340" cy="182" rx="45" ry="10" fill="#abcdf5"/><g fill="#38bdf8"><rect x="75" y="85" width="70" height="95" rx="15"/><rect x="305" y="85" width="70" height="95" rx="15"/></g><g fill="#111d35"><rect x="90" y="65" width="40" height="25" rx="5"/><rect x="320" y="65" width="40" height="25" rx="5"/></g></svg>'
  return '<svg viewBox="0 0 460 240" aria-hidden="true"><path d="M75 120H385" stroke="#38bdf8" stroke-width="4"/>'+''.join(f'<rect x="{25+i*110}" y="70" width="85" height="100" rx="20" fill="{color}"/><circle cx="{67+i*110}" cy="120" r="16" fill="white" opacity=".7"/>' for i,color in enumerate(['#2563eb','#38bdf8','#8b5cf6','#111d35']))+'</svg>'
 def header(path,title,desc):
- h=base.head(False).replace('<script src="/assets/site.js?v=products-1" defer></script>','<script src="/assets/site.js?v=products-1" defer></script><script src="/assets/products/store.js?v=1" defer></script><link rel="stylesheet" href="/assets/products/store.css?v=1">')
+ h=base.head(False).replace('<script src="/assets/site.js?v=short-1" defer></script>','<script src="/assets/site.js?v=short-1" defer></script><script src="/assets/products/store.js?v=1" defer></script><link rel="stylesheet" href="/assets/products/store.css?v=1">')
  h=h.replace('data-page="home"','data-page="product"').replace('https://alialkhuzaee.com/?lang=','https://alialkhuzaee.com'+path+'?lang=')
  # Accurate page-specific metadata; shared runtime localizes it.
  import re
