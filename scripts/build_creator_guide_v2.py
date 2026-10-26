@@ -33,7 +33,14 @@ ART_PHOTOS={'studio':'a-2-camera-mic-desk-setup','lighting':'c-1-octabox-studio'
 ARABIC_FOLIO='letter-spacing:0;font-family:"IBM Plex Sans Arabic";font-size:7pt'  # tracking breaks Arabic joining
 FALLBACK=['a-1-dark-creator-studio','b-2-phones-tripod-ring-lights','c-2-softboxes-silhouette','d-2-rgb-laptop-setup']
 
-def photo(name,w=1600):return (PHOTOS/f'{name}-{w}.webp').as_uri()
+JPG_CACHE=Path(tempfile.gettempdir())/'creator-guide-jpg'
+def photo(name,w=1600):
+ # Chromium passes JPEG through to the PDF but re-encodes WebP losslessly, which made each edition ~22 MB.
+ from PIL import Image
+ src=PHOTOS/f'{name}-{w}.webp';dst=JPG_CACHE/f'{name}-{w}.jpg'
+ if not dst.exists() or dst.stat().st_mtime<src.stat().st_mtime:
+  JPG_CACHE.mkdir(parents=True,exist_ok=True);Image.open(src).convert('RGB').save(dst,quality=84,optimize=True,progressive=True)
+ return dst.as_uri()
 
 CSS='''
 @page{size:176mm 250mm;margin:19mm 17mm 21mm;
@@ -80,7 +87,9 @@ html[lang=ar] .cover .eyebrow{font-size:10pt}
 .cover h1{font:800 31pt/1.05 Geologica;letter-spacing:-.035em;color:#fff}
 html[lang=ar] .cover h1{font:800 31pt/1.4 Alexandria}
 html[lang=ru] .cover h1{font-size:27pt}
-.cover h1 em{font-style:normal;display:block;color:#56d9ff;background:linear-gradient(90deg,#56d9ff,#8d80ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding-bottom:.15em;margin-bottom:-.15em}
+.cover h1{text-wrap:balance}
+/* Solid colour: a background-clip gradient leaves a hairline box in Chromium PDFs. */
+.cover h1 em{font-style:normal;display:block;color:#56d9ff}
 .cover .sub{margin-top:5mm;font-size:10.5pt;color:#c9d4ee;max-width:120mm}
 .cover .bar{position:absolute;inset-inline:18mm;bottom:22mm;display:flex;justify-content:space-between;align-items:center;border-top:.3mm solid rgba(150,178,255,.3);padding-top:6mm}
 .author{display:flex;align-items:center;gap:4mm}
