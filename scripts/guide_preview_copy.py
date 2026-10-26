@@ -84,7 +84,7 @@ GUIDE_MORE={
  gPlan=[['Research','Choose one project and one audience question.'],['Filming','Test light and sound, then record short clips.'],['Editing','Cut for understanding and correct the captions.'],['Publishing','Post with one clear next step.'],['Review','Note what worked and improve one thing.']],
  gPlanNote='A practice sequence, not a daily-posting rule or a growth guarantee.',
  gPage='Page',gPagesNote='Real pages from the current review edition. The complete guide stays private.',
- gInside='Inside the guide',gPriceLabel='Planned launch price',gOneTime='One-time purchase · No subscription'),
+ gInside='Inside the guide',gContentsTitle='Ten chapters, one practical path',gContentsLead='Practical examples and exercises you can try with your phone. You receive the complete guide as one PDF in the language you choose.',gCoverNote='New cover design. The PDF edition will be updated to match before sales open.',gPriceLabel='Planned launch price',gOneTime='One-time purchase · No subscription'),
 'ar':dict(
  gWho=[['المبتدئون','لديك هاتف وفكرة، لكن لا توجد عندك طريقة عمل تتكرر.'],['المستقلون','تحتاج فيديوهات قصيرة تشرح خدمتك بوضوح.'],['المشروعات الصغيرة','تريد فيديوهات صادقة لمنتجاتك وخدماتك دون فريق إنتاج.']],
  gWhoNot='ما لا تحتاجه: معدات غالية أو متابعون كثيرون أو أدوات مدفوعة.',
@@ -111,7 +111,7 @@ GUIDE_MORE={
  gPlan=[['البحث','اختر مشروعًا واحدًا وسؤالًا واحدًا من جمهورك.'],['التصوير','اختبر الضوء والصوت ثم سجّل مقاطع قصيرة.'],['المونتاج','قصّ من أجل الفهم وصحّح النصوص.'],['النشر','انشر مع خطوة تالية واضحة.'],['المراجعة','سجّل ما نجح وحسّن شيئًا واحدًا.']],
  gPlanNote='خطة تدريب، وليست شرطًا للنشر اليومي ولا ضمانًا للنمو.',
  gPage='صفحة',gPagesNote='صفحات حقيقية من نسخة المراجعة الحالية، ويبقى الدليل الكامل خاصًا.',
- gInside='داخل الدليل',gPriceLabel='سعر الإطلاق المخطط',gOneTime='شراء لمرة واحدة · دون اشتراك'),
+ gInside='داخل الدليل',gContentsTitle='عشرة فصول ومسار عملي واحد',gContentsLead='أمثلة عملية وتمارين تجرّبها بهاتفك. تستلم الدليل كاملًا في ملف PDF واحد باللغة التي تختارها.',gCoverNote='تصميم الغلاف الجديد. سيُحدَّث ملف PDF ليطابقه قبل فتح البيع.',gPriceLabel='سعر الإطلاق المخطط',gOneTime='شراء لمرة واحدة · دون اشتراك'),
 'ru':dict(
  gWho=[['Новички','У вас есть телефон и идея, но ещё нет повторяемого процесса.'],['Фрилансеры','Нужны короткие видео, которые ясно объясняют вашу услугу.'],['Малый бизнес','Нужны честные видео о товарах и услугах без съёмочной команды.']],
  gWhoNot='Что не нужно: дорогая техника, большая аудитория или платные инструменты.',
@@ -138,5 +138,5 @@ GUIDE_MORE={
  gPlan=[['Исследование','Выберите один проект и один вопрос аудитории.'],['Съёмка','Проверьте свет и звук, затем снимите короткие клипы.'],['Монтаж','Режьте ради понимания и исправьте субтитры.'],['Публикация','Опубликуйте с одним понятным действием.'],['Обзор','Запишите, что сработало, и улучшите одно.']],
  gPlanNote='Это практика, не обязанность постить ежедневно и не гарантия роста.',
  gPage='Страница',gPagesNote='Настоящие страницы текущего издания для проверки. Полная книга остаётся закрытой.',
- gInside='Внутри руководства',gPriceLabel='Планируемая цена запуска',gOneTime='Разовая покупка · Без подписки')}
+ gInside='Внутри руководства',gContentsTitle='Десять глав — один практический путь',gContentsLead='Практические примеры и упражнения, которые можно выполнить с телефоном. Вы получаете всё руководство одним PDF на выбранном языке.',gCoverNote='Новый дизайн обложки. PDF-издание будет обновлено до открытия продаж.',gPriceLabel='Планируемая цена запуска',gOneTime='Разовая покупка · Без подписки')}
 for _l in GUIDE:GUIDE[_l].update(GUIDE_MORE[_l])

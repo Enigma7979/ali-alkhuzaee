@@ -109,8 +109,9 @@ def data_uri(path):
  mime='image/webp' if path.suffix=='.webp' else 'image/jpeg'
  return 'data:'+mime+';base64,'+base64.b64encode(path.read_bytes()).decode()
 def guide_js(inline=False):
- base=copy();out={l:{**{k:base[l][k] for k in GUIDE_REUSE},'slidesCopy':[{'title':x['title'],'text':x['text']} for x in PROD[l]['slides']],'previewAlt':PROD[l]['previewAlt'],**GUIDE[l]} for l in base}
+ base=copy();out={l:{**{k:base[l][k] for k in GUIDE_REUSE},'slidesCopy':[{'title':x['title'],'text':x['text']} for x in PROD[l]['slides']],'previewAlt':PROD[l]['previewAlt'],'chapters':PROD[l]['chapters'],**GUIDE[l]} for l in base}
  lic={Path(e['file']).stem:e for e in json.loads((PHOTO_DIR/'LICENSES.json').read_text())}
+ for l in out:out[l]['toc']=out[l]['toc'][:14]+[GUIDE[l]['gInside']]+out[l]['toc'][15:]
  photos={}
  for name in GUIDE_PHOTOS:
   e=lic[name];f=PHOTO_DIR/f'{name}-1600.webp';w,h=struct_size(f)
