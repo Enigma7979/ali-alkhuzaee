@@ -12,3 +12,11 @@ for kind,original,widths in [('hero','hero-original.png',[420,690]),('partnershi
  for width in widths:
   derivative=image.copy();derivative.thumbnail((width,1600 if kind=='hero' else width))
   derivative.save(ROOT/f'ali-{kind}-{width}.webp','WEBP',quality=90 if kind=='hero' else 92,method=6)
+# Dark Media Kit portrait (design system v2): natural pixels of the supplied dark-background photo, resized only.
+dark=Image.open(ROOT/'originals'/'pointing-dark-original.jpeg').convert('RGB')
+for width in [520,900]:
+ derivative=dark.copy();derivative.thumbnail((width,width));derivative.save(ROOT/f'ali-kit-dark-{width}.webp','WEBP',quality=86,method=6)
+# Guide covers for v2 product layouts: the cover area cropped from the real page-1 previews.
+PRODUCTS=ROOT.parent/'products'
+for lang in ['ar','en','ru']:
+ Image.open(PRODUCTS/f'preview-{lang}-1.webp').convert('RGB').crop((72,67,773,1051)).save(PRODUCTS/f'cover-{lang}.webp','WEBP',quality=88,method=6)
