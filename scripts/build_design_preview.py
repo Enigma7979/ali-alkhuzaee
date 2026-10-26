@@ -2,6 +2,7 @@
 
 python scripts/build_design_preview.py            -> design-preview/copy.js (served with the branch)
 python scripts/build_design_preview.py OUT.html [ARTIFACT.html]
+python scripts/build_design_preview.py --guide OUT.html [ARTIFACT.html]   -> the Creator Guide samples (design-preview/guide.html)
   OUT.html: one self-contained offline HTML file (images inlined; the YouTube thumbnail still loads when online)
   ARTIFACT.html: the same page body for a sandboxed review host that blocks third-party images and iframes
 
@@ -10,6 +11,8 @@ Approved site wording comes from the shared EN/AR/RU translation files; only new
 from pathlib import Path
 import base64,json,re,sys
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'scripts'))
+from guide_preview_copy import GUIDE
 SITE=json.loads((ROOT/'assets/translations.json').read_text())
 KIT=json.loads((ROOT/'media-kit/translations.json').read_text())
 PROD=json.loads((ROOT/'assets/products/translations.json').read_text())
@@ -99,24 +102,47 @@ def copy():
   c['videos']=[{'title':v['title'][l],'description':v.get('description',{}).get(l,'')} for v in DATA['work']]
   c.update(NEW[l]);out[l]=c
  return out
-def main():
- js='window.PREVIEW_COPY='+json.dumps(copy(),ensure_ascii=False)+';\n'
- (ROOT/'design-preview/copy.js').write_text(js)
- if len(sys.argv)<2:return
- html=(ROOT/'design-preview/index.html').read_text()
- html=html.replace('<link rel="stylesheet" href="/assets/v2/ds.css">','<style>'+(ROOT/'assets/v2/ds.css').read_text()+'</style>')
- html=html.replace('<script src="copy.js"></script>','<script>'+js+'</script>')
- html=html.replace('<script src="/assets/v2/ds.js"></script>','<script>'+(ROOT/'assets/v2/ds.js').read_text()+'</script>')
- def inline(m):
-  path=ROOT/m.group(2).lstrip('/').split('?')[0];mime='image/webp' if path.suffix=='.webp' else 'image/jpeg'
-  return m.group(1)+'data:'+mime+';base64,'+base64.b64encode(path.read_bytes()).decode()+m.group(3)
- html=re.sub(r'((?:src|data-src-[a-z]{2})=")(/assets/[^"]+\.(?:webp|jpe?g))(")',inline,html)
- offline=html.replace('<script>window.PREVIEW_COPY','<script>window.PV_STANDALONE=true;</script><script>window.PREVIEW_COPY',1)
- Path(sys.argv[1]).write_text(offline);print('wrote',sys.argv[1],len(offline)//1024,'KB')
- if len(sys.argv)>2:
+GUIDE_REUSE=['toc','builtAfter','prev','next','sectionsLabel','swipeHint','productTitle','videos']
+GUIDE_PHOTOS=['a-1-dark-creator-studio','b-1-phone-ring-light','b-2-phones-tripod-ring-lights','a-2-camera-mic-desk-setup','c-1-octabox-studio','c-2-softboxes-silhouette','d-2-rgb-laptop-setup','d-1-purple-desk-boom-mic','h-2-editor-dark-room']
+PHOTO_DIR=ROOT/'assets/presentation/photos'
+def data_uri(path):
+ mime='image/webp' if path.suffix=='.webp' else 'image/jpeg'
+ return 'data:'+mime+';base64,'+base64.b64encode(path.read_bytes()).decode()
+def guide_js(inline=False):
+ base=copy();out={l:{**{k:base[l][k] for k in GUIDE_REUSE},**GUIDE[l]} for l in base}
+ lic={Path(e['file']).stem:e for e in json.loads((PHOTO_DIR/'LICENSES.json').read_text())}
+ photos={}
+ for name in GUIDE_PHOTOS:
+  e=lic[name];f=PHOTO_DIR/f'{name}-1600.webp';w,h=struct_size(f)
+  photos[name]={'src':data_uri(f) if inline else '/'+f.relative_to(ROOT).as_posix(),'w':w,'h':h,'by':e['photographer_name'],'site':e['source_site'],'page':e['photo_page_url']}
+ return 'window.PREVIEW_COPY='+json.dumps(out,ensure_ascii=False)+';\nwindow.GUIDE_PHOTOS='+json.dumps(photos,ensure_ascii=False)+';\n'
+def struct_size(path):
+ from PIL import Image
+ with Image.open(path) as im:return im.size
+def bundle(page,copy_name,js,out_html,art_html,styles):
+ html=(ROOT/'design-preview'/page).read_text()
+ for css in styles:html=html.replace(f'<link rel="stylesheet" href="/assets/v2/{css}">','<style>'+(ROOT/'assets/v2'/css).read_text()+'</style>')
+ html=html.replace(f'<script src="{copy_name}"></script>','<script>'+js+'</script>')
+ for script in ('ds.js','guide.js'):html=html.replace(f'<script src="/assets/v2/{script}"></script>','<script>'+(ROOT/'assets/v2'/script).read_text()+'</script>')
+ html=re.sub(r' srcset="[^"]*" sizes="[^"]*"','',html)
+ html=re.sub(r'((?:src|data-src-[a-z]{2})=")(/assets/[^"]+\.(?:webp|jpe?g))(")',lambda m:m.group(1)+data_uri(ROOT/m.group(2).lstrip('/').split('?')[0])+m.group(3),html)
+ marker='<script>'+js[:20]
+ offline=html.replace(marker,'<script>window.PV_STANDALONE=true;</script>'+marker,1)
+ Path(out_html).write_text(offline);print('wrote',out_html,len(offline)//1024,'KB')
+ if art_html:
   head=re.search(r'<head>(.*)</head>',html,re.S).group(1)
   head=re.sub(r'<meta (charset|name="viewport")[^>]*>','',head)
   body=re.search(r'<body[^>]*>(.*)</body>',html,re.S).group(1)
-  art=head.strip()+'\n'+body.replace('<script>window.PREVIEW_COPY','<script>window.PV_STANDALONE=true;window.PV_NO_REMOTE=true;</script><script>window.PREVIEW_COPY',1)
-  Path(sys.argv[2]).write_text(art);print('wrote',sys.argv[2],len(art)//1024,'KB')
+  art=head.strip()+'\n'+body.replace(marker,'<script>window.PV_STANDALONE=true;window.PV_NO_REMOTE=true;</script>'+marker,1)
+  Path(art_html).write_text(art);print('wrote',art_html,len(art)//1024,'KB')
+def main():
+ js='window.PREVIEW_COPY='+json.dumps(copy(),ensure_ascii=False)+';\n'
+ (ROOT/'design-preview/copy.js').write_text(js)
+ (ROOT/'design-preview/guide-copy.js').write_text(guide_js())
+ args=sys.argv[1:]
+ if not args:return
+ if args[0]=='--guide':
+  bundle('guide.html','guide-copy.js',guide_js(inline=True),args[1],args[2] if len(args)>2 else None,['ds.css','guide.css'])
+ else:
+  bundle('index.html','copy.js',js,args[0],args[1] if len(args)>1 else None,['ds.css'])
 if __name__=='__main__':main()

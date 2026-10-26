@@ -53,7 +53,7 @@
         "https://i.ytimg.com/vi/6m0NC1etQIU/maxresdefault.jpg",
         "https://i.ytimg.com/vi/6m0NC1etQIU/hqdefault.jpg"
       ],
-      "thumbnailNote": "Checked from a normal connection on 2026-10-26: oar2.jpg 200 1080x1920 (full vertical frame), maxresdefault.jpg 200 1280x720, sddefault.jpg 200 640x480, hqdefault.jpg 200 480x360, oardefault.jpg 404 (120x90 placeholder). Tried in this order at runtime; a 120x90 placeholder is skipped. A locally hosted cover at assets/media-kit/6m0NC1etQIU.(webp|jpg) is used first when present."
+      "thumbnailNote": "Checked from a normal connection on 2026-10-26: oar2.jpg 200 1080x1920 (full vertical frame), maxresdefault.jpg 200 1280x720, sddefault.jpg 200 640x480, hqdefault.jpg 200 480x360, oardefault.jpg 404 (120x90 placeholder). Tried in this order at runtime; a 120x90 placeholder is skipped. A locally hosted cover at assets/media-kit/6m0NC1etQIU.(webp|jpg) is used first when present. The local cover (720x1280) is the oar2 frame, which is a frame from the video, not the designed cover; YouTube serves the designed cover only inside the 480x360 hqdefault/hq2 images. Replace the local file with a full-size export of the designed cover when available."
     }
   ],
   "sources": {
