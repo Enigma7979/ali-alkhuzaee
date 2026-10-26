@@ -49,12 +49,11 @@
       "embed": "https://www.youtube-nocookie.com/embed/6m0NC1etQIU",
       "source": "Video URL, ID and localized titles supplied by Ali on 2026-10-26; channel ownership confirmed via YouTube oEmbed on 2026-10-26. Replaces zqtCrgt0FjM in the third card position.",
       "thumbnails": [
-        "https://i.ytimg.com/vi/6m0NC1etQIU/oardefault.jpg",
+        "https://i.ytimg.com/vi/6m0NC1etQIU/oar2.jpg",
         "https://i.ytimg.com/vi/6m0NC1etQIU/maxresdefault.jpg",
-        "https://i.ytimg.com/vi/6m0NC1etQIU/sddefault.jpg",
         "https://i.ytimg.com/vi/6m0NC1etQIU/hqdefault.jpg"
       ],
-      "thumbnailNote": "Tried in order at runtime; YouTube answers a missing size with a 120x90 placeholder, which the card skips. A locally hosted cover at assets/media-kit/6m0NC1etQIU.(webp|jpg) is used first when present."
+      "thumbnailNote": "Checked from a normal connection on 2026-10-26: oar2.jpg 200 1080x1920 (full vertical frame), maxresdefault.jpg 200 1280x720, sddefault.jpg 200 640x480, hqdefault.jpg 200 480x360, oardefault.jpg 404 (120x90 placeholder). Tried in this order at runtime; a 120x90 placeholder is skipped. A locally hosted cover at assets/media-kit/6m0NC1etQIU.(webp|jpg) is used first when present."
     }
   ],
   "sources": {

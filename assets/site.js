@@ -8,7 +8,7 @@
  menu.addEventListener('click',()=>{const opened=menu.getAttribute('aria-expanded')!=='true';nav.classList.toggle('open',opened);menu.setAttribute('aria-expanded',String(opened));menu.setAttribute('aria-label',translations[current]?.[opened?'closeMenu':'menu']||'Navigation')});
  nav.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();menu.focus()}});
  try{
-  const files=await Promise.all(['/assets/translations.json?v=short-1','/media-kit/data.json?v=short-2',...(kit?['/media-kit/translations.json?v=premium-3']:[])].map(async url=>{const r=await fetch(url);if(!r.ok)throw Error(url);return r.json()}));
+  const files=await Promise.all(['/assets/translations.json?v=short-1','/media-kit/data.json?v=short-3',...(kit?['/media-kit/translations.json?v=premium-3']:[])].map(async url=>{const r=await fetch(url);if(!r.ok)throw Error(url);return r.json()}));
   [translations,data]=files;if(kit)kitCopy=files[2];if(product){const r=await fetch('/assets/products/translations.json?v=1');if(!r.ok)throw Error('product copy');productCopy=await r.json()}
  }catch{document.documentElement.dataset.translationError='true';return}
  function setLanguage(lang,updateUrl=true){
