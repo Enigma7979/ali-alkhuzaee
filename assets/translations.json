@@ -66,8 +66,7 @@
     "languages": [
       "Arabic",
       "English",
-      "Russian",
-      "Ukrainian"
+      "Russian"
     ],
     "partnerLabel": "FOR BRANDS WITH SOMETHING USEFUL TO SHARE",
     "partnerTitle": "Let’s make something",
@@ -98,15 +97,33 @@
     "workTopics": [
       "Mobile filmmaking",
       "AI & productivity",
-      "AI & n8n"
+      "AI & study"
     ],
     "globalTitle": "More languages.",
-    "globalText": "I can work and communicate in Arabic, English, Russian and Ukrainian. Content, product demonstrations and multilingual campaigns can be tailored to your brief.",
+    "globalText": "I work and create content in Arabic, English and Russian. Content, product demonstrations and multilingual campaigns can be tailored to your brief.",
     "globalHistory": "My international perspective is shaped by approximately 18 years of study and visits in Ukraine and around five years of living in Belgium.",
     "mediaKit": "Media Kit",
     "portraitAlt": "Ali Alkhuzaee in a navy suit",
     "partnershipAlt": "Ali Alkhuzaee pointing towards the partnership message",
-    "navProducts": "Digital Products"
+    "navProducts": "Digital Products",
+    "playVideo": "Play video",
+    "openYouTube": "Open on YouTube",
+    "videoPlayer": "Video player: ",
+    "rec": "REC",
+    "frame": "9:16 · VERTICAL",
+    "focusTag": "AI · AUTOMATION · n8n",
+    "basedShort": "Belgium & Ukraine",
+    "worksIn": "Works in Arabic, English & Russian",
+    "channelCta": "All Shorts on YouTube",
+    "factFocus": "Content focus",
+    "factFocusV": "AI, technology, productivity, automation",
+    "factFormat": "Format",
+    "factFormatV": "Vertical short-form video",
+    "factLang": "Content language",
+    "factLangV": "Arabic-first",
+    "factWorks": "Works in",
+    "factBase": "Based in",
+    "factChannels": "Main channels"
   },
   "ar": {
     "navAbout": "عن علي",
@@ -175,8 +192,7 @@
     "languages": [
       "العربية",
       "الإنجليزية",
-      "الروسية",
-      "الأوكرانية"
+      "الروسية"
     ],
     "partnerLabel": "للعلامات التجارية التي تقدم فائدة حقيقية",
     "partnerTitle": "لنصنع محتوى",
@@ -207,15 +223,33 @@
     "workTopics": [
       "التصوير بالموبايل",
       "الذكاء الاصطناعي والإنتاجية",
-      "الذكاء الاصطناعي وn8n"
+      "الذكاء الاصطناعي والدراسة"
     ],
     "globalTitle": "لغات أكثر.",
-    "globalText": "أستطيع العمل والتواصل بالعربية والإنجليزية والروسية والأوكرانية، وتقديم المحتوى وعروض المنتجات والحملات متعددة اللغات وفق احتياجات التعاون.",
+    "globalText": "أعمل وأقدّم المحتوى بالعربية والإنجليزية والروسية، وتقديم المحتوى وعروض المنتجات والحملات متعددة اللغات وفق احتياجات التعاون.",
     "globalHistory": "تشكّل منظوري الدولي عبر نحو 18 عامًا من الدراسة والزيارات في أوكرانيا، ونحو خمس سنوات من الإقامة في بلجيكا.",
     "mediaKit": "الملف الإعلامي",
     "portraitAlt": "علي الخزاعي مرتديًا بدلة كحلية",
     "partnershipAlt": "علي الخزاعي يشير نحو رسالة التعاون",
-    "navProducts": "المنتجات الرقمية"
+    "navProducts": "المنتجات الرقمية",
+    "playVideo": "تشغيل الفيديو",
+    "openYouTube": "افتح على YouTube",
+    "videoPlayer": "مشغل الفيديو: ",
+    "rec": "تسجيل",
+    "frame": "9:16 · عمودي",
+    "focusTag": "AI · أتمتة · n8n",
+    "basedShort": "بلجيكا وأوكرانيا",
+    "worksIn": "أعمل بالعربية والإنجليزية والروسية",
+    "channelCta": "كل الفيديوهات على YouTube",
+    "factFocus": "محور المحتوى",
+    "factFocusV": "الذكاء الاصطناعي، التقنية، الإنتاجية، الأتمتة",
+    "factFormat": "الصيغة",
+    "factFormatV": "فيديو قصير عمودي",
+    "factLang": "لغة المحتوى",
+    "factLangV": "العربية أولًا",
+    "factWorks": "لغات العمل",
+    "factBase": "مكان الإقامة",
+    "factChannels": "المنصات الأساسية"
   },
   "ru": {
     "navAbout": "Обо мне",
@@ -284,8 +318,7 @@
     "languages": [
       "Арабский",
       "Английский",
-      "Русский",
-      "Украинский"
+      "Русский"
     ],
     "partnerLabel": "ДЛЯ БРЕНДОВ, КОТОРЫМ ЕСТЬ ЧЕМ ПОДЕЛИТЬСЯ",
     "partnerTitle": "Создадим то, что",
@@ -316,14 +349,32 @@
     "workTopics": [
       "Съёмка на смартфон",
       "ИИ и продуктивность",
-      "ИИ и n8n"
+      "ИИ и учёба"
     ],
     "globalTitle": "Больше языков.",
-    "globalText": "Я работаю и общаюсь на арабском, английском, русском и украинском языках. Контент, демонстрации продуктов и многоязычные кампании можно адаптировать к вашей задаче.",
+    "globalText": "Я работаю и создаю контент на арабском, английском и русском языках. Контент, демонстрации продуктов и многоязычные кампании можно адаптировать к вашей задаче.",
     "globalHistory": "Мой международный взгляд сформирован примерно 18 годами учёбы и поездок в Украину и около пяти годами жизни в Бельгии.",
     "mediaKit": "Медиакит",
     "portraitAlt": "Али Альхузаи в тёмно-синем костюме",
     "partnershipAlt": "Али Альхузаи указывает на предложение о сотрудничестве",
-    "navProducts": "Цифровые продукты"
+    "navProducts": "Цифровые продукты",
+    "playVideo": "Смотреть видео",
+    "openYouTube": "Открыть на YouTube",
+    "videoPlayer": "Видеоплеер: ",
+    "rec": "REC",
+    "frame": "9:16 · ВЕРТИКАЛЬ",
+    "focusTag": "ИИ · АВТОМАТИЗАЦИЯ · n8n",
+    "basedShort": "Бельгия и Украина",
+    "worksIn": "Работаю на арабском, английском и русском",
+    "channelCta": "Все Shorts на YouTube",
+    "factFocus": "Тематика",
+    "factFocusV": "ИИ, технологии, продуктивность, автоматизация",
+    "factFormat": "Формат",
+    "factFormatV": "Короткие вертикальные видео",
+    "factLang": "Язык контента",
+    "factLangV": "Прежде всего арабский",
+    "factWorks": "Рабочие языки",
+    "factBase": "Базируюсь",
+    "factChannels": "Основные платформы"
   }
 }

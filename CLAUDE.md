@@ -1,0 +1,44 @@
+# CLAUDE.md — alialkhuzaee.com
+
+Permanent project rules for Claude working in this repository. Follow them in every session.
+
+## Project identity
+
+- This repository is **only** for **alialkhuzaee.com**, Ali Alkhuzaee's personal website.
+- Scope: the homepage, the Media Kit (`/media-kit/`), Digital Products, and the interactive presentation.
+- Keep this project **completely separate from AI Reels Production Studio**. Do not copy code, assets, content, or tasks between the two, and do not work on that project from here.
+
+## Languages
+
+- The website supports **Arabic, English, and Russian only** (`ar`, `en`, `ru`). Do not add other UI languages.
+- Arabic must read correctly right-to-left (`dir="rtl"`), with readable typography.
+- Copy lives in `assets/translations.json` (site) and `media-kit/translations.json` (Media Kit). Every new string needs all three languages.
+- UI languages are separate from the languages Ali works and creates content in (Arabic, English, Russian; Ukrainian is not offered). Belgium and Ukraine remain factual locations. Neither says anything about audience demographics.
+
+## What requires Ali's approval first
+
+Do not do any of the following without explicit approval from Ali in the current conversation:
+
+- Deploying, or merging to `main`. Production serves the repository root through GitHub Pages (`CNAME`), so a merge to `main` is a deploy.
+- Activating payments, checkout, or any live payment provider for Digital Products.
+- Modifying unrelated projects or other repositories.
+- Deleting or rewriting existing pages, features, assets, or approved designs, photos, and wording.
+
+## Working rules
+
+- Preserve existing website code and functionality. Change only what was requested; no redesigns during small revisions.
+- Before editing CLAUDE.md, check whether it already exists and keep its useful instructions.
+- Confirm the repository and branch before editing. Work on a feature branch and open a pull request for review.
+- Never commit credentials, API keys, or tokens.
+- Never guess follower counts, audience geography, sponsors, or prices. Metrics stay hidden until dated, sourced data is approved (`media-kit/data.json`).
+- Use Ali's own supplied portraits (`assets/portraits/`). Never substitute stock presenters.
+
+## Repository map
+
+- `index.html`, `assets/site.css`, `assets/site.js`: homepage and shared design.
+- `media-kit/`: Media Kit page, data, translations, and PDF. See `media-kit/README.md`.
+- `scripts/build_site.py`: regenerates static fallback pages from the shared EN/AR/RU copy.
+- `scripts/build_media_kit_pdf.py`: rebuilds the English Media Kit PDF.
+- `scripts/prepare_portraits.py`: rebuilds optimized portrait derivatives.
+- `docs/redesign-review.md`: redesign review notes and preservation checks.
+- `dist/` is a local preview output and is git-ignored; production does not use it.

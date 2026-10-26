@@ -9,7 +9,7 @@ This remains part of the static personal website at `/media-kit/`. Production se
 - English standalone PDF: `python scripts/build_media_kit_pdf.py`.
 - Original portraits, optimized derivatives and alpha masks: `assets/portraits/`; rebuild with `python scripts/prepare_portraits.py`.
 
-UI languages are English, Arabic and Russian. Communication capabilities include Arabic, English, Russian and Ukrainian. These are separate concepts and do not establish audience demographics.
+UI languages are English, Arabic and Russian. Ali works and creates content in Arabic, English and Russian only (Ukrainian removed on 2026-10-26 at his request; Belgium and Ukraine stay as locations). These are separate concepts and do not establish audience demographics.
 
 Metrics remain hidden until dated, sourced data is approved. Never guess follower counts, audience geography, sponsors or prices. Keep Snapchat unchanged unless Ali verifies a replacement.
 

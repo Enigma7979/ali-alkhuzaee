@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25",
+  "updated": "2026-10-26",
   "platforms": {
     "Instagram": "https://www.instagram.com/alialkhuzaee_startups",
     "TikTok": "https://www.tiktok.com/@ali.ai.automation",
@@ -33,14 +33,27 @@
       "url": "https://www.youtube.com/shorts/q6BLhS16MwU"
     },
     {
-      "id": "zqtCrgt0FjM",
+      "id": "6m0NC1etQIU",
       "title": {
-        "en": "Build a practical workflow",
-        "ar": "بناء سير عمل عملي",
-        "ru": "Создание рабочего процесса"
+        "ar": "مدرّس خصوصي بالذكاء الاصطناعي مجانًا! 🤖📚",
+        "en": "Your Free AI Study Assistant! 🤖📚",
+        "ru": "Бесплатный ИИ-помощник для учёбы! 🤖📚"
       },
-      "topic": "AI & n8n",
-      "url": "https://www.youtube.com/shorts/zqtCrgt0FjM"
+      "description": {
+        "ar": "اكتشف كيف تستخدم Google NotebookLM لتحويل محاضراتك وملفات PDF إلى اختبارات تساعدك على مراجعة معلوماتك وفهم الإجابات.",
+        "en": "Discover how Google NotebookLM helps turn your lecture notes and PDF materials into quizzes so you can review your knowledge and understand answers.",
+        "ru": "Узнайте, как Google NotebookLM помогает создавать тесты на основе лекций и PDF-файлов, чтобы проверять знания и разбирать ответы."
+      },
+      "topic": "AI & study",
+      "url": "https://www.youtube.com/shorts/6m0NC1etQIU",
+      "embed": "https://www.youtube-nocookie.com/embed/6m0NC1etQIU",
+      "source": "Video URL, ID and localized titles supplied by Ali on 2026-10-26; channel ownership confirmed via YouTube oEmbed on 2026-10-26. Replaces zqtCrgt0FjM in the third card position.",
+      "thumbnails": [
+        "https://i.ytimg.com/vi/6m0NC1etQIU/oar2.jpg",
+        "https://i.ytimg.com/vi/6m0NC1etQIU/maxresdefault.jpg",
+        "https://i.ytimg.com/vi/6m0NC1etQIU/hqdefault.jpg"
+      ],
+      "thumbnailNote": "Checked from a normal connection on 2026-10-26: oar2.jpg 200 1080x1920 (full vertical frame), maxresdefault.jpg 200 1280x720, sddefault.jpg 200 640x480, hqdefault.jpg 200 480x360, oardefault.jpg 404 (120x90 placeholder). Tried in this order at runtime; a 120x90 placeholder is skipped. A locally hosted cover at assets/media-kit/6m0NC1etQIU.(webp|jpg) is used first when present. The local cover (720x1280) is the oar2 frame, which is a frame from the video, not the designed cover; YouTube serves the designed cover only inside the 480x360 hqdefault/hq2 images. Replace the local file with a full-size export of the designed cover when available."
     }
   ],
   "sources": {
