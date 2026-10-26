@@ -99,7 +99,7 @@ html[lang=ar] .opener h2{line-height:1.4}
 .opener .credit,.photo .credit{font-size:6pt;color:rgba(238,243,255,.7)}
 .opener .credit{position:absolute;inset-inline-end:17mm;bottom:12mm}
 /* lessons */
-.photo{position:relative;margin:3mm 0 5mm;height:52mm;border-radius:4mm;overflow:hidden;background:#060b18}
+.photo{position:relative;margin:3mm 0 4mm;height:46mm;border-radius:4mm;overflow:hidden;background:#060b18}
 .photo img{width:100%;height:100%;object-fit:cover;display:block}
 .photo .credit{position:absolute;inset-inline-end:3mm;bottom:2mm;text-shadow:0 0 3mm rgba(0,0,0,.8)}
 .lead{font-size:11pt;color:#28344f}
@@ -112,6 +112,10 @@ html[lang=ar] .opener h2{line-height:1.4}
 .exercise::after{content:"";position:absolute;inset:auto -10mm -14mm auto;width:40mm;height:40mm;border-radius:50%;background:radial-gradient(circle,rgba(141,128,255,.35),transparent 70%)}
 .exercise h3{color:#56d9ff}
 .exercise p{margin:0}
+/* example and exercise sit side by side so each lesson stays on one page */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-top:3mm;break-inside:avoid}
+.duo>.panel,.duo>.exercise{margin:0}
+.duo p{font-size:9.2pt}
 /* hooks */
 .hook{display:grid;grid-template-columns:10mm 1fr;gap:3mm;padding:3.2mm 0;border-bottom:.3mm solid #d8deea;font-size:10.5pt;break-inside:avoid}
 .hook b{font:600 9pt "JetBrains Mono";color:#2f56e0}
@@ -122,15 +126,28 @@ html[lang=ar] .opener h2{line-height:1.4}
 .url{font:500 7.5pt "JetBrains Mono";color:#2f56e0;direction:ltr;text-align:left;overflow-wrap:anywhere}
 .card{border:.3mm solid #d8deea;border-radius:3mm;padding:3.5mm 4.5mm;margin-bottom:3mm}
 .card h3{margin-top:0}
+.tool{break-inside:avoid}
+.tool{padding-bottom:4mm;margin-bottom:4mm;border-bottom:.3mm solid #d8deea}
+.tool .tool-head{margin:1.5mm 0 2.5mm}
+.tool .mark{width:10mm;height:10mm;font-size:12pt;border-radius:3mm}
+.tool-head h2{font-size:15pt}
+.tool .lead{line-height:1.5}
+.tool .fine{margin:0}
+.tool .lead{font-size:10pt;margin-bottom:1.5mm}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:3mm;margin:3mm 0 2mm}
+.cards .card{margin:0;padding:3mm 4mm}
+.cards .card:last-child{grid-column:1/-1}
+.cards .card p{margin:0;font-size:8.6pt;line-height:1.5}
+.cards .card h3{font-size:8.5pt;margin-bottom:1mm}
 /* prompts */
-.prompt{border:.3mm solid #c9d5f5;border-radius:3.5mm;padding:5mm;margin:0 0 5mm;background:linear-gradient(180deg,#f7f9ff,#fff);break-inside:avoid}
+.prompt{border:.3mm solid #c9d5f5;border-radius:3.5mm;padding:4mm 5mm;margin:0 0 4mm;background:linear-gradient(180deg,#f7f9ff,#fff);break-inside:avoid}
 .prompt h3{margin:0 0 2mm}
 .prompt .task{font:500 9.5pt/1.65 "JetBrains Mono";color:#0c1630}
 html[lang=ar] .prompt .task{font:500 10.5pt/1.9 "IBM Plex Sans Arabic"}
 .fine{font-size:7.2pt;color:#5b6886}
 .notes{height:14mm;border-bottom:.3mm dashed #b9c5dc}
 /* plan */
-.day{display:grid;grid-template-columns:16mm 1fr 6mm;gap:3mm;align-items:start;padding:3.5mm 0;border-bottom:.3mm solid #d8deea}
+.day{display:grid;grid-template-columns:16mm 1fr 6mm;gap:3mm;align-items:start;padding:2.6mm 0;border-bottom:.3mm solid #d8deea}
 .day b{font:600 8pt "JetBrains Mono";color:#2f56e0}
 .day .box{width:5mm;height:5mm;border:.4mm solid #3563f5;border-radius:1mm}
 /* toc */
@@ -138,7 +155,9 @@ html[lang=ar] .prompt .task{font:500 10.5pt/1.9 "IBM Plex Sans Arabic"}
 .toc a span:first-child{font:600 8pt "JetBrains Mono";color:#2f56e0}
 .toc a span:last-child{font:500 8pt "JetBrains Mono";color:#5b6886;text-align:end}
 .toc .thumb{display:none}
-.credits li{font-size:7.5pt;margin-bottom:1.2mm}
+.credits{padding-inline-start:4mm}
+.credits li{font-size:6.2pt;line-height:1.45;margin-bottom:.8mm}
+.credits li span{font-size:5.8pt;color:#8593b5}
 a{color:#2f56e0;text-decoration:none}
 .qr{width:24mm;height:24mm}
 '''
@@ -160,40 +179,48 @@ def build(out,lang,m,licenses,fonts_href,chapter_page=None):
   f'<div class="bar"><div class="author"><img src="{(ROOT/"assets/portraits/ali-kit-dark-520.webp").as_uri()}" alt=""><div><b>{"علي الخزاعي" if lang=="ar" else "Ali Alkhuzaee"}</b><span>{e(c["about"].split(" · ")[1])}</span></div></div><div class="ed">{e(c["edition"])}<small>ALIALKHUZAEE.COM</small></div></div>','dark cover')
  sheet(f'<p class="eyebrow">ALI ALKHUZAEE</p><h2>{e(c["guide"])}</h2><p class="lead">{e(c["intro"])}</p><div class="panel">{e(c["how"])}</div><h3>© 2026 Ali Alkhuzaee</h3><p class="fine">{e(c["legal"])}</p><p class="fine">{e(c["about"])}</p><p class="fine">{e(c["review"])}</p>')
  toc_index=len(pages);pages.append('TOC')
- used=0
+ used=0;prev=['']
  def lesson_photo(art):
   nonlocal used
-  name=ART_PHOTOS.get(art) or FALLBACK[used%len(FALLBACK)];used+=1;return name
+  name=ART_PHOTOS.get(art) or FALLBACK[used%len(FALLBACK)];used+=1
+  # Never repeat the photo of the page just before (chapter opener or previous lesson).
+  pool=[n for n in dict.fromkeys(FALLBACK+list(ART_PHOTOS.values())) if n!=prev[0]]
+  if name==prev[0]:name=pool[used%len(pool)]
+  prev[0]=name;return name
  current=None
  for idx,item in enumerate(m.lessons):
   ch=item['ch']
   if ch!=current:
    current=ch;name=CHAPTER_PHOTOS[(ch-1)%len(CHAPTER_PHOTOS)]
+   prev[0]=name
    sheet(f'<div class="bleed"><img src="{photo(name)}" alt=""></div><div class="shade"></div><div class="vf"><i></i><i></i><i></i><i></i></div><div class="num">{ch:02d}</div><div class="ttl"><p class="eyebrow">{e(c["chapter"])} {ch:02d}</p><h2>{e(c["chapters"][ch-1])}</h2></div>{credit(name)}','dark opener',f'ch{ch}')
   name=lesson_photo(item.get('art',''))
   body=(f'<p class="eyebrow">{ch:02d} / {e(c["chapters"][ch-1])}</p><h2>{e(item["title"][lang])}</h2><p class="lead">{e(item["core"][lang])}</p>'
    f'<div class="photo"><img src="{photo(name,900)}" alt="">{credit(name)}</div>'
    f'<h3>{e(c["steps"])}</h3><ol class="steps">'+''.join(f'<li>{e(s.strip())}</li>' for s in item['steps'][lang].split('|'))+'</ol>'
-   f'<div class="panel"><h3>{e(c["example"])}</h3><p>{e(item["example"][lang])}</p></div><div class="exercise"><h3>{e(c["exercise"])}</h3><p>{e(item["exercise"][lang])}</p></div>')
+   f'<div class="duo"><div class="panel"><h3>{e(c["example"])}</h3><p>{e(item["example"][lang])}</p></div><div class="exercise"><h3>{e(c["exercise"])}</h3><p>{e(item["exercise"][lang])}</p></div></div>')
   sheet(body)
   last=idx==len(m.lessons)-1 or m.lessons[idx+1]['ch']!=ch
   if last and ch==5:
    for start in range(0,len(m.hooks),10):
     sheet(f'<p class="eyebrow">05 / {e(c["chapters"][4])}</p><h2>{e(c["hooks"])}</h2>'+''.join(f'<div class="hook"><b>{i+1:02d}</b><span>{e(h[lang])}</span></div>' for i,h in enumerate(m.hooks[start:start+10],start)))
   if last and ch==6:
-   for i,t in enumerate(m.tools):
-    body=f'<p class="eyebrow">06 / {e(c["tools"])} · {i+1:02d}</p><div class="tool-head"><span class="mark">{e(t["name"][:1])}</span><h2>{e(t["name"])}</h2></div><p class="lead">{e(t["role"][lang])}</p><p class="url"><a href="{e(t["url"])}">{e(t["url"])}</a></p>'
-    for key in ('access','rights','task'):body+=f'<div class="card"><h3>{e(c[key])}</h3><p>{e(t[key][lang])}</p></div>'
-    body+=f'<p class="fine">{e(c["verified"])}: {e(m.VERIFIED)}</p><p class="url"><a href="{e(t["source"])}">{e(c["source"])}: {e(t["source"])}</a></p>'
+   # One flowing section: profiles pack as many per page as fit and never split.
+   for start in (0,):
+    body=''
+    for i,t in enumerate(m.tools):
+     body+=f'<div class="tool"><p class="eyebrow">06 / {e(c["tools"])} · {i+1:02d}</p><div class="tool-head"><span class="mark">{e(t["name"][:1])}</span><h2>{e(t["name"])}</h2></div><p class="lead">{e(t["role"][lang])}</p><p class="url"><a href="{e(t["url"])}">{e(t["url"])}</a></p>'
+     body+='<div class="cards">'+''.join(f'<div class="card"><h3>{e(c[key])}</h3><p>{e(t[key][lang])}</p></div>' for key in ('access','rights','task'))+'</div>'
+     body+=f'<p class="fine">{e(c["verified"])}: {e(m.VERIFIED)} · <a class="url" href="{e(t["source"])}">{e(c["source"])}: {e(t["source"])}</a></p></div>'
     sheet(body)
   if last and ch==7:
-   for start in range(0,len(m.prompts),2):
+   for start in (0,):
     body=f'<p class="eyebrow">07 / {e(c["chapters"][6])}</p><h2>{e(c["prompts"])}</h2><p class="fine">{e(c["promptRule"])}</p>'
-    for i,p in enumerate(m.prompts[start:start+2],start):body+=f'<div class="prompt"><h3>{i+1:02d} / {e(p["title"][lang])}</h3><p class="task">{e(p["task"][lang])}</p><p class="fine">{e(c["promptExample"])}: {e(p["example"][lang])}</p><p class="fine">{e(c["promptCheck"])}</p></div>'
-    sheet(body+f'<h3>{e(c["notes"])}</h3><div class="notes"></div>')
+    for i,p in enumerate(m.prompts):body+=f'<div class="prompt"><h3>{i+1:02d} / {e(p["title"][lang])}</h3><p class="task">{e(p["task"][lang])}</p><p class="fine">{e(c["promptExample"])}: {e(p["example"][lang])}</p><p class="fine">{e(c["promptCheck"])}</p></div>'
+    sheet(body)
   if last and ch==10:
-   for start in range(0,len(m.days),6):
-    sheet(f'<p class="eyebrow">10 / {e(c["chapters"][9])}</p><h2>{e(c["plan"])}</h2>'+''.join(f'<div class="day"><b>{e(c["day"])} {i+1:02d}</b><p>{e(d[lang])}</p><span class="box"></span></div>' for i,d in enumerate(m.days[start:start+6],start)))
+   for start in range(0,len(m.days),10):
+    sheet(f'<p class="eyebrow">10 / {e(c["chapters"][9])}</p><h2>{e(c["plan"])}</h2>'+''.join(f'<div class="day"><b>{e(c["day"])} {i+1:02d}</b><p>{e(d[lang])}</p><span class="box"></span></div>' for i,d in enumerate(m.days[start:start+10],start)))
  pages[toc_index]=f'<section class="flow"><p class="eyebrow">{e(c["guide"])}</p><h2>{e(c["toc"])}</h2><nav class="toc">'+''.join(f'<a href="#ch{i}"><span>{i:02d}</span><span>{e(t)}</span><span>{chapter_page.get(i,"")}</span></a>' for i,t in enumerate(c['chapters'],1))+'</nav></section>'
  import qrcode
  qr=out/f'qr-{lang}.png';qrcode.make('https://alialkhuzaee.com').save(qr)
