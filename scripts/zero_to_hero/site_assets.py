@@ -1,0 +1,56 @@
+"""Public website assets for the From Zero to Hero edition: the chosen cover (concept A, Aperture) per language.
+
+python scripts/zero_to_hero/site_assets.py [PROOF_PNG_DIR]
+  -> assets/products/cover-v3-{ar,en,ru}.webp (1000 x 1420)
+  -> with PROOF_PNG_DIR (build.py OUT/proof/png): preview-v3-N.webp (540 wide) and preview-v3-N-lg.webp (full)
+     for the sample pages in PREVIEW_PAGES. Only these few pages are public; the manuscript stays private.
+Needs network for Google Fonts.
+"""
+import json
+import os
+import pathlib
+import subprocess
+import sys
+import tempfile
+
+from PIL import Image
+
+HERE = pathlib.Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
+sys.path.insert(0, str(HERE))
+import build, covers  # noqa: E402
+
+OUT = ROOT / 'assets/products'
+LANGS = ('ar', 'en', 'ru')
+# cover, contents, the stop ladders (unit 02), prompt anatomy (library): pages of the Arabic sample proof
+PREVIEW_PAGES = (1, 4, 7, 22)
+
+
+def main():
+    html = build.head('From Zero to Hero — covers') + ''.join(covers.cover('A', l) for l in LANGS) + '</body></html>'
+    with tempfile.TemporaryDirectory() as tmp:
+        src = pathlib.Path(tmp) / 'covers.html'
+        src.write_text(html, encoding='utf-8')
+        env = dict(os.environ, NODE_PATH=os.environ.get('NODE_PATH', '/usr/local/lib/node_modules_global'))
+        res = subprocess.run(['node', str(HERE / 'render.mjs'), str(src), '-', tmp, '2'], check=True, capture_output=True, text=True, env=env)
+        report = json.loads(res.stdout)
+        if report['overflow']:
+            sys.exit(f'cover overflow: {report["overflow"]}')
+        for i, lang in enumerate(LANGS, 1):
+            im = Image.open(pathlib.Path(tmp) / f'p{i:02d}.png').convert('RGB').resize((1000, 1420), Image.Resampling.LANCZOS)
+            im.save(OUT / f'cover-v3-{lang}.webp', 'WEBP', quality=90, method=6)
+            print('wrote', (OUT / f'cover-v3-{lang}.webp').relative_to(ROOT))
+
+
+def previews(png_dir):
+    for n in PREVIEW_PAGES:
+        im = Image.open(pathlib.Path(png_dir) / f'p{n:02d}.png').convert('RGB')
+        im.resize((540, 767), Image.Resampling.LANCZOS).save(OUT / f'preview-v3-{n}.webp', 'WEBP', quality=88, method=6)
+        im.save(OUT / f'preview-v3-{n}-lg.webp', 'WEBP', quality=86, method=6)
+        print('wrote preview', n)
+
+
+if __name__ == '__main__':
+    main()
+    if len(sys.argv) > 1:
+        previews(sys.argv[1])

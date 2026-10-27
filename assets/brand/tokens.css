@@ -1,0 +1,15 @@
+/* Ali Alkhuzaee brand tokens, taken from the From Zero to Hero book (scripts/zero_to_hero/design.css,
+   palette from products/creator-guide/PREMIUM_VISUAL_DESIGN_SPEC.md). Single source for the website and the book:
+   scripts/build_brand_css.py checks that design.css still carries these values and builds assets/v3/ from them.
+   --cyan-ink and --copper-ink are the text-safe variants on ivory (brand cyan and copper fail WCAG AA as small text). */
+:root{
+ --b-ink:#101827;--b-navy:#16263E;--b-navy-2:#1E2D49;--b-navy-3:#24375A;
+ --b-cyan:#25C5D9;--b-copper:#E3A86B;--b-copper-2:#D4975A;--b-ivory:#F8F7F3;--b-slate:#526174;--b-white:#FFFFFF;--b-warn:#B54C43;
+ --b-cyan-ink:#0B6E7C;--b-copper-ink:#8A4F1C;--b-mist:#9FB0C6;--b-haze:#D5DCE6;
+ --b-rule:#D8DBE0;--b-rule-soft:#E8E7E1;--b-paper-2:#EFEDE6;--b-tint-cyan:#E6F6F8;--b-tint-copper:#FBF0E4;--b-tint-warn:#FBEDEB;
+ --b-f-ar:"IBM Plex Sans Arabic",system-ui,sans-serif;--b-f-ar-display:"Alexandria","IBM Plex Sans Arabic",system-ui,sans-serif;
+ --b-f-lat:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;--b-f-ru:"Geologica","Manrope",system-ui,sans-serif;
+ --b-f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+ --b-r-xs:2px;--b-r-s:4px;--b-r-m:8px;--b-r-l:12px;
+ --b-rule-w:1px;--b-accent-w:2px;
+}
