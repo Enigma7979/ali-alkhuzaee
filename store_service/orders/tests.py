@@ -22,6 +22,18 @@ class StoreTests(TestCase):
  def pp(self,o):return {'id':o.provider_order_id,'status':'COMPLETED','purchase_units':[{'custom_id':str(o.id),'invoice_id':str(o.id),'payee':{'merchant_id':'merchant-test'},'amount':{'value':'2.99','currency_code':'EUR'},'payments':{'captures':[{'id':'CAP1','status':'COMPLETED','final_capture':True,'amount':{'value':'2.99','currency_code':'EUR'}}]}}]}
  def test_checkout_closed_by_default(self):self.assertEqual(self.client.get('/store/checkout/').status_code,503)
  def test_availability_false_without_credentials(self):self.assertFalse(self.client.get('/store/availability/').json()['available'])
+ def test_availability_readable_by_site_origin_only(self):
+  r=self.client.get('/store/availability/');self.assertEqual(r['Access-Control-Allow-Origin'],'https://alialkhuzaee.com')
+  self.assertFalse(self.client.get('/store/checkout/').has_header('Access-Control-Allow-Origin'))
+ def test_checkout_redirect_allowed_by_csp(self):
+  csp=self.client.get('/store/availability/')['Content-Security-Policy']
+  for host in ('https://checkout.stripe.com','https://www.paypal.com','https://www.sandbox.paypal.com'):self.assertIn(host,csp.split('form-action')[1].split(';')[0])
+ def test_rate_limit_uses_platform_client_header(self):
+  from .views import client_ip
+  from django.test import RequestFactory
+  req=RequestFactory().get('/',HTTP_X_REAL_IP='203.0.113.7',REMOTE_ADDR='10.0.0.1')
+  self.assertEqual(client_ip(req),'10.0.0.1')
+  with override_settings(CLIENT_IP_HEADER='X-Real-IP'):self.assertEqual(client_ip(req),'203.0.113.7')
  def test_approved_three_files_required(self):
   self.manifest.write_text('{}')
   with self.assertRaises(VerificationError):release_path('en')

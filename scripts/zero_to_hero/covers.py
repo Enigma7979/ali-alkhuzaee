@@ -180,25 +180,51 @@ def cover(concept, lang):
             f'<div class="txt" style="color:{fg};font-family:{c["font"]};text-align:{align}">{body}</div></div>')
 
 
-def back_cover():
-    """Arabic back cover in concept A's language. Claims are limited to what the finished book will contain."""
+BACK = {
+    'ar': dict(head='صوّر وسجّل وحرّر وانشر بفهم، لا بإعدادات محفوظة.',
+               intro='كتاب عملي بالعربية لصانع المحتوى المبتدئ والمتوسط وصاحب المشروع الصغير. كل مهارة فيه تبدأ بالسبب، ثم الخطوات، ثم تمرين يمكنك قياس نتيجته، ثم قائمة فحص قبل النشر.',
+               cols=[('التصوير', 'التعريض، الغالق والإطارات، العدسات والتكوين.'), ('الإضاءة', 'حجم المصدر، الاتجاه، النسب، حرارة اللون.'),
+                     ('الصوت', 'اختيار الميكروفون، الغرفة، الكسب، المعالجة.'), ('السرد والمونتاج', 'الافتتاحية، قائمة اللقطات، القطع، التلوين.'),
+                     ('الذكاء الاصطناعي', 'برومبتات قابلة للتعديل مع طرق تحقق.'), ('النمو والأعمال', 'قراءة الأرقام بحذر ومنتج رقمي صادق.')],
+               nolbl='ما لا يعدك به هذا الكتاب:',
+               no='لا أرقام مشاهدات مضمونة، ولا «إعدادات سحرية»، ولا شهادات مختلقة. الأمثلة المرسومة توضيحية، وأسعار الأدوات وخططها تتغير، لذلك تحمل تاريخ تحقق.',
+               ed='إصدار جديد موسّع من «من الصفر إلى صناعة المحتوى بالذكاء الاصطناعي»'),
+    'en': dict(head='Shoot, record, edit and publish with understanding, not saved presets.',
+               intro='A practical book for beginner and intermediate content creators and small business owners. Every skill starts with the reason, then the steps, then an exercise whose result you can measure, then a checklist before you publish.',
+               cols=[('Camera', 'Exposure, shutter and frame rates, lenses and composition.'), ('Lighting', 'Source size, direction, ratios, colour temperature.'),
+                     ('Sound', 'Choosing a microphone, the room, gain, processing.'), ('Story and editing', 'The hook, the shot list, cutting, colour.'),
+                     ('AI', 'Editable prompts with ways to check the output.'), ('Growth and business', 'Reading numbers carefully and an honest digital product.')],
+               nolbl='What this book does not promise:',
+               no='No guaranteed view counts, no “magic settings”, no invented testimonials. The drawn examples are illustrative, and tool prices and plans change, so they carry a verification date.',
+               ed='A new expanded edition of “From Zero to AI-Powered Content Creation”'),
+    'ru': dict(head='Снимайте, записывайте, монтируйте и публикуйте с пониманием, а не по сохранённым пресетам.',
+               intro='Практическая книга для начинающих и опытных авторов контента и владельцев малого бизнеса. Каждый навык начинается с причины, затем шаги, затем упражнение с измеримым результатом и чек-лист перед публикацией.',
+               cols=[('Съёмка', 'Экспозиция, выдержка и частота кадров, объективы и композиция.'), ('Свет', 'Размер источника, направление, соотношения, цветовая температура.'),
+                     ('Звук', 'Выбор микрофона, комната, усиление, обработка.'), ('Сюжет и монтаж', 'Хук, список кадров, склейки, цвет.'),
+                     ('ИИ', 'Редактируемые промпты со способами проверки.'), ('Рост и бизнес', 'Осторожное чтение цифр и честный цифровой продукт.')],
+               nolbl='Чего эта книга не обещает:',
+               no='Никаких гарантированных просмотров, «волшебных настроек» и выдуманных отзывов. Нарисованные примеры иллюстративны, а цены и тарифы инструментов меняются, поэтому у них указана дата проверки.',
+               ed='Новое расширенное издание «С нуля до создания контента с помощью ИИ»'),
+}
+
+
+def back_cover(lang='ar'):
+    """Back cover in concept A's language. Claims are limited to what the book contains."""
+    c, k = BACK[lang], COPY[lang]
     art = f'<rect width="{W}" height="{H}" fill="{INK}"/>' + ''.join(
         f'<line x1="{x}" y1="0" x2="{x}" y2="{H}" stroke="#FFFFFF" stroke-opacity=".035"/>' for x in range(0, W + 1, 110))
-    return f'''<div class="page cover" lang="ar" dir="rtl"><svg class="art" viewBox="0 0 {W} {H}" aria-hidden="true">{art}</svg>
-<div class="txt" style="color:{IVORY};padding:20mm 17mm 16mm">
- <div class="brand" style="color:{COPPER};text-align:right">FROM ZERO TO HERO</div>
- <p style="font:600 17pt/1.5 var(--ar-display);margin:7mm 0 5mm">صوّر وسجّل وحرّر وانشر بفهم، لا بإعدادات محفوظة.</p>
- <p style="font-size:10.5pt;line-height:1.75;color:#D5DCE6;margin:0 0 6mm">كتاب عملي بالعربية لصانع المحتوى المبتدئ والمتوسط وصاحب المشروع الصغير. كل مهارة فيه تبدأ بالسبب، ثم الخطوات، ثم تمرين يمكنك قياس نتيجته، ثم قائمة فحص قبل النشر.</p>
+    align = 'right' if k['dir'] == 'rtl' else 'left'
+    cols = ''.join(f'<div><b style="color:{COPPER}">{a}</b><br>{b}</div>' for a, b in c['cols'])
+    return f'''<div class="page cover" lang="{lang}" dir="{k['dir']}"><svg class="art" viewBox="0 0 {W} {H}" aria-hidden="true">{art}</svg>
+<div class="txt" style="color:{IVORY};padding:20mm 17mm 16mm;font-family:{k['font']};text-align:{align}">
+ <div class="brand" style="color:{COPPER};text-align:{align}">FROM ZERO TO HERO</div>
+ <p style="font:600 17pt/1.5 {k['disp']};margin:7mm 0 5mm">{c['head']}</p>
+ <p style="font-size:10.5pt;line-height:1.75;color:#D5DCE6;margin:0 0 6mm">{c['intro']}</p>
  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3mm 7mm;font-size:9.6pt;line-height:1.55;color:#E6EAF0">
-  <div><b style="color:{COPPER}">التصوير</b><br>التعريض، الغالق والإطارات، العدسات والتكوين.</div>
-  <div><b style="color:{COPPER}">الإضاءة</b><br>حجم المصدر، الاتجاه، النسب، حرارة اللون.</div>
-  <div><b style="color:{COPPER}">الصوت</b><br>اختيار الميكروفون، الغرفة، الكسب، المعالجة.</div>
-  <div><b style="color:{COPPER}">السرد والمونتاج</b><br>الافتتاحية، قائمة اللقطات، القطع، التلوين.</div>
-  <div><b style="color:{COPPER}">الذكاء الاصطناعي</b><br>برومبتات قابلة للتعديل مع طرق تحقق.</div>
-  <div><b style="color:{COPPER}">النمو والأعمال</b><br>قراءة الأرقام بحذر ومنتج رقمي صادق.</div>
+  {cols}
  </div>
  <div style="margin-top:7mm;border-top:.25mm solid rgba(248,247,243,.25);padding-top:4mm;font-size:9.4pt;line-height:1.65;color:#C9D3E0">
-  <b style="color:{IVORY}">ما لا يعدك به هذا الكتاب:</b> لا أرقام مشاهدات مضمونة، ولا «إعدادات سحرية»، ولا شهادات مختلقة. الأمثلة المرسومة توضيحية، وأسعار الأدوات وخططها تتغير، لذلك تحمل تاريخ تحقق.
+  <b style="color:{IVORY}">{c['nolbl']}</b> {c['no']}
  </div>
- <div style="margin-top:auto" class="foot"><div><div class="author" style="font-family:var(--ar-display)">علي الخزاعي</div><div class="ed">إصدار جديد موسّع من «من الصفر إلى صناعة المحتوى بالذكاء الاصطناعي»</div></div><div class="brand" style="color:{COPPER}">ALIALKHUZAEE.COM</div></div>
+ <div style="margin-top:auto;direction:{k['dir']}" class="foot"><div><div class="author" style="font-family:{k['disp']}">{k['author']}</div><div class="ed">{c['ed']}</div></div><div class="brand" style="color:{COPPER}">ALIALKHUZAEE.COM</div></div>
 </div></div>'''

@@ -47,6 +47,15 @@ def T(x, y, s, size=13, w=500, fill=INK, align='center', font=None, extra=''):
     return f'<text x="{x:.1f}" y="{y:.1f}" font-family="{fam}" font-size="{size}" font-weight="{w}" fill="{fill}" text-anchor="{anchor}"{d} {extra}>{escape(s)}</text>'
 
 
+def mx(x, w=0, W=600):
+    """Mirror an x position for left-to-right languages; Arabic figures read right to left."""
+    return W - x - w if LANG != 'ar' else x
+
+
+def ma(align):
+    return {'left': 'right', 'right': 'left'}.get(align, align) if LANG != 'ar' else align
+
+
 def ltr(s):
     """Isolate a left-to-right run (numbers, ranges, formulas) inside Arabic text."""
     return '\u2066' + s + '\u2069'
@@ -568,7 +577,7 @@ def analytics_funnel():
     return svg(W, H, ''.join(b), 'قمع تحليل المحتوى من الظهور إلى العمل، مع سؤال كل مرحلة وما يمكن تجربته')
 
 
-ALL = {k: v for k, v in globals().items() if callable(v) and k not in ('T', 'svg', 'arrow_defs', 'escape', 'ltr', 'tr', 'render') and not k.startswith('_')}
+ALL = {k: v for k, v in globals().items() if callable(v) and k not in ('T', 'svg', 'arrow_defs', 'escape', 'ltr', 'tr', 'render', 'mx', 'ma') and not k.startswith('_')}
 
 
 # ---------------------------------------------------------------- chapter opener art (decorative, dark pages)
@@ -598,3 +607,302 @@ def opener_light():
 
 
 ALL.update(opener_exposure=opener_exposure, opener_light=opener_light)
+
+
+# ---------------------------------------------------------------- full edition: figures for the remaining units
+def episode_map():
+    W, H = 600, 220
+    b = [arrow_defs(INK, 'em')]
+    boxes = [('جملة الفكرة', 'وعد واحد يفهمه الجمهور', NAVY, WHITE), ('الدليل', 'تجربة أو مثال أو مقارنة', '#24405F', WHITE),
+             ('المشهد 1', 'المشكلة كما يراها المشاهد', WHITE, INK), ('المشهد 2', 'المحاولة أو الشرح', WHITE, INK),
+             ('المشهد 3', 'النتيجة وحدودها', WHITE, INK), ('الخاتمة', 'الخطوة التالية للمشاهد', COPPER, INK)]
+    bw, gap = 88, 10
+    x = W - 8 - bw
+    for i, (a, s, f, c) in enumerate(boxes):
+        X = mx(x, bw)
+        b.append(f'<rect x="{X}" y="58" width="{bw}" height="74" rx="7" fill="{f}" stroke="{INK}" stroke-width="1.2"/>')
+        b.append(T(X + bw / 2, 86, a, 11.5, 700, c))
+        words = s.split(' ')
+        half = len(words) // 2
+        b.append(T(X + bw / 2, 106, ' '.join(words[:half + 1]), 9.2, 500, c if f != WHITE else SLATE))
+        b.append(T(X + bw / 2, 120, ' '.join(words[half + 1:]), 9.2, 500, c if f != WHITE else SLATE))
+        if i:
+            x1, x2 = (X - gap + 1, X - 1.5) if LANG != 'ar' else (X + bw + gap - 1, X + bw + 1.5)
+            b.append(f'<line x1="{x1}" y1="95" x2="{x2}" y2="95" stroke="{INK}" stroke-width="1.3" marker-end="url(#em)"/>')
+        x -= bw + gap
+    xa, xb = mx(W - 8 - 4 * (bw + gap)), mx(W - 8 - 2 * (bw + gap) + bw)
+    b.append(f'<path d="M{xa},142 v10 H{xb} v-10" fill="none" stroke="{CYAN_INK}" stroke-width="1.5"/>')
+    b.append(T((xa + xb) / 2, 176, 'كل مشهد يضيف معلومة أو شعورًا، وإلا يُحذف', 10.5, 700, CYAN_INK))
+    b.append(T(mx(W - 8), 30, 'خريطة الحلقة · تُكتب قبل الكاميرا', 11, 700, COPPER_INK, ma('right')))
+    b.append(T(mx(8), 30, 'الاتجاه: من اليمين إلى اليسار', 9.5, 500, SLATE, ma('left')))
+    return svg(W, H, ''.join(b), 'خريطة الحلقة من جملة الفكرة إلى الخاتمة')
+
+
+def fov_focal():
+    """Horizontal angle of view for full-frame-equivalent focal lengths, computed from 2·atan(36 / 2f)."""
+    W, H = 600, 300
+    b = []
+    cx, cy, R = 300, 268, 230
+    fls = [(14, '#3F6597'), (24, '#355785'), (35, '#2C4A73'), (50, '#1D3150'), (85, COPPER_INK)]
+    for f, c in fls:
+        a = math.degrees(2 * math.atan(36 / (2 * f)))
+        a0, a1 = math.radians(-90 - a / 2), math.radians(-90 + a / 2)
+        x0, y0 = cx + R * math.cos(a0), cy + R * math.sin(a0)
+        x1, y1 = cx + R * math.cos(a1), cy + R * math.sin(a1)
+        big = 1 if a > 180 else 0
+        b.append(f'<path d="M{cx},{cy} L{x0:.1f},{y0:.1f} A{R},{R} 0 {big} 1 {x1:.1f},{y1:.1f} Z" fill="{c}" fill-opacity=".14" stroke="{c}" stroke-width="1.4"/>')
+        if f == 85:
+            b.append(T(x0 - 4, y0 - 6, f'{f}mm · {a:.0f}°', 10.5, 800, c, 'right'))
+        else:
+            b.append(T(x1 + 4, y1 - 6 if f > 14 else y1 + 4, f'{f}mm · {a:.0f}°', 10.5, 800, c, 'left'))
+    b.append(f'<rect x="{cx-14}" y="{cy-6}" width="28" height="18" rx="3" fill="{INK}"/>')
+    b.append(T(cx, 296, f'زاوية الرؤية الأفقية لمستشعر كامل الإطار (36 مم): {ltr("2·atan(36 ÷ 2f)")}', 10.5, 600, SLATE))
+    return svg(W, H, ''.join(b), 'زاوية الرؤية الأفقية لأبعاد بؤرية مكافئة من 14 إلى 85 مم')
+
+
+def composition_grid():
+    W, H = 290, 250
+    b = []
+    fx, fy, fw, fh = 15, 20, 260, 146
+    b.append(f'<rect x="{fx}" y="{fy}" width="{fw}" height="{fh}" fill="{PAPER2}" stroke="{INK}" stroke-width="1.4"/>')
+    for i in (1, 2):
+        b.append(f'<line x1="{fx+fw*i/3:.1f}" y1="{fy}" x2="{fx+fw*i/3:.1f}" y2="{fy+fh}" stroke="{COPPER_INK}" stroke-width="1" stroke-dasharray="4 3"/>')
+        b.append(f'<line x1="{fx}" y1="{fy+fh*i/3:.1f}" x2="{fx+fw}" y2="{fy+fh*i/3:.1f}" stroke="{COPPER_INK}" stroke-width="1" stroke-dasharray="4 3"/>')
+    px = fx + fw / 3
+    b.append(f'<circle cx="{px:.1f}" cy="{fy+46}" r="17" fill="{NAVY}"/><path d="M{px-32:.1f},{fy+fh} Q{px:.1f},{fy+62} {px+32:.1f},{fy+fh} Z" fill="{NAVY}"/>')
+    b.append(f'<line x1="{px+20:.1f}" y1="{fy+46}" x2="{fx+fw-12}" y2="{fy+46}" stroke="{CYAN_INK}" stroke-width="1.4" stroke-dasharray="2 3"/>')
+    b.append(T(fx + fw - 14, fy + 40, 'مساحة النظر', 10, 700, CYAN_INK, 'right'))
+    b.append(f'<line x1="{px-24:.1f}" y1="{fy+3}" x2="{px-24:.1f}" y2="{fy+27}" stroke="{WARN}" stroke-width="1.4"/>')
+    b.append(T(px - 28, fy + 18, 'هامش الرأس', 9.5, 700, WARN, 'right'))
+    b.append(T(145, 186, 'العينان قرب الخط الأفقي العلوي', 10.5, 600, INK))
+    b.append(T(145, 204, 'والنظر يتجه نحو المساحة الأوسع', 10.5, 600, INK))
+    b.append(T(145, 232, 'نقطة بداية، لا قانون: التمركز يناسب الحديث المباشر', 9.5, 500, SLATE))
+    return svg(W, H, ''.join(b), 'شبكة الأثلاث ومساحة النظر وهامش الرأس')
+
+
+def eq_voice():
+    """Speech EQ map on a log frequency axis (20 Hz – 20 kHz)."""
+    W, H = 600, 250
+    x0, x1 = 30, 590
+    X = lambda f: x0 + (math.log10(f) - math.log10(20)) / 3 * (x1 - x0)
+    b = []
+    bands = [(20, 80, 'قص منخفض HPF', 'ضجيج المكيف والطاولة', WARN), (180, 450, 'الامتلاء/الطين', 'خفّض قليلًا إن بدا الصوت مكتومًا', '#356D8C'),
+             (2000, 5000, 'الوضوح', 'رفع خفيف يحسن فهم الكلام', CYAN_INK), (5000, 9000, 'السين والشين', 'De-esser عند اللزوم', COPPER_INK)]
+    for i, (a, z, t, s, c) in enumerate(bands):
+        y = 26 + i * 38
+        b.append(f'<rect x="{X(a):.1f}" y="{y}" width="{X(z)-X(a):.1f}" height="30" rx="5" fill="{c}" fill-opacity=".18" stroke="{c}" stroke-width="1.3"/>')
+        b.append(T(X(z) + 8, y + 20, t + ' · ' + s, 10.2, 700, c, 'left') if i == 0 else T(X(a) - 8, y + 20, t + ' · ' + s, 10.2, 700, c, 'right'))
+    b.append(f'<line x1="{x0}" y1="186" x2="{x1}" y2="186" stroke="{INK}" stroke-width="1.2"/>')
+    for f, l in ((20, '20'), (50, '50'), (100, '100'), (200, '200'), (500, '500'), (1000, '1k'), (2000, '2k'), (5000, '5k'), (10000, '10k'), (20000, '20k')):
+        b.append(f'<line x1="{X(f):.1f}" y1="182" x2="{X(f):.1f}" y2="190" stroke="{INK}"/>')
+        b.append(T(X(f), 204, l, 9.5, 600, SLATE))
+    b.append(T(300, 224, 'التردد (Hz) بمقياس لوغاريتمي · النطاقات تقريبية وتختلف حسب الصوت والميكروفون', 10, 600, SLATE))
+    b.append(T(300, 244, 'استمع قبل أن تحرك أي نطاق، وقارن مع تجاوز المعالجة', 10, 700, INK))
+    return svg(W, H, ''.join(b), 'خريطة تقريبية لنطاقات معادلة الكلام')
+
+
+def story_beats():
+    W, H = 600, 200
+    b = []
+    beats = [('المشكلة', 'ما الذي لا يعمل؟', 18), ('ما على المحك', 'لماذا يهم المشاهد؟', 16), ('المحاولة', 'التجربة أو الشرح', 30), ('النتيجة', 'ماذا تغيّر فعلًا', 22), ('الحدود', 'ما لا نستطيع الجزم به', 14)]
+    x = W - 10
+    total = sum(w for *_, w in beats)
+    cols = ['#16263E', '#24405F', '#2E5778', CYAN_INK, COPPER_INK]
+    for i, (a, s, w) in enumerate(beats):
+        bw = (W - 20) * w / total
+        X = mx(x - bw, bw - 3)
+        b.append(f'<rect x="{X:.1f}" y="50" width="{bw-3:.1f}" height="66" rx="6" fill="{cols[i]}"/>')
+        cx = X + (bw - 3) / 2
+        b.append(T(cx, 80, a, 11.5, 700, WHITE))
+        b.append(T(cx, 100, s, 9.2, 500, '#DCE3EC'))
+        b.append(T(cx, 136, f'≈ {w}%', 10, 700, SLATE))
+        x -= bw
+    b.append(T(mx(W - 10), 30, 'بنية قابلة للتطبيق على فيديو تعليمي قصير', 11, 700, COPPER_INK, ma('right')))
+    b.append(T(300, 172, 'النسب تقريبية لريل 45–60 ثانية؛ الوضوح أهم من الدراما', 10, 600, SLATE))
+    return svg(W, H, ''.join(b), 'خمس نبضات لقصة فيديو تعليمي')
+
+
+def davinci_pages():
+    W, H = 600, 210
+    b = [arrow_defs(SLATE, 'dp')]
+    pages = [('Media', 'الاستيراد والتنظيم'), ('Cut', 'تجميع سريع'), ('Edit', 'المونتاج الدقيق'), ('Fusion', 'رسوم وعناصر'),
+             ('Color', 'تصحيح وتلوين'), ('Fairlight', 'الصوت'), ('Deliver', 'التصدير')]
+    bw, gap, x = 78, 7, 8
+    for i, (en, ar) in enumerate(pages):
+        f = NAVY if en in ('Media', 'Edit', 'Color', 'Fairlight', 'Deliver') else '#3F6597'
+        b.append(f'<rect x="{x}" y="60" width="{bw}" height="62" rx="7" fill="{f}"/>')
+        b.append(T(x + bw / 2, 86, en, 12, 800, COPPER))
+        b.append(T(x + bw / 2, 106, ar, 9.6, 600, WHITE))
+        if i:
+            b.append(f'<line x1="{x-gap+1}" y1="91" x2="{x-1}" y2="91" stroke="{SLATE}" stroke-width="1.2" marker-end="url(#dp)"/>')
+        x += bw + gap
+    b.append(T(8, 36, 'صفحات DaVinci Resolve كما تظهر في الشريط السفلي، من اليسار إلى اليمين', 10.5, 700, INK, 'left'))
+    b.append(T(300, 152, 'الصفحات الداكنة هي المسار الأساسي في هذا الكتاب؛ Cut وFusion اختياريتان', 10, 600, SLATE))
+    b.append(T(300, 172, 'المشروع واحد: أي تعديل في صفحة يظهر في الصفحات الأخرى', 10, 600, SLATE))
+    return svg(W, H, ''.join(b), 'صفحات DaVinci Resolve السبع ودور كل صفحة')
+
+
+def safe_zone():
+    W, H = 290, 300
+    b = []
+    fw, fh = 150, 266
+    fx, fy = (W - fw) / 2, 14
+    b.append(f'<rect x="{fx}" y="{fy}" width="{fw}" height="{fh}" rx="10" fill="{NAVY}"/>')
+    b.append(f'<rect x="{fx}" y="{fy}" width="{fw}" height="{fh*.12:.1f}" rx="10" fill="{WARN}" fill-opacity=".35"/>')
+    b.append(f'<rect x="{fx}" y="{fy+fh*.72:.1f}" width="{fw}" height="{fh*.28:.1f}" rx="10" fill="{WARN}" fill-opacity=".35"/>')
+    b.append(f'<rect x="{fx+fw*.84:.1f}" y="{fy+fh*.40:.1f}" width="{fw*.16:.1f}" height="{fh*.32:.1f}" fill="{WARN}" fill-opacity=".35"/>')
+    b.append(f'<rect x="{fx+fw*.08:.1f}" y="{fy+fh*.16:.1f}" width="{fw*.72:.1f}" height="{fh*.52:.1f}" rx="4" fill="none" stroke="{CYAN}" stroke-width="1.6" stroke-dasharray="5 3"/>')
+    b.append(T(W / 2, fy + fh * .43, 'منطقة آمنة', 12, 700, CYAN))
+    b.append(T(W / 2, fy + fh * .43 + 17, 'للنص المهم', 10.5, 600, WHITE))
+    b.append(T(W / 2, fy + fh * .08, 'عناصر المنصة', 9.2, 700, WHITE))
+    b.append(T(W / 2, fy + fh * .86, 'الوصف والأزرار', 9.2, 700, WHITE))
+    b.append(T(W / 2, 296, '9:16 · المساحات الحمراء تقريبية وتختلف بين المنصات', 9.6, 600, SLATE))
+    return svg(W, H, ''.join(b), 'منطقة النص الآمنة في فيديو عمودي 9:16')
+
+
+def ai_workflow():
+    W, H = 600, 250
+    b = [arrow_defs(INK, 'aw')]
+    steps = ['فكرة', 'مصادر', 'مخطط', 'سيناريو', 'قائمة لقطات', 'تصوير', 'تحرير', 'مراجعة حقائق', 'نشر', 'تحليل', 'تحسين']
+    human = {1, 7, 8}
+    ai = {0, 2, 3, 4, 9}
+    n = len(steps)
+    for i, s in enumerate(steps):
+        row, col = divmod(i, 6)
+        x = mx(W - 62 - col * 96 if row == 0 else 58 + col * 96)
+        y = 70 if row == 0 else 160
+        f = COPPER if i in human else (CYAN if i in ai else WHITE)
+        b.append(f'<rect x="{x-44}" y="{y-20}" width="88" height="40" rx="8" fill="{f}" fill-opacity="{.9 if f != WHITE else 1}" stroke="{INK}" stroke-width="1.2"/>')
+        b.append(T(x, y - 3, f'{i+1}', 9, 800, INK))
+        b.append(T(x, y + 13, s, 10.2, 700, INK))
+        if i and i != 6:
+            if (row == 0) != (LANG != 'ar'):
+                b.append(f'<line x1="{x+96-45}" y1="{y}" x2="{x+45.5}" y2="{y}" stroke="{INK}" stroke-width="1.2" marker-end="url(#aw)"/>')
+            else:
+                b.append(f'<line x1="{x-96+45}" y1="{y}" x2="{x-45.5}" y2="{y}" stroke="{INK}" stroke-width="1.2" marker-end="url(#aw)"/>')
+    b.append(f'<line x1="{mx(58)}" y1="91" x2="{mx(58)}" y2="139" stroke="{INK}" stroke-width="1.3" marker-end="url(#aw)"/>')
+    for bx, label, col in ((420, 'يساعد فيه الذكاء الاصطناعي', CYAN), (210, 'قرار بشري لا يُفوَّض', COPPER)):
+        b.append(f'<rect x="{mx(bx, 14)}" y="214" width="14" height="14" rx="3" fill="{col}"/>')
+        b.append(T(mx(bx - 6), 226, label, 10, 600, INK, ma('right')))
+    b.append(T(mx(W - 14), 26, 'سير عمل من 11 خطوة · السطر الأول من اليمين، والثاني من اليسار', 10.5, 700, COPPER_INK, ma('right')))
+    return svg(W, H, ''.join(b), 'سير عمل المحتوى من الفكرة إلى التحسين مع مواضع الذكاء الاصطناعي والمراجعة البشرية')
+
+
+def trust_questions():
+    W, H = 600, 230
+    b = []
+    qs = [('لمن هذا المنتج؟', 'ولمن لا يناسب', NAVY), ('ماذا ستتعلم بالضبط؟', 'المخرجات القابلة للتقييم', '#24405F'),
+          ('أين الدليل؟', 'عينات حقيقية من المحتوى', '#2E5778'), ('ما حدود النتيجة؟', 'ما لا يعدك به المنتج', COPPER_INK)]
+    for i, (q, s, c) in enumerate(qs):
+        col, row = i % 2, i // 2
+        x = W - 10 - (col + 1) * 290 + (0 if col else 0)
+        y = 34 + row * 92
+        X = mx(x, 282)
+        b.append(f'<rect x="{X}" y="{y}" width="282" height="82" rx="8" fill="{c}"/>')
+        b.append(T(mx(x + 262), y + 34, f'{i+1}', 22, 800, COPPER if c != COPPER_INK else IVORY, ma('right')))
+        b.append(T(mx(x + 236), y + 34, q, 13, 700, WHITE, ma('right')))
+        b.append(T(mx(x + 236), y + 58, s, 10.5, 500, '#DCE3EC', ma('right')))
+    b.append(T(mx(W - 10), 20, 'أربعة أسئلة يجيب عنها كل عرض صادق قبل السعر', 11, 700, COPPER_INK, ma('right')))
+    return svg(W, H, ''.join(b), 'أربعة أسئلة ثقة قبل البيع')
+
+
+def weeks_plan():
+    W, H = 600, 240
+    b = []
+    weeks = [('الأسبوع 1', 'الأساس', ['موضوع وجمهور', 'اختبارات الكاميرا', 'الصوت والإضاءة', 'سجل الإعدادات']),
+             ('الأسبوع 2', 'الكتابة', ['3 حلقات قصيرة', 'قائمة لقطات', 'نسختان من افتتاحية', 'مراجعة ادعاءات']),
+             ('الأسبوع 3', 'الإنتاج', ['تصوير ومونتاج', 'موازنة الصوت', 'تصحيح اللون', 'مراجعة على الهاتف']),
+             ('الأسبوع 4', 'النشر والتعلم', ['جدول نشر واقعي', 'تسجيل النتائج', 'تقرير تعلم', 'إعادة أفضل فكرة'])]
+    cw = 140
+    for i, (w, t, items) in enumerate(weeks):
+        x = mx(W - 8 - (i + 1) * (cw + 6) + 6, cw)
+        b.append(f'<rect x="{x}" y="14" width="{cw}" height="56" rx="7" fill="{NAVY if i < 3 else COPPER_INK}"/>')
+        b.append(T(x + cw / 2, 38, w, 12, 700, COPPER if i < 3 else IVORY))
+        b.append(T(x + cw / 2, 58, t, 10.5, 600, WHITE))
+        for j, it in enumerate(items):
+            y = 82 + j * 36
+            b.append(f'<rect x="{x}" y="{y}" width="{cw}" height="30" rx="5" fill="{WHITE}" stroke="{RULE}"/>')
+            bx = x + cw - 20 if LANG == 'ar' else x + 8
+            b.append(f'<rect x="{bx}" y="{y+9}" width="12" height="12" rx="2" fill="none" stroke="{INK}" stroke-width="1.2"/>')
+            b.append(T(x + cw - 26 if LANG == 'ar' else x + 26, y + 20, it, 10, 600, INK, ma('right')))
+    return svg(W, H, ''.join(b), 'خطة مشروع التخرج في أربعة أسابيع')
+
+
+def automation_gate():
+    W, H = 600, 230
+    b = [arrow_defs(INK, 'ag')]
+    nodes = [('نموذج طلب', 'Form / Sheet', WHITE), ('تخزين', 'جدول الأفكار', WHITE), ('مسودة AI', 'Groq أو غيره', '#CFE9EE'),
+             ('مراجعة بشرية', 'موافقة أو رفض', COPPER), ('أرشيف', 'المسودة + السجل', WHITE)]
+    bw, gap = 104, 14
+    x = W - 8 - bw
+    for i, (a, s, f) in enumerate(nodes):
+        X = mx(x, bw)
+        b.append(f'<rect x="{X}" y="60" width="{bw}" height="62" rx="8" fill="{f}" stroke="{INK}" stroke-width="{2 if f == COPPER else 1.2}"/>')
+        b.append(T(X + bw / 2, 86, a, 11.5, 700, INK))
+        b.append(T(X + bw / 2, 106, s, 9.6, 500, SLATE if f == WHITE else INK))
+        if i:
+            x1, x2 = (X - gap + 1, X - 1.5) if LANG != 'ar' else (X + bw + gap - 1, X + bw + 1.5)
+            b.append(f'<line x1="{x1}" y1="91" x2="{x2}" y2="91" stroke="{INK}" stroke-width="1.3" marker-end="url(#ag)"/>')
+        x -= bw + gap
+    gx = mx(W - 8 - 3 * (bw + gap) + bw / 2)  # under the review node
+    b.append(f'<line x1="{gx}" y1="124" x2="{gx}" y2="158" stroke="{WARN}" stroke-width="1.6" marker-end="url(#ag)"/>')
+    b.append(f'<rect x="{gx-96}" y="160" width="192" height="34" rx="6" fill="{WARN}" fill-opacity=".12" stroke="{WARN}"/>')
+    b.append(T(gx, 182, 'عند الرفض: سجل خطأ + إشعار، دون نشر', 10, 700, WARN))
+    b.append(T(mx(W - 8), 30, 'n8n كمنسق: لا شيء يُنشر قبل نقطة المراجعة البشرية', 11, 700, COPPER_INK, ma('right')))
+    b.append(T(300, 222, 'مفاتيح API تُحفظ في بيانات الاعتماد داخل n8n، ولا تُكتب داخل العقد أو تُشارك مع الملف', 10, 600, SLATE))
+    return svg(W, H, ''.join(b), 'سير أتمتة آمن بنقطة موافقة بشرية قبل أي نشر')
+
+
+ALL.update(episode_map=episode_map, fov_focal=fov_focal, composition_grid=composition_grid, eq_voice=eq_voice,
+           story_beats=story_beats, davinci_pages=davinci_pages, safe_zone=safe_zone, ai_workflow=ai_workflow,
+           trust_questions=trust_questions, weeks_plan=weeks_plan, automation_gate=automation_gate)
+
+
+def _opener_art(body):
+    return f'<svg class="art" viewBox="0 0 600 850" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%">{body}</svg>'
+
+
+def opener_rings():
+    """Aperture rings (cover A motif) for units without a subject-specific opener."""
+    b = []
+    for i, r in enumerate((420, 340, 260, 180)):
+        b.append(f'<circle cx="80" cy="200" r="{r}" fill="none" stroke="{COPPER if i == 1 else "#FFFFFF"}" stroke-opacity="{.45 if i == 1 else .07}" stroke-width="{1.8 if i == 1 else 1.2}"/>')
+    return _opener_art(''.join(b))
+
+
+def opener_grid():
+    b = [f'<line x1="{x}" y1="0" x2="{x}" y2="850" stroke="#FFFFFF" stroke-opacity=".07"/>' for x in (200, 400)]
+    b += [f'<line x1="0" y1="{y}" x2="600" y2="{y}" stroke="#FFFFFF" stroke-opacity=".07"/>' for y in (283, 566)]
+    b.append(f'<circle cx="200" cy="283" r="34" fill="none" stroke="{COPPER}" stroke-opacity=".55" stroke-width="1.8"/>')
+    return _opener_art(''.join(b))
+
+
+def opener_wave():
+    pts = ' '.join(f'{x},{230 + 70 * math.sin(x / 23) * math.exp(-((x - 300) / 190) ** 2):.1f}' for x in range(0, 601, 4))
+    return _opener_art(f'<polyline points="{pts}" fill="none" stroke="{CYAN}" stroke-opacity=".55" stroke-width="2"/>'
+                       f'<line x1="0" y1="230" x2="600" y2="230" stroke="#FFFFFF" stroke-opacity=".08"/>')
+
+
+def opener_timeline():
+    b = []
+    for i, (y, segs) in enumerate(((520, [(0, 210), (216, 380), (386, 600)]), (560, [(0, 140), (146, 330), (336, 600)]), (600, [(0, 260), (266, 600)]))):
+        for a, z in segs:
+            b.append(f'<rect x="{a}" y="{y}" width="{z-a}" height="26" rx="4" fill="{COPPER if i == 1 else "#FFFFFF"}" fill-opacity="{.22 if i == 1 else .06}"/>')
+    b.append(f'<line x1="330" y1="495" x2="330" y2="650" stroke="{CYAN}" stroke-opacity=".6" stroke-width="2"/>')
+    return _opener_art(''.join(b))
+
+
+def opener_frame():
+    return _opener_art(f'<rect x="40" y="470" width="110" height="196" rx="12" fill="none" stroke="{COPPER}" stroke-opacity=".45" stroke-width="1.8"/>'
+                       f'<rect x="54" y="502" width="82" height="104" rx="3" fill="none" stroke="#FFFFFF" stroke-opacity=".12" stroke-dasharray="5 4"/>')
+
+
+def opener_nodes():
+    pts = [(90, 120), (210, 200), (120, 300), (260, 330), (180, 430), (330, 160)]
+    b = [f'<line x1="{a[0]}" y1="{a[1]}" x2="{c[0]}" y2="{c[1]}" stroke="#FFFFFF" stroke-opacity=".1"/>' for a, c in zip(pts, pts[1:])]
+    b += [f'<circle cx="{x}" cy="{y}" r="{9 if i != 3 else 14}" fill="{CYAN if i != 3 else COPPER}" fill-opacity="{.5 if i != 3 else .7}"/>' for i, (x, y) in enumerate(pts)]
+    return _opener_art(''.join(b))
+
+
+ALL.update(opener_rings=opener_rings, opener_grid=opener_grid, opener_wave=opener_wave, opener_timeline=opener_timeline,
+           opener_frame=opener_frame, opener_nodes=opener_nodes)

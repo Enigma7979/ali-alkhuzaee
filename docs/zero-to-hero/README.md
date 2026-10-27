@@ -1,7 +1,7 @@
 # From Zero to Hero — design system and proof pipeline
 
-New edition of the existing Creator Guide product (see `REBRAND_MAP.md`). Arabic master first; English and Russian
-follow after approval. Specs: `products/creator-guide/CLAUDE_REBUILD_BRIEF_AR.md`,
+New edition of the existing Creator Guide product (see `REBRAND_MAP.md`). Arabic master; full English and Russian
+translations of the same book (one product, three PDFs). Specs: `products/creator-guide/CLAUDE_REBUILD_BRIEF_AR.md`,
 `PREMIUM_VISUAL_DESIGN_SPEC.md`, `SAME_PRODUCT_REBRAND_RULES.md`.
 
 ## Where things live
@@ -13,23 +13,30 @@ follow after approval. Specs: `products/creator-guide/CLAUDE_REBUILD_BRIEF_AR.md
 | Diagrams (editable SVG export) | `docs/zero-to-hero/diagrams/*.svg` | open in Illustrator/Figma/Inkscape |
 | Cover concepts | `scripts/zero_to_hero/covers.py` | 3 concepts × ar/en/ru + back cover |
 | Build / render / QA | `build.py`, `render.mjs`, `qa.py` | Chromium via Playwright for Node |
-| **Manuscript pages** | `/mnt/project-files/creator-guide-private/zero-to-hero/pages/*.html` (private) | the repo is public; paid text stays private |
-| Proofs | `/mnt/project-files/creator-guide-private/zero-to-hero/proofs-YYYY-MM-DD/` (private) | review only |
+| **Manuscript pages** | `/mnt/project-files/creator-guide-private/zero-to-hero/pages{,-en,-ru}/*.html` (private) | the repo is public; paid text stays private |
+| Proofs and final PDFs | `/mnt/project-files/creator-guide-private/zero-to-hero/final-YYYY-MM-DD/{ar,en,ru}/` (private) | never in this repo |
 
 `scripts/` and `docs/` are excluded from GitHub Pages by `_config.yml`, so nothing here is published by a merge.
 
 ## Build
 
 ```
-python scripts/zero_to_hero/build.py /mnt/project-files/creator-guide-private/zero-to-hero/pages OUT
-python scripts/zero_to_hero/qa.py OUT
+python scripts/zero_to_hero/build.py /mnt/project-files/creator-guide-private/zero-to-hero/pages OUT/ar ar
+python scripts/zero_to_hero/build.py /mnt/project-files/creator-guide-private/zero-to-hero/pages-en OUT/en en
+python scripts/zero_to_hero/build.py /mnt/project-files/creator-guide-private/zero-to-hero/pages-ru OUT/ru ru
+python scripts/zero_to_hero/qa.py OUT/ar ar   # and en, ru
 ```
 
+English and Russian run longer than Arabic, so a few pages carry `data-fit` (content zoom, floor 0.8).
+`fit.py PAGES OUT STATE.json` sets those values after a build; repeat build + fit until it prints `pending 0`.
+LTR typography overrides live in `build.py` (`LTR_CSS`), diagram labels in `diagram_i18n.json`.
+
 Needs network for Google Fonts. Writes the proof PDF, cover PDF, per-page PNGs, RTL spread sheets, phone previews,
-`ZeroToHero_AR_prompts_sample.md` (copyable prompts) and `qa-report.json`.
+`ZeroToHero_{AR,EN,RU}_prompts.md` (copyable prompts) and `qa-report.json`.
 
 Page source format: each `<section class="pg" data-run="running head" data-id="anchor">` is one B5 page;
-`data-kind="dark"` for a chapter opener, `data-kind="plain"` for no running head. `{{fig:name}}` inserts a diagram.
+`data-kind="dark"` for a chapter opener, `data-kind="plain"` for no running head. `{{fig:name}}` inserts a diagram; `{{page:id}}` becomes the page number of the section with that `data-id` (used by the contents pages).
+The 60-prompt and 40-hook library pages are generated from private data by `creator-guide-private/zero-to-hero/data/gen_library.py PAGES_DIR`.
 The build fails loudly in QA if any element escapes its page frame.
 
 ## Design system

@@ -11,5 +11,6 @@ class Security:
  def __call__(self,request):
   r=self.get_response(request)
   r['Cache-Control']='private, no-store';r['Referrer-Policy']='no-referrer';r['X-Robots-Tag']='noindex, nofollow'
-  r['Content-Security-Policy']="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; script-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'"
+  # form-action also governs the redirect after the checkout POST, so it must list the payment pages.
+  r['Content-Security-Policy']="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; script-src 'self'; frame-ancestors 'none'; form-action 'self' https://checkout.stripe.com https://www.paypal.com https://www.sandbox.paypal.com; base-uri 'self'; object-src 'none'"
   return r

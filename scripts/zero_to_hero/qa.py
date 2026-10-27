@@ -1,6 +1,6 @@
 """Automated QA for From Zero to Hero proofs, plus spread contact sheets and phone-size previews.
 
-python scripts/zero_to_hero/qa.py OUT_DIR   (after build.py PAGES_DIR OUT_DIR)
+python scripts/zero_to_hero/qa.py OUT_DIR [ar|en|ru]   (after build.py PAGES_DIR OUT_DIR [ar|en|ru])
 
 Checks: page count and trim size, font embedding, extractable Arabic text, bookmarks, internal and
 external links (external ones are fetched), raster images, overflow from the render step, document
@@ -12,6 +12,8 @@ from pypdf import PdfReader, PdfWriter
 from PIL import Image, ImageDraw
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import build  # noqa: E402
 PT_PER_MM = 72 / 25.4
 TEXT_PAIRS = {  # (foreground, background, use)
     'ink on ivory (body)': ('#101827', '#F8F7F3'), 'slate on ivory (secondary)': ('#526174', '#F8F7F3'),
@@ -36,12 +38,15 @@ def contrast(a, b):
 
 def set_metadata(pdf, title, lang):
     r = PdfReader(pdf); w = PdfWriter(clone_from=r)
-    w.add_metadata({'/Title': title, '/Author': 'Ali Alkhuzaee', '/Subject': 'From Zero to Hero — review proof', '/Creator': 'scripts/zero_to_hero/build.py'})
+    w.add_metadata({'/Title': title, '/Author': 'Ali Alkhuzaee', '/Subject': 'From Zero to Hero', '/Creator': 'scripts/zero_to_hero/build.py'})
     w._root_object.update({__import__('pypdf').generic.NameObject('/Lang'): __import__('pypdf').generic.TextStringObject(lang)})
     w.write(pdf)
 
 
-def check_pdf(pdf, render):
+WORDS = {'ar': ('التعريض', 'الميكروفون', 'الإضاءة'), 'en': ('exposure', 'microphone', 'lighting'), 'ru': ('экспозиция', 'микрофон', 'освещение')}
+
+
+def check_pdf(pdf, render, lang='ar'):
     r = PdfReader(pdf)
     res = {'file': pdf.name, 'bytes': pdf.stat().st_size, 'pages': len(r.pages)}
     sizes = {(round(float(p.mediabox.width) / PT_PER_MM), round(float(p.mediabox.height) / PT_PER_MM)) for p in r.pages}
@@ -51,7 +56,7 @@ def check_pdf(pdf, render):
     res['fonts_not_embedded'] = [l for l in fonts if l.split()[-5] != 'yes']
     txt = unicodedata.normalize('NFKC', subprocess.run(['pdftotext', str(pdf), '-'], capture_output=True, text=True).stdout)
     res['text_chars'] = len(txt)
-    res['arabic_words_found'] = {w: (w in txt) for w in ('التعريض', 'الميكروفون', 'الإضاءة')}
+    res['words_found'] = {w: (w in txt.lower()) for w in WORDS[lang]}
     # lam-alef: Chromium + these fonts emit the two glyphs so that extractors reverse them (الإ -> اإل). Count it.
     res['lam_alef_reversed_in_extraction'] = len(re.findall('اإل|األ|اآل', txt))
     res['outline_entries'] = len(_flat(r.outline))
@@ -88,8 +93,9 @@ def url_status(u):
         return type(e).__name__
 
 
-def spreads(png_dir, out, first=2):
-    """RTL spreads: even page on the right, the following odd page on the left."""
+def spreads(png_dir, out, first=2, rtl=True):
+    """Spreads: in Arabic (RTL) the even page sits on the right and the following odd page on the left;
+    in English and Russian the even page sits on the left."""
     pages = sorted(png_dir.glob('p*.png'))
     ims = [Image.open(p) for p in pages]
     w, h = ims[0].size
@@ -101,8 +107,10 @@ def spreads(png_dir, out, first=2):
         sheet = Image.new('RGB', (w * 4 + 60, (h + 30) * ((len(chunk) + 1) // 2) + 30), '#C9CCD2')
         for k, (left, right) in enumerate(chunk):
             x, y = 20 + (k % 2) * (w * 2 + 20), 20 + (k // 2) * (h + 30)
+            if not rtl:
+                left, right = right, left
             if left: sheet.paste(left, (x, y))
-            sheet.paste(right, (x + w, y))
+            if right: sheet.paste(right, (x + w, y))
         f = out / f'spreads-{s // per + 1:02d}.png'
         sheet.thumbnail((2600, 2600)); sheet.save(f, optimize=True); sheets.append(f.name)
     return sheets
@@ -112,7 +120,7 @@ def phone(png_dir, out, pages):
     """Simulate a 390-pt-wide phone showing a page fitted to width (status bar + page, no zoom)."""
     files = []
     for n in pages:
-        im = Image.open(png_dir / f'p{n:02d}.png')
+        im = Image.open(png_dir / f'p{n:03d}.png')
         W = 1170  # 390 pt × 3
         im = im.resize((W, round(im.height * W / im.width)), Image.LANCZOS)
         frame = Image.new('RGB', (W + 60, 2532 + 60), '#0B0F17')
@@ -126,20 +134,20 @@ def phone(png_dir, out, pages):
     return files
 
 
-def main(out):
+def main(out, lang='ar'):
     out = Path(out)
     rep = json.loads((out / 'render-report.json').read_text())
-    book = out / 'proof' / 'ZeroToHero_AR_sample-spreads_proof.pdf'
+    book = out / 'proof' / build.book_pdf(lang)
     covers = out / 'covers' / 'ZeroToHero_cover-concepts_review.pdf'
-    set_metadata(book, 'From Zero to Hero — Arabic sample spreads (review proof)', 'ar')
+    set_metadata(book, build.TITLES[lang], lang)
     set_metadata(covers, 'From Zero to Hero — cover concepts (review)', 'ar')
-    qa = {'book': check_pdf(book, rep['book']), 'covers': check_pdf(covers, rep['covers']),
+    qa = {'book': check_pdf(book, rep['book'], lang), 'covers': check_pdf(covers, rep['covers']),
           'contrast': {k: {'ratio': contrast(*v), 'AA_small_text': contrast(*v) >= 4.5} for k, v in TEXT_PAIRS.items()},
-          'contact_sheets': spreads(out / 'proof' / 'png', out / 'proof'),
+          'contact_sheets': spreads(out / 'proof' / 'png', out / 'proof', rtl=lang == 'ar'),
           'phone_previews': phone(out / 'proof' / 'png', out / 'proof', [7, 10, 14, 23])}
     (out / 'qa-report.json').write_text(json.dumps(qa, ensure_ascii=False, indent=1))
     print(json.dumps(qa, ensure_ascii=False, indent=1)[:4000])
 
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(*sys.argv[1:3])

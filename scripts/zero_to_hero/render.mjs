@@ -22,14 +22,24 @@ const report = await page.evaluate(() => {
       const f = fr.getBoundingClientRect();
       if (r.bottom > f.bottom + 1.5 || r.left < f.left - 1.5 || r.right > f.right + 1.5) out.push({ page: i + 1, issue: 'escapes frame', el: el.tagName + '.' + el.className, text: (el.textContent || '').trim().slice(0, 40) });
     });
+    // How much of a scaled (data-fit) page its content fills, to tune the scale.
+    if (fr && fr.hasAttribute('data-fit')) {
+      const f = fr.getBoundingClientRect(), last = [...fr.children].filter(c => c.getBoundingClientRect().height).pop();
+      if (last) out.push({ page: i + 1, issue: 'fit', used: +((last.getBoundingClientRect().bottom - f.top) / f.height).toFixed(3) });
+    }
+    // Diagram labels that run past their own drawing (longer translations).
+    pg.querySelectorAll('.frame svg text').forEach(t => {
+      const r = t.getBoundingClientRect(), s = t.ownerSVGElement.getBoundingClientRect();
+      if (r.width && (r.left < s.left - 1 || r.right > s.right + 1)) out.push({ page: i + 1, issue: 'label outside diagram', text: t.textContent.trim().slice(0, 40) });
+    });
   });
   const fonts = [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family + ' ' + f.weight);
-  return { overflow: out.slice(0, 60), pages: document.querySelectorAll('.page').length, fonts: [...new Set(fonts)] };
+  return { overflow: out.slice(0, 400), pages: document.querySelectorAll('.page').length, fonts: [...new Set(fonts)] };
 });
 if (pdf !== '-') await page.pdf({ path: pdf, preferCSSPageSize: true, printBackground: true, outline: true, tagged: true });
 if (pngDir) {
   const pages = await page.$$('.page');
-  for (let i = 0; i < pages.length; i++) await pages[i].screenshot({ path: `${pngDir}/p${String(i + 1).padStart(2, '0')}.png` });
+  for (let i = 0; i < pages.length; i++) await pages[i].screenshot({ path: `${pngDir}/p${String(i + 1).padStart(3, '0')}.png` });
 }
 console.log(JSON.stringify(report));
 await browser.close();
