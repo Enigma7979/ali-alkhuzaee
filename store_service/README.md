@@ -8,6 +8,18 @@ The observed domain serves GitHub Pages. That platform cannot run this Python se
 
 Preferred same-origin mount: route `/store/` to this service, `/store-static/` to collected Django admin static assets, and keep existing static pages/assets on their current serving path. The existing homepage/Media Kit must remain intact. Do not expose a new domain or change DNS without approval.
 
+## Railway (chosen host)
+
+Ali chose Railway. One web service with Root Directory `store_service` (start and migrate commands in `railway.json`),
+a Railway PostgreSQL database, a Volume mounted at `/data` for the private PDFs, and two cron services running
+`python manage.py send_order_emails` and `python manage.py cleanup_rate_buckets` from the same code.
+Custom domain `store.alialkhuzaee.com` (a CNAME at the DNS provider, only with Ali's approval); the static site stays on GitHub Pages.
+Variables on Railway: `ALLOWED_HOSTS=store.alialkhuzaee.com`, `PUBLIC_ORIGIN=https://store.alialkhuzaee.com`,
+`TRUST_TLS_PROXY=1`, `CLIENT_IP_HEADER=X-Real-IP`, `PRIVATE_PDF_ROOT=/data/pdf`, `PRIVATE_PDF_MANIFEST=/data/pdf/release.json`,
+and the `PG*` values as references to the database service. The site's buy button reads the store origin from
+`STORE_ORIGIN` in `scripts/build_product_pages.py`; `/store/availability/` answers the site origin (`SITE_ORIGIN`) only.
+Django does not serve admin CSS when `STORE_DEBUG=0`; the admin works without it.
+
 ## Development
 
 ```

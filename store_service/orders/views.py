@@ -15,8 +15,13 @@ from .forms import CheckoutForm,RecoveryForm
 from .fulfillment import paid,revoke,validate_stripe,validate_paypal,release_path,VerificationError,digest,grant
 logger=logging.getLogger(__name__)
 def notice(request,key,status=200):return render(request,'orders/notice.html',{'key':key},status=status)
+def client_ip(request):
+ if settings.CLIENT_IP_HEADER:
+  ip=request.META.get('HTTP_'+settings.CLIENT_IP_HEADER.upper().replace('-','_'),'').split(',')[0].strip()
+  if ip:return ip
+ return request.META.get('REMOTE_ADDR','')
 def limit(request,scope,maximum=6):
- key=hashlib.sha256((settings.SECRET_KEY+request.META.get('REMOTE_ADDR','')+scope).encode()).hexdigest();now=timezone.now()
+ key=hashlib.sha256((settings.SECRET_KEY+client_ip(request)+scope).encode()).hexdigest();now=timezone.now()
  with transaction.atomic():
   b,_=RateBucket.objects.get_or_create(key=key,defaults={'expires_at':now+timedelta(minutes=15)})
   RateBucket.objects.filter(key=key,expires_at__lte=now).update(hits=0,expires_at=now+timedelta(minutes=15))
@@ -31,7 +36,10 @@ def ready():
  except VerificationError:return False
  return True
 @require_GET
-def availability(request):return JsonResponse({'available':ready(),'mode':settings.PAYMENT_MODE,'currency':'EUR','amount':299,'languages':['en','ar','ru']})
+def availability(request):
+ r=JsonResponse({'available':ready(),'mode':settings.PAYMENT_MODE,'currency':'EUR','amount':299,'languages':['en','ar','ru']})
+ r['Access-Control-Allow-Origin']=settings.SITE_ORIGIN;r['Vary']='Origin'
+ return r
 @require_http_methods(['GET','POST'])
 def checkout(request):
  if not ready():return notice(request,'unavailable',503)

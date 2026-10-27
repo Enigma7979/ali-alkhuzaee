@@ -28,6 +28,7 @@
  function apply(next){
   lang=LANGS.includes(next)?next:'en';const c=COPY[lang]||{};
   document.querySelectorAll('[data-src-'+lang+']').forEach(el=>{el.src=el.getAttribute('data-src-'+lang)});
+  document.querySelectorAll('[data-href-'+lang+']').forEach(el=>{el.href=el.getAttribute('data-href-'+lang)});
   if(!deck)return;
   deck.querySelectorAll('[data-t]').forEach(el=>{const v=get(c,el.dataset.t);if(typeof v==='string')el.textContent=v});
   deck.querySelectorAll('[data-t-label]').forEach(el=>{const v=get(c,el.dataset.tLabel);if(typeof v==='string')el.setAttribute('aria-label',v)});

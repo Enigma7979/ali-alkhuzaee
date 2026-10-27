@@ -19,8 +19,8 @@
     "inside": "Inside the guide",
     "insideIntro": "Twelve units, then a toolkit: 60 prompt templates, 40 hook examples, five Reel scripts, a weekly plan, DaVinci in eight steps, projects with a 100-point rubric and a troubleshooting appendix.",
     "previewTitle": "Pages from the new edition.",
-    "previewNote": "Sample pages from the Arabic master edition (review proof). English and Russian follow the approved Arabic text.",
-    "previewAlt": "A sample page from the Arabic edition of From Zero to Hero",
+    "previewNote": "Pages from the final edition, in the page language. The book comes in Arabic, English and Russian: 106 pages, PDF.",
+    "previewAlt": "A page from From Zero to Hero",
     "previousSlide": "Previous section",
     "nextSlide": "Next section",
     "presentationTitle": "Twelve units, one practical path.",
@@ -155,7 +155,7 @@
       "Final project and a 30-day plan"
     ],
     "comingSoon": "Coming soon",
-    "comingSoonNote": "The new edition is in review. Purchasing opens after approval."
+    "comingSoonNote": "The book is ready in Arabic, English and Russian. Purchasing opens soon."
   },
   "ar": {
     "navProducts": "المنتجات الرقمية",
@@ -177,8 +177,8 @@
     "inside": "داخل الدليل",
     "insideIntro": "اثنتا عشرة وحدة، ثم مكتبة أدوات: 60 قالب برومبت، و40 مثال افتتاحية، وخمسة سيناريوهات ريلز، وخطة أسبوعية، وDaVinci في ثماني خطوات، ومشاريع بسلم تقييم من 100 نقطة، وملحق للأخطاء والحلول.",
     "previewTitle": "صفحات من الإصدار الجديد.",
-    "previewNote": "صفحات نموذجية من النسخة العربية الأم (نسخة مراجعة). الإنجليزية والروسية تتبعان النص العربي المعتمد.",
-    "previewAlt": "صفحة نموذجية من النسخة العربية من From Zero to Hero",
+    "previewNote": "صفحات من الطبعة النهائية بلغة الصفحة. الكتاب متوفر بالعربية والإنجليزية والروسية، 106 صفحات بصيغة PDF.",
+    "previewAlt": "صفحة من كتاب From Zero to Hero",
     "previousSlide": "القسم السابق",
     "nextSlide": "القسم التالي",
     "presentationTitle": "اثنتا عشرة وحدة، ومسار عملي واحد.",
@@ -313,7 +313,7 @@
       "مشروع التخرج وخطة 30 يومًا"
     ],
     "comingSoon": "قريبًا",
-    "comingSoonNote": "الإصدار الجديد قيد المراجعة. يُفتح الشراء بعد الاعتماد."
+    "comingSoonNote": "الكتاب جاهز بالعربية والإنجليزية والروسية. يُفتح الشراء قريبًا."
   },
   "ru": {
     "navProducts": "Цифровые продукты",
@@ -335,8 +335,8 @@
     "inside": "Внутри руководства",
     "insideIntro": "Двенадцать модулей и набор инструментов: 60 шаблонов промптов, 40 примеров зацепок, пять сценариев Reels, недельный план, DaVinci за восемь шагов, проекты со шкалой на 100 баллов и приложение с ошибками и решениями.",
     "previewTitle": "Страницы нового издания.",
-    "previewNote": "Образцы страниц арабского основного издания (корректура). Английская и русская версии следуют утверждённому арабскому тексту.",
-    "previewAlt": "Образец страницы арабского издания From Zero to Hero",
+    "previewNote": "Страницы итогового издания на языке страницы. Книга доступна на арабском, английском и русском: 106 страниц, PDF.",
+    "previewAlt": "Страница книги From Zero to Hero",
     "previousSlide": "Предыдущий раздел",
     "nextSlide": "Следующий раздел",
     "presentationTitle": "Двенадцать модулей, один практический путь.",
@@ -471,6 +471,6 @@
       "Итоговый проект и план на 30 дней"
     ],
     "comingSoon": "Скоро",
-    "comingSoonNote": "Новое издание на проверке. Покупка откроется после утверждения."
+    "comingSoonNote": "Книга готова на арабском, английском и русском. Покупка откроется скоро."
   }
 }
