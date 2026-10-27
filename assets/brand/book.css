@@ -1,0 +1,97 @@
+
+/* ===== From Zero to Hero identity (assets/brand/book.css, appended to assets/v3/site.css) =====
+   Editorial motifs from the book: the aperture/iris and concentric focus rings of cover A, copper rules
+   (the book's folio mark), flat figure cards with hairline borders, ivory reading pages between navy chapters.
+   Solid colour only: no neon glows, no gradient text. */
+:root{
+ --iris:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-100 -100 200 200'%3E%3Cg fill='none' stroke='%23F8F7F3' stroke-opacity='.07'%3E%3Ccircle r='96'/%3E%3Ccircle r='80'/%3E%3Ccircle r='62'/%3E%3Ccircle r='44'/%3E%3Cpath d='M0-44 38-22M38-22 38 22M38 22 0 44M0 44-38 22M-38 22-38-22M-38-22 0-44M0-44 22-80M38-22 76 0M38 22 22 80M0 44-22 80M-38 22-76 0M-38-22-22-80'/%3E%3C/g%3E%3Cpath d='M-62 0A62 62 0 0 1 0-62' fill='none' stroke='%23E3A86B' stroke-opacity='.55' stroke-width='1.2'/%3E%3Cpath d='M68 34A76 76 0 0 1 34 68' fill='none' stroke='%2325C5D9' stroke-opacity='.45' stroke-width='1'/%3E%3C/svg%3E");
+}
+body{background:var(--b-ink)}
+::selection{background:rgba(227,168,107,.35)}
+:focus-visible{outline-color:var(--b-copper)}
+.paper :focus-visible,.platform-section :focus-visible{outline-color:var(--b-copper-ink)}
+.progress{background:var(--b-copper)}
+.skip-link{color:var(--b-ink);border-radius:var(--b-r-s)}
+
+/* Type: the book's kicker = small caps label after a copper rule */
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--b-copper)}
+.eyebrow::before{content:"";flex:0 0 28px;height:var(--b-accent-w);background:currentColor}
+.paper .eyebrow,.platform-section .eyebrow{color:var(--b-copper-ink)}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em}
+html[lang=ar] :is(h1,h2,h3){font-weight:600}
+.hero h1 em{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--b-copper);font-weight:300}
+.section h2 em{color:var(--b-copper)}
+.paper h2 em{color:var(--b-copper-ink)}
+
+/* Buttons: squared like the book's tags, copper as the single call to action */
+.btn{border-radius:var(--b-r-s);letter-spacing:.01em}
+.btn.primary{background:var(--b-copper);color:var(--b-ink);box-shadow:none}
+.btn.primary:hover{background:var(--b-copper-2)}
+.btn.outline{background:transparent;border-color:rgba(248,247,243,.32)}
+.btn.outline:hover{border-color:var(--b-copper)}
+.paper .btn.outline{background:var(--b-white);border-color:var(--b-rule);color:var(--b-ink)}
+.paper .btn.outline:hover{border-color:var(--b-copper-ink)}
+.paper .btn.text{border-color:var(--b-rule);color:var(--b-copper-ink)}
+.btn.white{background:var(--b-ivory);color:var(--b-ink)}
+
+/* Brand mark: an aperture ring instead of the old blue/violet tile */
+.brand-mark{border-radius:50%;background:var(--b-navy);border:var(--b-accent-w) solid var(--b-copper);color:var(--b-ivory)}
+
+/* Hero: navy night with the iris of cover A */
+.hero,html[dir=rtl] .hero{background:radial-gradient(90% 70% at 80% 20%,var(--b-navy) 0,rgba(22,38,62,0) 60%),var(--b-ink)}
+html[dir=rtl] .hero{background:radial-gradient(90% 70% at 20% 20%,var(--b-navy) 0,rgba(22,38,62,0) 60%),var(--b-ink)}
+.hero::before{content:"";position:absolute;z-index:-1;pointer-events:none;width:min(1100px,120vw);aspect-ratio:1;top:50%;inset-inline-end:-18%;transform:translateY(-50%);background:var(--iris) center/contain no-repeat}
+.hero::after{opacity:.5}
+.cred li::before{border-radius:0;width:8px;height:2px;background:var(--b-copper);box-shadow:none}
+
+/* Viewfinder keeps its 9:16 frame; light becomes warm key light on navy */
+.viewfinder{border-radius:var(--b-r-l);background:radial-gradient(55% 40% at 50% 36%,rgba(227,168,107,.22),transparent 72%),linear-gradient(180deg,var(--b-navy-2),var(--b-ink))}
+.vf-format{color:var(--b-copper)}
+
+/* Sections: navy chapters and ivory reading pages, separated by the book's hairline rule */
+.navy{background:var(--b-navy)}
+.paper{background:var(--b-ivory);border-top:var(--b-rule-w) solid var(--b-rule)}
+.section-heading{position:relative}
+.card-number{color:var(--b-copper)}
+.paper .card-number{color:var(--b-copper-ink)}
+.credentials span::before{color:var(--b-copper-ink)}
+
+/* Cards: flat figure cards with a copper top rule on hover, as in the book's figure frames */
+.expertise-card,.format-card,.why-card,.project-card,.contact-card{background:rgba(16,24,39,.42);border-color:rgba(248,247,243,.12);box-shadow:none}
+.navy :is(.expertise-card,.format-card,.why-card,.project-card){background:rgba(16,24,39,.38)}
+.expertise-card::before,.format-card::before,.why-card::before,.project-card::before{content:"";position:absolute;inset:0 0 auto;height:var(--b-accent-w);background:var(--b-copper);transform:scaleX(0);transform-origin:var(--rule-origin,left);transition:transform .35s var(--ease)}
+html[dir=rtl]{--rule-origin:right}
+.project-card{position:relative;overflow:hidden}
+:is(.expertise-card,.format-card,.why-card,.project-card):hover::before{transform:none}
+:is(.expertise-card,.format-card,.why-card,.project-card):hover{border-color:rgba(227,168,107,.4)}
+.paper .why-card{background:var(--b-white);border-color:var(--b-rule)}
+.cap-icon{border-radius:50%;background:transparent;border-color:rgba(227,168,107,.45);color:var(--b-copper)}
+.workflow-art{background:rgba(16,24,39,.5)}
+.workflow-art b{background:var(--b-copper);color:var(--b-ink);border-color:transparent;border-radius:var(--b-r-s)}
+.language-tile{background:rgba(16,24,39,.45)}
+.language-tile>span{color:var(--b-copper)}
+.work-card:hover .play{background:var(--b-copper);color:var(--b-ink)}
+
+/* Partner band: was electric blue; now a navy chapter opener with the iris */
+.partner-band{position:relative;isolation:isolate;background:var(--b-navy-2)}
+.partner-band::before{content:"";position:absolute;z-index:-1;pointer-events:none;width:min(820px,110vw);aspect-ratio:1;top:50%;inset-inline-end:-12%;transform:translateY(-50%);background:var(--iris) center/contain no-repeat}
+.partner-band::after{content:"";position:absolute;inset:auto 0 0;height:var(--b-accent-w);background:var(--b-copper)}
+
+/* Platforms, contact, footer */
+.platform-grid a{border-radius:var(--b-r-m)}
+.platform-grid a:hover{border-color:var(--b-copper-ink)}
+.contact-section{background:var(--b-ink)}
+.email-link>span{color:var(--b-copper)}
+.footer-brand>span{color:var(--b-copper)}
+.site-footer{border-top:var(--b-accent-w) solid var(--b-copper)}
+.footer-brand>span{display:inline-block;font-size:0;width:.3em;height:.3em;margin-inline-start:.12em;border:.07em solid var(--b-copper);border-radius:50%;vertical-align:.12em}
+
+/* Media Kit portrait: the standing photograph (half-body cutout) under a warm key light, framed by the viewfinder */
+.viewfinder.wide{background:radial-gradient(60% 46% at 50% 30%,rgba(227,168,107,.28),transparent 72%),linear-gradient(180deg,var(--b-navy-2),var(--b-ink) 92%)}
+.viewfinder.wide img.kit-standing{object-fit:contain;object-position:50% 100%;inset:6% 0 0;height:94%}
+.viewfinder.wide::before{background:linear-gradient(180deg,transparent 62%,rgba(16,24,39,.9))}
+
+/* Navigation: the current page carries the copper rule instead of a pill */
+.main-nav a{border-radius:var(--b-r-s)}
+.main-nav a[aria-current]{background:transparent;box-shadow:inset 0 -2px 0 var(--b-copper)}
+#language,.menu-toggle,.pills li,.contact-card-actions a{border-radius:var(--b-r-s)}

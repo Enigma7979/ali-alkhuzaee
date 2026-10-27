@@ -1,4 +1,5 @@
-"""Build the standalone English Media Kit PDF in design system v2 from the current verified website content.
+"""Build the standalone English Media Kit PDF from the current verified website content, in the book identity
+(From Zero to Hero palette via scripts/build_brand_css.py; portrait = the standing photograph, half-body crop).
 
 python scripts/build_media_kit_pdf.py   -> media-kit/Ali-Alkhuzaee-Media-Kit.pdf (two A4 pages, printed with Chromium)
 Metrics stay out of the PDF until dated, sourced data is approved in media-kit/data.json.
@@ -12,13 +13,17 @@ HOME=json.loads((ROOT/'assets/translations.json').read_text())['en']
 COPY=json.loads((ROOT/'media-kit/translations.json').read_text())['en']
 OUT=ROOT/'media-kit/Ali-Alkhuzaee-Media-Kit.pdf'
 MAIL='mailto:ali@alialkhuzaee.com?subject=Brand%20Partnership%20Inquiry%20%E2%80%94%20Ali%20Alkhuzaee'
-FONTS='https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;700&family=JetBrains+Mono:wght@500;600&family=Manrope:wght@400;500;600;700&display=block'
+FONTS='https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@600&family=Noto+Sans+Math&family=Noto+Sans+Symbols+2&display=block'
 JPG=Path(tempfile.gettempdir())/'media-kit-jpg'
-def uri(rel):
+def uri(rel,bg=None):
  # Chromium embeds JPEG as-is but re-encodes WebP losslessly, so photos go in as JPEG to keep the PDF small.
+ # A cutout (RGBA) is flattened onto `bg` first; JPEG has no alpha.
  from PIL import Image
  src=ROOT/rel;dst=JPG/(src.stem+'.jpg');JPG.mkdir(exist_ok=True)
- Image.open(src).convert('RGB').save(dst,quality=86,optimize=True);return dst.as_uri()
+ im=Image.open(src)
+ if bg and im.mode=='RGBA':
+  base=Image.new('RGBA',im.size,bg);base.alpha_composite(im);im=base
+ im.convert('RGB').save(dst,quality=88,optimize=True);return dst.as_uri()
 CSS='''
 @page{size:A4;margin:0}
 *{box-sizing:border-box}
@@ -101,13 +106,43 @@ h2 em{font-style:normal;font-weight:300;color:#56d9ff}
 .contact .mail{display:inline-block;margin-top:3mm;font:600 14pt Geologica;color:#fff}
 .contact .phones{display:flex;gap:8mm;margin-top:3mm;font-size:8.4pt;color:#dde6ff}
 '''
+# Book identity: map the v2 colours with the same table as the website, swap fonts, then the PDF-specific overrides.
+import sys;sys.path.insert(0,str(ROOT/'scripts'))
+from build_brand_css import remap_colours
+CSS=remap_colours(CSS,'media kit pdf').replace('"JetBrains Mono"','"IBM Plex Mono"').replace('Geologica','Manrope')+'''
+body{background:#101827;color:#f8f7f3;font-family:Manrope,"Noto Sans Math","Noto Sans Symbols 2",sans-serif}
+.dark{background:radial-gradient(90% 60% at 85% 10%,#16263e 0,rgba(22,38,62,0) 62%),#101827}
+.dark::before{content:"";position:absolute;width:190mm;height:190mm;right:-70mm;top:-30mm;background:url("IRIS") center/contain no-repeat;pointer-events:none}
+.dark>:not(.foot){position:relative}
+.formats .card h3{font-size:8.2pt}.work{gap:3.4mm}
+.paper{background:#f8f7f3;color:#101827}
+.mark{border-radius:50%;background:#16263e;border:.5mm solid #e3a86b;color:#f8f7f3}
+.top .tag,.label{color:#e3a86b}
+.paper .top .tag,.paper .label,.paper .card b,.short small,.short a,.channels a span,.paper h2 em{color:#8a4f1c}
+.label{display:flex;align-items:center;gap:2.4mm}.label::before{content:"";width:6mm;height:.5mm;background:currentColor}
+h1,h2,h3{font-weight:700}
+.hero h1 em,h2 em{color:#e3a86b}
+.pills span,.chip{border-radius:1mm}
+.vf{border-radius:3mm;background:radial-gradient(60% 46% at 50% 30%,rgba(227,168,107,.3),transparent 72%),#1e2d49;box-shadow:none;border-color:rgba(248,247,243,.18)}
+.vf img{object-fit:cover;object-position:50% 0}
+.facts,.card,.langs div,.short .th,.channels a{border-radius:1.6mm}
+.facts div{background:#16263e}
+.card{background:rgba(22,38,62,.7);border-color:rgba(248,247,243,.13)}
+.paper .card{box-shadow:inset 0 .6mm 0 #e3a86b}
+.langs div{background:rgba(22,38,62,.7)}
+.contact{border-radius:2mm;background:#16263e;border-top:.8mm solid #e3a86b}
+.contact p,.contact .phones{color:#d5dce6}
+.langs span{font-family:Manrope,"IBM Plex Sans Arabic",sans-serif}
+.channels a span,.mail,.short a{font-family:Manrope,"Noto Sans Math","Noto Sans Symbols 2",sans-serif}
+.foot{color:#9fb0c6}.paper .foot{color:#526174}
+'''.replace('IRIS',"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-100 -100 200 200'%3E%3Cg fill='none' stroke='%23F8F7F3' stroke-opacity='.08'%3E%3Ccircle r='96'/%3E%3Ccircle r='80'/%3E%3Ccircle r='62'/%3E%3Ccircle r='44'/%3E%3C/g%3E%3Cpath d='M-62 0A62 62 0 0 1 0-62' fill='none' stroke='%23E3A86B' stroke-opacity='.6' stroke-width='1.2'/%3E%3C/svg%3E")
 def page(cls,tag,body,n):
  return f'<section class="page {cls}"><div class="top"><span class="brand"><span class="mark">A</span>ALI ALKHUZAEE</span><span class="tag">{e(tag)}</span></div>{body}<div class="foot"><a href="https://alialkhuzaee.com">ALIALKHUZAEE.COM</a><span>0{n} / 02</span></div></section>'
 def build_html():
  facts=[('Content focus',HOME['factFocusV']),('Format',HOME['factFormatV']),('Content language',HOME['factLangV']),('Works in','AR · EN · RU'),('Based in',HOME['basedShort']),('Main channels','YouTube · Instagram · TikTok')]
  p1=('<div class="hero"><div><p class="label">'+e(COPY['eyebrow'])+'</p><h1>'+e(COPY['hero'])+'<em>'+e(COPY['name'])+'</em></h1><p class="lead">'+e(COPY['lead'])+'</p><p class="intro">'+e(COPY['intro'])+'</p>'
   '<div class="pills">'+''.join(f'<span>{e(COPY[k])}</span>' for k in ('pill1','pill2','pill3'))+'</div></div>'
-  f'<figure class="vf" style="margin:0"><img src="{uri("assets/portraits/ali-kit-dark-900.webp")}" alt=""><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span class="chip rec">REC</span><span class="chip fmt">9:16 · VERTICAL</span><figcaption><b>ALI ALKHUZAEE</b><span>AI &amp; Tech Creator · N8N Automation Engineer</span><span>{e(HOME["credential"])} · {e(HOME["founder"])}</span></figcaption></figure></div>'
+  f'<figure class="vf" style="margin:0"><img src="{uri("assets/portraits/ali-standing-half-533.webp",(30,45,73,255))}" alt=""><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span class="chip rec">REC</span><span class="chip fmt">9:16 · VERTICAL</span><figcaption><b>ALI ALKHUZAEE</b><span>AI &amp; Tech Creator · N8N Automation Engineer</span><span>{e(HOME["credential"])} · {e(HOME["founder"])}</span></figcaption></figure></div>'
   '<dl class="facts">'+''.join(f'<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>' for k,v in facts)+'</dl>'
   '<div class="block"><p class="label">'+e(COPY['whyLabel'])+'</p><h2>'+e(COPY['why'])+'</h2><div class="why">'+''.join(f'<div class="card"><b>{i+1:02d}</b><h3>{e(t)}</h3><p>{e(d)}</p></div>' for i,(t,d) in enumerate(COPY['whyCards']))+'</div></div>'
   '<div class="block intl"><div><p class="label">'+e(COPY['internationalLabel'])+'</p><h2>'+e(HOME['globalTitle'])+' <em>'+e(HOME['internationalAccent'])+'</em></h2><p>'+e(HOME['globalText'])+'</p><p style="margin-top:2mm">'+e(HOME['globalHistory'])+'</p><p class="loc">'+e(HOME['location'])+'</p></div>'

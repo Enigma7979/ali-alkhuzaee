@@ -3,9 +3,10 @@
 Rule: `products/creator-guide/SAME_PRODUCT_REBRAND_RULES.md`. "From Zero to Hero" is the new edition of the
 existing product **From Zero to AI-Powered Content Creation**. One product, one route, one checkout, three languages.
 
-**Status (2026-10-27): plan only.** Nothing below has been changed yet. The live product page, covers, previews and
-download mappings stay exactly as they are until Ali approves the new Arabic master (rule 6). Each row is applied
-in one review PR after approval, then smoke-tested before any merge.
+**Status (2026-10-27, review branch `feature/digital-products-v1`): applied on the branch, not live.** Rows 1–9 and 12
+are applied on the branch (row 12 by replacing the old deck runtime; `assets/v2/guide.js` itself is kept for the old
+edition). Row 10 (private PDFs) waits for the final approved PDFs; row 11 is unchanged ("coming soon", payments off).
+Nothing reaches the live site until Ali approves a merge to `main`.
 
 ## Stays the same (must not change)
 

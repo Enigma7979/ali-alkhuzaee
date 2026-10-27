@@ -54,3 +54,15 @@ common myth), data table, troubleshooting matrix, numbered tutorial with "why" l
 materials, deliverable, success criterion), checklist, prompt card (copyable text, variables, sample output,
 failure modes, verification), hook card (type, line, first visual proof), chapter opener, TOC with internal links.
 Anything drawn rather than tested carries the "illustrative" label or says so in its caption.
+
+## Website (same identity)
+
+| What | Where |
+|---|---|
+| Shared tokens (book palette, type, radii) | `assets/brand/tokens.css` — `scripts/build_brand_css.py` fails if `design.css` drifts from it |
+| Site CSS in the book identity | `assets/v3/*.css`, generated from `assets/v2/*.css` + `assets/brand/book.css` by `python scripts/build_brand_css.py` |
+| Cover A per language, preview pages | `python scripts/zero_to_hero/site_assets.py [OUT/proof/png]` → `assets/products/cover-v3-*.webp`, `preview-v3-*.webp` |
+| Presentation | copy `deck_copy.py`, markup/diagrams `deck.py` → `assets/products/zth/`; runtime `assets/brand/zth-deck.{js,css}`; map `PRESENTATION_MAP.md` |
+| Diagram labels in EN/RU | `diagram_i18n.json`; `diagrams.render(name, lang)` |
+
+Then `python scripts/build_site.py`, `python scripts/build_product_pages.py`, `python scripts/build_media_kit_pdf.py`.

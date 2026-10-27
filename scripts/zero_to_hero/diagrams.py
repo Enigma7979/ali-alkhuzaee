@@ -4,7 +4,7 @@ Every function returns a standalone <svg> string. Physical values (stops, angles
 are computed here rather than drawn by eye, so the figures stay correct when edited.
 Full-width figures use a 600-unit viewBox (≈142 mm in the book, 1 unit ≈ 0.24 mm); half-width ones use 290.
 """
-import math, re
+import json, math, pathlib, re
 from html import escape
 
 INK, NAVY, CYAN, COPPER, IVORY, SLATE, WHITE, WARN = '#101827', '#16263E', '#25C5D9', '#E3A86B', '#F8F7F3', '#526174', '#FFFFFF', '#B54C43'
@@ -13,8 +13,33 @@ AR_RE = re.compile('[؀-ۿ]')
 AR, LAT = "'IBM Plex Sans Arabic','Noto Sans Math','Noto Sans Symbols 2',sans-serif", "Manrope,'IBM Plex Sans Arabic','Noto Sans Math','Noto Sans Symbols 2',sans-serif"
 
 
+# Language of the labels. The book is drawn in Arabic; the website presentation also needs English and Russian.
+# Translations live in diagram_i18n.json keyed by the Arabic label; a missing one fails loudly.
+LANG = 'ar'
+I18N = json.loads((pathlib.Path(__file__).with_name('diagram_i18n.json')).read_text(encoding='utf-8'))
+
+
+def tr(s):
+    if LANG == 'ar' or not AR_RE.search(s):
+        return s
+    if s not in I18N:
+        raise KeyError(f'diagram label has no {LANG} translation: {s!r}')
+    return I18N[s][LANG]
+
+
+def render(name, lang='ar'):
+    """Draw one diagram in the given language."""
+    global LANG
+    prev, LANG = LANG, lang
+    try:
+        return ALL[name]()
+    finally:
+        LANG = prev
+
+
 def T(x, y, s, size=13, w=500, fill=INK, align='center', font=None, extra=''):
     """Text in physical alignment terms (left/center/right), correct for both Arabic (RTL) and Latin runs."""
+    s = tr(s)
     rtl = bool(AR_RE.search(s))
     anchor = {'center': 'middle', 'right': 'start' if rtl else 'end', 'left': 'end' if rtl else 'start'}[align]
     fam = font or (AR if rtl else LAT)
@@ -28,6 +53,7 @@ def ltr(s):
 
 
 def svg(w, h, body, label):
+    label = tr(label)
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" role="img" aria-label="{escape(label)}">'
             f'<title>{escape(label)}</title>{body}</svg>')
 
@@ -325,20 +351,24 @@ def signal_chain():
     b = [arrow_defs(INK, 'sc')]
     row1 = [('مصدر الصوت', 'الفم والأداء'), ('الغرفة', 'صدى وضجيج'), ('الميكروفون', 'النوع والمسافة'), ('الكسب Gain', 'مستوى الإدخال'), ('التسجيل', 'WAV · 24-bit')]
     row2 = [('تنظيف محافظ', 'ضجيج ثابت فقط'), ('High-pass', 'حوالي 80 Hz للكلام'), ('EQ تصحيحي', 'خفض قبل الرفع'), ('ضغط Compressor', '2:1 إلى 4:1 كبداية'), ('مستوى التسليم', 'LUFS وTrue Peak')]
+    # The chain runs in reading direction: right to left in Arabic, mirrored for English and Russian.
+    m = LANG != 'ar'
+    fx = (lambda x, w=0: W - x - w) if m else (lambda x, w=0: x)
     def row(items, y, title, color):
         bw, gap = 102, 10
-        b.append(T(584, y - 12, title, 11.5, 700, color, 'right'))
+        b.append(T(fx(584), y - 12, title, 11.5, 700, color, 'left' if m else 'right'))
         for i, (a, s) in enumerate(items):
-            x = 584 - (i + 1) * bw - i * gap
+            x = fx(584 - (i + 1) * bw - i * gap, bw)
             b.append(f'<rect x="{x:.1f}" y="{y}" width="{bw}" height="54" rx="6" fill="{WHITE}" stroke="{color}" stroke-width="1.6"/>')
             b.append(T(x + bw / 2, y + 23, a, 11.5, 700, INK))
             b.append(T(x + bw / 2, y + 41, s, 9.6, 500, SLATE))
             if i:
-                b.append(f'<line x1="{x+bw+gap-1:.1f}" y1="{y+27}" x2="{x+bw+1.5:.1f}" y2="{y+27}" stroke="{INK}" stroke-width="1.4" marker-end="url(#sc)"/>')
+                x1, x2 = (x - gap + 1, x - 1.5) if m else (x + bw + gap - 1, x + bw + 1.5)
+                b.append(f'<line x1="{x1:.1f}" y1="{y+27}" x2="{x2:.1f}" y2="{y+27}" stroke="{INK}" stroke-width="1.4" marker-end="url(#sc)"/>')
         return 584 - len(items) * bw - (len(items) - 1) * gap
     endx = row(row1, 30, 'أثناء التسجيل: ما لا يمكن إصلاحه لاحقًا بسهولة', NAVY)
     row(row2, 138, 'بعد التسجيل: معالجة بالترتيب وباعتدال', COPPER_INK)
-    b.append(f'<path d="M{endx+51:.1f},84 v16 H594 V165 H587" fill="none" stroke="{INK}" stroke-width="1.4" marker-end="url(#sc)"/>')
+    b.append(f'<path d="M{fx(endx+51):.1f},84 v16 H{fx(594)} V165 H{fx(587)}" fill="none" stroke="{INK}" stroke-width="1.4" marker-end="url(#sc)"/>')
     # level meter (LTR by convention: dBFS scales run to 0 on the right)
     y, x0, x1 = 244, 40, 560
     X = lambda db: x0 + (db + 48) / 48 * (x1 - x0)
@@ -357,10 +387,10 @@ def signal_chain():
 
 # ---------------------------------------------------------------- story & editing
 def axis_180():
-    W, H = 290, 250
+    W, H = 290, 268
     b = []
     ax, ay, bx, by = 200, 112, 90, 112
-    b.append(f'<path d="M0,112 L290,112 L290,250 L0,250 Z" fill="{CYAN}" opacity=".09"/>')
+    b.append(f'<path d="M0,112 L290,112 L290,268 L0,268 Z" fill="{CYAN}" opacity=".09"/>')
     b.append(f'<line x1="0" y1="112" x2="290" y2="112" stroke="{COPPER_INK}" stroke-width="1.8" stroke-dasharray="7 5"/>')
     b.append(T(286, 104, 'محور الحوار (الخط)', 10.5, 700, COPPER_INK, 'right'))
     for x, y, n in ((ax, ay, 'أ'), (bx, by, 'ب')):
@@ -374,7 +404,7 @@ def axis_180():
     b.append(cam(222, 196, -125, '2', True))
     b.append(cam(145, 214, -90, 'واسعة', True))
     b.append(cam(150, 40, 90, '3 ✕ يعبر الخط', False))
-    b.append(T(145, 245, 'الكاميرات 1 و2 تحافظ على اتجاه النظر', 10.5, 600, CYAN_INK))
+    b.append(T(145, 262, 'الكاميرات 1 و2 تحافظ على اتجاه النظر', 10.5, 600, CYAN_INK))
     return svg(W, H, ''.join(b), 'قاعدة 180 درجة: الكاميرات في جهة واحدة من محور الحوار')
 
 
@@ -407,7 +437,8 @@ def cut_timelines():
     for i, (t, s, a_off, l_off) in enumerate(rows):
         y = 18 + i * 74
         b.append(T(108, y + 18, t, 12, 800, INK, 'right'))
-        b.append(T(108, y + 35, s, 10, 500, SLATE, 'right'))
+        if tr(s) != tr(t):  # in English the gloss would repeat the title
+            b.append(T(108, y + 35, s, 10, 500, SLATE, 'right'))
         b.append(f'<rect x="{x0+8}" y="{y+4}" width="{cut-x0-8}" height="20" rx="3" fill="{NAVY}"/><rect x="{cut}" y="{y+4}" width="{x1-cut}" height="20" rx="3" fill="{COPPER}"/>')
         ac = cut + a_off + l_off
         b.append(f'<rect x="{x0+8}" y="{y+32}" width="{ac-x0-8}" height="18" rx="3" fill="{NAVY}" opacity=".55"/><rect x="{ac}" y="{y+32}" width="{x1-ac}" height="18" rx="3" fill="{COPPER}" opacity=".6"/>')
@@ -537,7 +568,7 @@ def analytics_funnel():
     return svg(W, H, ''.join(b), 'قمع تحليل المحتوى من الظهور إلى العمل، مع سؤال كل مرحلة وما يمكن تجربته')
 
 
-ALL = {k: v for k, v in globals().items() if callable(v) and k not in ('T', 'svg', 'arrow_defs', 'escape', 'ltr') and not k.startswith('_')}
+ALL = {k: v for k, v in globals().items() if callable(v) and k not in ('T', 'svg', 'arrow_defs', 'escape', 'ltr', 'tr', 'render') and not k.startswith('_')}
 
 
 # ---------------------------------------------------------------- chapter opener art (decorative, dark pages)

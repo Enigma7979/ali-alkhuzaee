@@ -20,3 +20,15 @@ for width in [520,900]:
 PRODUCTS=ROOT.parent/'products'
 for lang in ['ar','en','ru']:
  Image.open(PRODUCTS/f'preview-{lang}-1.webp').convert('RGB').crop((72,67,773,1051)).save(PRODUCTS/f'cover-{lang}.webp','WEBP',quality=88,method=6)
+# Half-body Media Kit portrait (book identity, Oct 2026): the standing hero photograph with its reviewed alpha mask,
+# cropped to head-to-jacket-hem and resized only. No retouching, no generated pixels; replaces the pointing photo.
+alpha=Image.open(ROOT/'masks'/'hero-alpha.png').convert('L')
+standing=Image.open(ROOT/'originals'/'hero-original.png').convert('RGBA').resize(alpha.size,Image.Resampling.LANCZOS)
+standing.putalpha(alpha)
+s=alpha.size[0]/1600
+half=standing.crop(tuple(round(v*s) for v in (470,0,1150,850)))
+# The mask is 1254 px, so the crop is 533 x 666 at full resolution; 400 is the small size. Thumbnail never upscales.
+for width in [400,half.size[0]]:
+ derivative=half.copy();derivative.thumbnail((width,width*2));derivative.save(ROOT/f'ali-standing-half-{width}.webp','WEBP',quality=90,method=6)
+# Social card for the Media Kit (og:image): the same standing photograph on its own white background, cropped only.
+Image.open(ROOT/'originals'/'hero-original.png').convert('RGB').crop((40,0,1560,800)).resize((1200,632),Image.Resampling.LANCZOS).save(ROOT/'ali-standing-og.jpg',quality=88,optimize=True,progressive=True)

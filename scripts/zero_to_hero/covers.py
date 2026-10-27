@@ -27,8 +27,8 @@ CSS = '''
 .cover .txt{position:absolute;inset:0;padding:16mm 15mm 15mm;display:flex;flex-direction:column}
 .cover .mark{font:800 41pt/0.92 var(--lat);letter-spacing:-.01em;direction:ltr;text-transform:uppercase}
 .cover .mark em{font-style:normal}
-.cover .sub{font-weight:600;font-size:15pt;line-height:1.4;margin-top:4.5mm}
-.cover .line{font-size:9.6pt;line-height:1.55;margin-top:2.4mm;max-width:118mm;opacity:.86}
+.cover .sub{font-weight:600;font-size:15pt;line-height:1.4;margin-top:4.5mm;text-wrap:balance}
+.cover .line{font-size:9.6pt;line-height:1.55;margin-top:2.4mm;max-width:118mm;opacity:.86;text-wrap:balance}
 .cover .author{font-weight:700;font-size:12pt}
 .cover .ed{font-size:8.6pt;opacity:.8}
 .cover .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:6mm}
