@@ -47,6 +47,15 @@ def T(x, y, s, size=13, w=500, fill=INK, align='center', font=None, extra=''):
     return f'<text x="{x:.1f}" y="{y:.1f}" font-family="{fam}" font-size="{size}" font-weight="{w}" fill="{fill}" text-anchor="{anchor}"{d} {extra}>{escape(s)}</text>'
 
 
+def mx(x, w=0, W=600):
+    """Mirror an x position for left-to-right languages; Arabic figures read right to left."""
+    return W - x - w if LANG != 'ar' else x
+
+
+def ma(align):
+    return {'left': 'right', 'right': 'left'}.get(align, align) if LANG != 'ar' else align
+
+
 def ltr(s):
     """Isolate a left-to-right run (numbers, ranges, formulas) inside Arabic text."""
     return '\u2066' + s + '\u2069'
@@ -568,7 +577,7 @@ def analytics_funnel():
     return svg(W, H, ''.join(b), 'قمع تحليل المحتوى من الظهور إلى العمل، مع سؤال كل مرحلة وما يمكن تجربته')
 
 
-ALL = {k: v for k, v in globals().items() if callable(v) and k not in ('T', 'svg', 'arrow_defs', 'escape', 'ltr', 'tr', 'render') and not k.startswith('_')}
+ALL = {k: v for k, v in globals().items() if callable(v) and k not in ('T', 'svg', 'arrow_defs', 'escape', 'ltr', 'tr', 'render', 'mx', 'ma') and not k.startswith('_')}
 
 
 # ---------------------------------------------------------------- chapter opener art (decorative, dark pages)
@@ -610,20 +619,22 @@ def episode_map():
     bw, gap = 88, 10
     x = W - 8 - bw
     for i, (a, s, f, c) in enumerate(boxes):
-        b.append(f'<rect x="{x}" y="58" width="{bw}" height="74" rx="7" fill="{f}" stroke="{INK}" stroke-width="1.2"/>')
-        b.append(T(x + bw / 2, 86, a, 11.5, 700, c))
+        X = mx(x, bw)
+        b.append(f'<rect x="{X}" y="58" width="{bw}" height="74" rx="7" fill="{f}" stroke="{INK}" stroke-width="1.2"/>')
+        b.append(T(X + bw / 2, 86, a, 11.5, 700, c))
         words = s.split(' ')
         half = len(words) // 2
-        b.append(T(x + bw / 2, 106, ' '.join(words[:half + 1]), 9.2, 500, c if f != WHITE else SLATE))
-        b.append(T(x + bw / 2, 120, ' '.join(words[half + 1:]), 9.2, 500, c if f != WHITE else SLATE))
+        b.append(T(X + bw / 2, 106, ' '.join(words[:half + 1]), 9.2, 500, c if f != WHITE else SLATE))
+        b.append(T(X + bw / 2, 120, ' '.join(words[half + 1:]), 9.2, 500, c if f != WHITE else SLATE))
         if i:
-            b.append(f'<line x1="{x+bw+gap-1}" y1="95" x2="{x+bw+1.5}" y2="95" stroke="{INK}" stroke-width="1.3" marker-end="url(#em)"/>')
+            x1, x2 = (X - gap + 1, X - 1.5) if LANG != 'ar' else (X + bw + gap - 1, X + bw + 1.5)
+            b.append(f'<line x1="{x1}" y1="95" x2="{x2}" y2="95" stroke="{INK}" stroke-width="1.3" marker-end="url(#em)"/>')
         x -= bw + gap
-    xa, xb = W - 8 - 4 * (bw + gap), W - 8 - 2 * (bw + gap) + bw
+    xa, xb = mx(W - 8 - 4 * (bw + gap)), mx(W - 8 - 2 * (bw + gap) + bw)
     b.append(f'<path d="M{xa},142 v10 H{xb} v-10" fill="none" stroke="{CYAN_INK}" stroke-width="1.5"/>')
     b.append(T((xa + xb) / 2, 176, 'كل مشهد يضيف معلومة أو شعورًا، وإلا يُحذف', 10.5, 700, CYAN_INK))
-    b.append(T(W - 8, 30, 'خريطة الحلقة · تُكتب قبل الكاميرا', 11, 700, COPPER_INK, 'right'))
-    b.append(T(8, 30, 'الاتجاه: من اليمين إلى اليسار', 9.5, 500, SLATE, 'left'))
+    b.append(T(mx(W - 8), 30, 'خريطة الحلقة · تُكتب قبل الكاميرا', 11, 700, COPPER_INK, ma('right')))
+    b.append(T(mx(8), 30, 'الاتجاه: من اليمين إلى اليسار', 9.5, 500, SLATE, ma('left')))
     return svg(W, H, ''.join(b), 'خريطة الحلقة من جملة الفكرة إلى الخاتمة')
 
 
@@ -699,12 +710,14 @@ def story_beats():
     cols = ['#16263E', '#24405F', '#2E5778', CYAN_INK, COPPER_INK]
     for i, (a, s, w) in enumerate(beats):
         bw = (W - 20) * w / total
-        b.append(f'<rect x="{x-bw:.1f}" y="50" width="{bw-3:.1f}" height="66" rx="6" fill="{cols[i]}"/>')
-        b.append(T(x - bw / 2, 80, a, 11.5, 700, WHITE))
-        b.append(T(x - bw / 2, 100, s, 9.2, 500, '#DCE3EC'))
-        b.append(T(x - bw / 2, 136, f'≈ {w}%', 10, 700, SLATE))
+        X = mx(x - bw, bw - 3)
+        b.append(f'<rect x="{X:.1f}" y="50" width="{bw-3:.1f}" height="66" rx="6" fill="{cols[i]}"/>')
+        cx = X + (bw - 3) / 2
+        b.append(T(cx, 80, a, 11.5, 700, WHITE))
+        b.append(T(cx, 100, s, 9.2, 500, '#DCE3EC'))
+        b.append(T(cx, 136, f'≈ {w}%', 10, 700, SLATE))
         x -= bw
-    b.append(T(W - 10, 30, 'بنية قابلة للتطبيق على فيديو تعليمي قصير', 11, 700, COPPER_INK, 'right'))
+    b.append(T(mx(W - 10), 30, 'بنية قابلة للتطبيق على فيديو تعليمي قصير', 11, 700, COPPER_INK, ma('right')))
     b.append(T(300, 172, 'النسب تقريبية لريل 45–60 ثانية؛ الوضوح أهم من الدراما', 10, 600, SLATE))
     return svg(W, H, ''.join(b), 'خمس نبضات لقصة فيديو تعليمي')
 
@@ -756,23 +769,22 @@ def ai_workflow():
     n = len(steps)
     for i, s in enumerate(steps):
         row, col = divmod(i, 6)
-        x = W - 62 - col * 96 if row == 0 else 58 + col * 96
+        x = mx(W - 62 - col * 96 if row == 0 else 58 + col * 96)
         y = 70 if row == 0 else 160
         f = COPPER if i in human else (CYAN if i in ai else WHITE)
         b.append(f'<rect x="{x-44}" y="{y-20}" width="88" height="40" rx="8" fill="{f}" fill-opacity="{.9 if f != WHITE else 1}" stroke="{INK}" stroke-width="1.2"/>')
         b.append(T(x, y - 3, f'{i+1}', 9, 800, INK))
         b.append(T(x, y + 13, s, 10.2, 700, INK))
         if i and i != 6:
-            if row == 0:
+            if (row == 0) != (LANG != 'ar'):
                 b.append(f'<line x1="{x+96-45}" y1="{y}" x2="{x+45.5}" y2="{y}" stroke="{INK}" stroke-width="1.2" marker-end="url(#aw)"/>')
             else:
                 b.append(f'<line x1="{x-96+45}" y1="{y}" x2="{x-45.5}" y2="{y}" stroke="{INK}" stroke-width="1.2" marker-end="url(#aw)"/>')
-    b.append(f'<line x1="58" y1="91" x2="58" y2="139" stroke="{INK}" stroke-width="1.3" marker-end="url(#aw)"/>')
-    b.append(f'<rect x="420" y="214" width="14" height="14" rx="3" fill="{CYAN}"/>')
-    b.append(T(414, 226, 'يساعد فيه الذكاء الاصطناعي', 10, 600, INK, 'right'))
-    b.append(f'<rect x="210" y="214" width="14" height="14" rx="3" fill="{COPPER}"/>')
-    b.append(T(204, 226, 'قرار بشري لا يُفوَّض', 10, 600, INK, 'right'))
-    b.append(T(W - 14, 26, 'سير عمل من 11 خطوة · السطر الأول من اليمين، والثاني من اليسار', 10.5, 700, COPPER_INK, 'right'))
+    b.append(f'<line x1="{mx(58)}" y1="91" x2="{mx(58)}" y2="139" stroke="{INK}" stroke-width="1.3" marker-end="url(#aw)"/>')
+    for bx, label, col in ((420, 'يساعد فيه الذكاء الاصطناعي', CYAN), (210, 'قرار بشري لا يُفوَّض', COPPER)):
+        b.append(f'<rect x="{mx(bx, 14)}" y="214" width="14" height="14" rx="3" fill="{col}"/>')
+        b.append(T(mx(bx - 6), 226, label, 10, 600, INK, ma('right')))
+    b.append(T(mx(W - 14), 26, 'سير عمل من 11 خطوة · السطر الأول من اليمين، والثاني من اليسار', 10.5, 700, COPPER_INK, ma('right')))
     return svg(W, H, ''.join(b), 'سير عمل المحتوى من الفكرة إلى التحسين مع مواضع الذكاء الاصطناعي والمراجعة البشرية')
 
 
@@ -785,11 +797,12 @@ def trust_questions():
         col, row = i % 2, i // 2
         x = W - 10 - (col + 1) * 290 + (0 if col else 0)
         y = 34 + row * 92
-        b.append(f'<rect x="{x}" y="{y}" width="282" height="82" rx="8" fill="{c}"/>')
-        b.append(T(x + 262, y + 34, f'{i+1}', 22, 800, COPPER if c != COPPER_INK else IVORY, 'right'))
-        b.append(T(x + 236, y + 34, q, 13, 700, WHITE, 'right'))
-        b.append(T(x + 236, y + 58, s, 10.5, 500, '#DCE3EC', 'right'))
-    b.append(T(W - 10, 20, 'أربعة أسئلة يجيب عنها كل عرض صادق قبل السعر', 11, 700, COPPER_INK, 'right'))
+        X = mx(x, 282)
+        b.append(f'<rect x="{X}" y="{y}" width="282" height="82" rx="8" fill="{c}"/>')
+        b.append(T(mx(x + 262), y + 34, f'{i+1}', 22, 800, COPPER if c != COPPER_INK else IVORY, ma('right')))
+        b.append(T(mx(x + 236), y + 34, q, 13, 700, WHITE, ma('right')))
+        b.append(T(mx(x + 236), y + 58, s, 10.5, 500, '#DCE3EC', ma('right')))
+    b.append(T(mx(W - 10), 20, 'أربعة أسئلة يجيب عنها كل عرض صادق قبل السعر', 11, 700, COPPER_INK, ma('right')))
     return svg(W, H, ''.join(b), 'أربعة أسئلة ثقة قبل البيع')
 
 
@@ -802,15 +815,16 @@ def weeks_plan():
              ('الأسبوع 4', 'النشر والتعلم', ['جدول نشر واقعي', 'تسجيل النتائج', 'تقرير تعلم', 'إعادة أفضل فكرة'])]
     cw = 140
     for i, (w, t, items) in enumerate(weeks):
-        x = W - 8 - (i + 1) * (cw + 6) + 6
+        x = mx(W - 8 - (i + 1) * (cw + 6) + 6, cw)
         b.append(f'<rect x="{x}" y="14" width="{cw}" height="56" rx="7" fill="{NAVY if i < 3 else COPPER_INK}"/>')
         b.append(T(x + cw / 2, 38, w, 12, 700, COPPER if i < 3 else IVORY))
         b.append(T(x + cw / 2, 58, t, 10.5, 600, WHITE))
         for j, it in enumerate(items):
             y = 82 + j * 36
             b.append(f'<rect x="{x}" y="{y}" width="{cw}" height="30" rx="5" fill="{WHITE}" stroke="{RULE}"/>')
-            b.append(f'<rect x="{x+cw-20}" y="{y+9}" width="12" height="12" rx="2" fill="none" stroke="{INK}" stroke-width="1.2"/>')
-            b.append(T(x + cw - 26, y + 20, it, 10, 600, INK, 'right'))
+            bx = x + cw - 20 if LANG == 'ar' else x + 8
+            b.append(f'<rect x="{bx}" y="{y+9}" width="12" height="12" rx="2" fill="none" stroke="{INK}" stroke-width="1.2"/>')
+            b.append(T(x + cw - 26 if LANG == 'ar' else x + 26, y + 20, it, 10, 600, INK, ma('right')))
     return svg(W, H, ''.join(b), 'خطة مشروع التخرج في أربعة أسابيع')
 
 
@@ -822,18 +836,19 @@ def automation_gate():
     bw, gap = 104, 14
     x = W - 8 - bw
     for i, (a, s, f) in enumerate(nodes):
-        b.append(f'<rect x="{x}" y="60" width="{bw}" height="62" rx="8" fill="{f}" stroke="{INK}" stroke-width="{2 if f == COPPER else 1.2}"/>')
-        b.append(T(x + bw / 2, 86, a, 11.5, 700, INK))
-        b.append(T(x + bw / 2, 106, s, 9.6, 500, SLATE if f == WHITE else INK))
+        X = mx(x, bw)
+        b.append(f'<rect x="{X}" y="60" width="{bw}" height="62" rx="8" fill="{f}" stroke="{INK}" stroke-width="{2 if f == COPPER else 1.2}"/>')
+        b.append(T(X + bw / 2, 86, a, 11.5, 700, INK))
+        b.append(T(X + bw / 2, 106, s, 9.6, 500, SLATE if f == WHITE else INK))
         if i:
-            b.append(f'<line x1="{x+bw+gap-1}" y1="91" x2="{x+bw+1.5}" y2="91" stroke="{INK}" stroke-width="1.3" marker-end="url(#ag)"/>')
+            x1, x2 = (X - gap + 1, X - 1.5) if LANG != 'ar' else (X + bw + gap - 1, X + bw + 1.5)
+            b.append(f'<line x1="{x1}" y1="91" x2="{x2}" y2="91" stroke="{INK}" stroke-width="1.3" marker-end="url(#ag)"/>')
         x -= bw + gap
-    gx = W - 8 - 3 * (bw + gap) - bw + bw / 2 + bw  # under the review node
-    gx = W - 8 - 3 * (bw + gap) + bw / 2
+    gx = mx(W - 8 - 3 * (bw + gap) + bw / 2)  # under the review node
     b.append(f'<line x1="{gx}" y1="124" x2="{gx}" y2="158" stroke="{WARN}" stroke-width="1.6" marker-end="url(#ag)"/>')
     b.append(f'<rect x="{gx-96}" y="160" width="192" height="34" rx="6" fill="{WARN}" fill-opacity=".12" stroke="{WARN}"/>')
     b.append(T(gx, 182, 'عند الرفض: سجل خطأ + إشعار، دون نشر', 10, 700, WARN))
-    b.append(T(W - 8, 30, 'n8n كمنسق: لا شيء يُنشر قبل نقطة المراجعة البشرية', 11, 700, COPPER_INK, 'right'))
+    b.append(T(mx(W - 8), 30, 'n8n كمنسق: لا شيء يُنشر قبل نقطة المراجعة البشرية', 11, 700, COPPER_INK, ma('right')))
     b.append(T(300, 222, 'مفاتيح API تُحفظ في بيانات الاعتماد داخل n8n، ولا تُكتب داخل العقد أو تُشارك مع الملف', 10, 600, SLATE))
     return svg(W, H, ''.join(b), 'سير أتمتة آمن بنقطة موافقة بشرية قبل أي نشر')
 

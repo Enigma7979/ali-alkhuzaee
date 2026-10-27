@@ -33,8 +33,10 @@ a.link{color:var(--cyan-ink);border-bottom:.2mm solid currentColor}
 @media screen{.page{margin:8mm auto;box-shadow:0 1mm 6mm rgba(16,24,39,.25)}}
 /* RTL binding: odd pages sit on the LEFT of a spread (spine on their right), even pages on the RIGHT. */
 .page>.frame{position:absolute;top:var(--top);bottom:var(--bottom);display:flex;flex-direction:column}
+.page>.frame>*{flex-shrink:0}
 .page.odd>.frame{right:var(--inner);left:var(--outer)}
 .page.even>.frame{left:var(--inner);right:var(--outer)}
+.frame[data-fit]>*{zoom:var(--fit)}
 .runhead{position:absolute;top:9mm;display:flex;gap:3mm;align-items:center;font:500 7.5pt/1 var(--ar);color:var(--slate)}
 .page.odd .runhead{right:var(--inner);left:var(--outer);justify-content:space-between}
 .page.even .runhead{left:var(--inner);right:var(--outer);justify-content:space-between}
