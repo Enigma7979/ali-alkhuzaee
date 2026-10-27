@@ -164,3 +164,17 @@ ul.dots li::marker{color:var(--copper)}
 .legend{display:grid;grid-template-columns:1fr 1fr;gap:2.4mm}
 .legend div{display:flex;gap:2.4mm;align-items:flex-start;font-size:9pt;line-height:1.5}
 .legend .sw{flex:none;width:8mm;height:8mm;border-radius:1.4mm}
+
+/* ---------- fill-in forms (test card) ---------- */
+table.data.form td{height:13.4mm;vertical-align:middle}
+table.data.form td+td{background:var(--white)!important;border-bottom:.2mm dashed var(--mist)}
+
+/* ---------- compact prompt cards (library) ---------- */
+.prompt.sm{margin:0 0 2.2mm}
+.prompt.sm .bar{padding:1.1mm 2.6mm;font-size:8.8pt}
+.prompt.sm .bar .n{font:800 9pt/1 var(--lat);color:var(--copper);margin-inline-end:2mm}
+.prompt.sm .body{padding:1.6mm 2.6mm 1.8mm}
+.prompt.sm pre{font-size:8.6pt;line-height:1.6;padding:1.6mm 2.4mm;margin:0 0 1.2mm}
+.prompt.sm .pv{display:grid;grid-template-columns:1fr 1fr;gap:2.4mm;font-size:7.9pt;line-height:1.45;margin:0;color:var(--slate)}
+.prompt.sm .pv b{color:var(--copper-ink);font-weight:700}
+.hook .adapt{color:var(--copper-ink);font-size:8pt;line-height:1.45;margin-top:.8mm}

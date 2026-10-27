@@ -26,10 +26,11 @@ python scripts/zero_to_hero/qa.py OUT
 ```
 
 Needs network for Google Fonts. Writes the proof PDF, cover PDF, per-page PNGs, RTL spread sheets, phone previews,
-`ZeroToHero_AR_prompts_sample.md` (copyable prompts) and `qa-report.json`.
+`ZeroToHero_AR_prompts.md` (copyable prompts) and `qa-report.json`.
 
 Page source format: each `<section class="pg" data-run="running head" data-id="anchor">` is one B5 page;
-`data-kind="dark"` for a chapter opener, `data-kind="plain"` for no running head. `{{fig:name}}` inserts a diagram.
+`data-kind="dark"` for a chapter opener, `data-kind="plain"` for no running head. `{{fig:name}}` inserts a diagram; `{{page:id}}` becomes the page number of the section with that `data-id` (used by the contents pages).
+The 60-prompt and 40-hook library pages are generated from private data by `creator-guide-private/zero-to-hero/data/gen_library.py PAGES_DIR`.
 The build fails loudly in QA if any element escapes its page frame.
 
 ## Design system

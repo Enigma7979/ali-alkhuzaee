@@ -1,4 +1,4 @@
-"""Build From Zero to Hero review proofs: cover concepts and the Arabic sample-spread proof.
+"""Build From Zero to Hero review proofs: cover concepts and the full Arabic edition.
 
 python scripts/zero_to_hero/build.py PAGES_DIR OUT_DIR
 
@@ -7,10 +7,10 @@ private project folder (/mnt/project-files/creator-guide-private/zero-to-hero/pa
 
 Writes (all labelled as review proofs; nothing here touches the live product):
   OUT_DIR/covers/covers-concepts.pdf + PNGs of every cover (A/B/C × ar/en/ru) and the back cover
-  OUT_DIR/proof/ZeroToHero_AR_sample-spreads_proof.pdf + p##.png per page
+  OUT_DIR/proof/ZeroToHero_AR_full_review.pdf + p##.png per page, and ZeroToHero_AR_prompts.md (copyable prompts)
   OUT_DIR/diagrams/*.svg (editable vector sources)
 Each <section class="pg"> in a page file becomes one B5 page.
-`{{fig:name}}` inserts a diagram from diagrams.py. Rendering uses Chromium through Playwright for Node,
+`{{fig:name}}` inserts a diagram from diagrams.py; `{{page:id}}` the page number of the section with that data-id. Rendering uses Chromium through Playwright for Node,
 and fonts load from Google Fonts (network required).
 """
 import json, re, subprocess, sys
@@ -24,6 +24,9 @@ FONTS = ('<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@4
          '&family=Manrope:wght@400;500;600;700;800&family=Geologica:wght@400;600;700'
          '&family=Noto+Sans+Math&family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">')
 BOOK = 'FROM ZERO TO HERO'
+# Printed on every text page until Ali approves the edition for sale.
+PROOFMARK = 'نسخة مراجعة · قبل الاعتماد'
+BOOK_PDF = 'ZeroToHero_AR_full_review.pdf'
 
 
 def head(title, extra_css=''):
@@ -47,11 +50,14 @@ def sections():
             yield attrs, m.group(2)
 
 
-def book_html():
+def book_html(title='From Zero to Hero — Arabic edition (review)'):
+    secs = list(sections())
+    # Page numbers for {{page:id}} references (the table of contents): the cover is page 1.
+    nums = {a['id']: n for n, (a, _) in enumerate(secs, 2) if 'id' in a}
+    page_ref = lambda html: re.sub(r'\{\{page:([\w-]+)\}\}', lambda m: str(nums[m.group(1)]), html)
     pages = [covers.cover('A', 'ar')]
-    n = 1
-    for attrs, body in sections():
-        n += 1
+    for n, (attrs, body) in enumerate(secs, 2):
+        body = page_ref(body)
         side = 'odd' if n % 2 else 'even'
         anchor = f' id="{attrs["id"]}"' if 'id' in attrs else ''
         if attrs.get('kind') == 'dark':
@@ -63,9 +69,9 @@ def book_html():
         if attrs.get('kind') == 'plain':
             rh = ''
         pages.append(f'<div class="page {side}"{anchor}>{rh}<div class="frame">{fill(body)}</div>'
-                     f'<div class="proofmark">نسخة مراجعة · غير معتمدة للبيع</div><div class="folio">{n}</div></div>')
+                     f'<div class="proofmark">{PROOFMARK}</div><div class="folio">{n}</div></div>')
     pages.append(covers.back_cover())
-    return head('From Zero to Hero — Arabic sample spreads (review proof)') + ''.join(pages) + '</body></html>'
+    return head(title) + ''.join(pages) + '</body></html>'
 
 
 def covers_html():
@@ -90,13 +96,13 @@ def main(pages, out):
     for k, f in diagrams.ALL.items():
         (out / 'diagrams' / f'{k}.svg').write_text(f())
     rep = {'covers': render(covers_html(), out / 'covers' / 'ZeroToHero_cover-concepts_review.pdf', out / 'covers' / 'png', '1'),
-           'book': render(book_html(), out / 'proof' / 'ZeroToHero_AR_sample-spreads_proof.pdf', out / 'proof' / 'png', '1.5')}
+           'book': render(book_html(), out / 'proof' / BOOK_PDF, out / 'proof' / 'png', '1.5')}
     # Copyable companion: PDF text extraction can reverse lam-alef pairs, so prompts also ship as plain UTF-8 text.
     prompts = []
     for attrs, body in sections():
         for m in re.finditer(r'<div class="bar"><span>(.*?)</span><span class="id">(.*?)</span>.*?<pre>(.*?)</pre>', body, re.S):
             prompts.append(f'## {m.group(2)} · {m.group(1)}\n\n' + re.sub(r'<[^>]+>', '', m.group(3)).strip() + '\n')
-    (out / 'proof' / 'ZeroToHero_AR_prompts_sample.md').write_text('# From Zero to Hero · قوالب البرومبت (عينة)\n\n' + '\n'.join(prompts))
+    (out / 'proof' / 'ZeroToHero_AR_prompts.md').write_text('# From Zero to Hero · قوالب البرومبت\n\n' + '\n'.join(prompts))
     (out / 'render-report.json').write_text(json.dumps(rep, ensure_ascii=False, indent=1))
     print(json.dumps({k: {'pages': v['pages'], 'overflow': len(v['overflow'])} for k, v in rep.items()}))
 

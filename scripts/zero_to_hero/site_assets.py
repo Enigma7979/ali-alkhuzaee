@@ -37,14 +37,14 @@ def main():
         if report['overflow']:
             sys.exit(f'cover overflow: {report["overflow"]}')
         for i, lang in enumerate(LANGS, 1):
-            im = Image.open(pathlib.Path(tmp) / f'p{i:02d}.png').convert('RGB').resize((1000, 1420), Image.Resampling.LANCZOS)
+            im = Image.open(pathlib.Path(tmp) / f'p{i:03d}.png').convert('RGB').resize((1000, 1420), Image.Resampling.LANCZOS)
             im.save(OUT / f'cover-v3-{lang}.webp', 'WEBP', quality=90, method=6)
             print('wrote', (OUT / f'cover-v3-{lang}.webp').relative_to(ROOT))
 
 
 def previews(png_dir):
     for n in PREVIEW_PAGES:
-        im = Image.open(pathlib.Path(png_dir) / f'p{n:02d}.png').convert('RGB')
+        im = Image.open(pathlib.Path(png_dir) / f'p{n:03d}.png').convert('RGB')
         im.resize((540, 767), Image.Resampling.LANCZOS).save(OUT / f'preview-v3-{n}.webp', 'WEBP', quality=88, method=6)
         im.save(OUT / f'preview-v3-{n}-lg.webp', 'WEBP', quality=86, method=6)
         print('wrote preview', n)

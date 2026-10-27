@@ -12,6 +12,8 @@ from pypdf import PdfReader, PdfWriter
 from PIL import Image, ImageDraw
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import build  # noqa: E402
 PT_PER_MM = 72 / 25.4
 TEXT_PAIRS = {  # (foreground, background, use)
     'ink on ivory (body)': ('#101827', '#F8F7F3'), 'slate on ivory (secondary)': ('#526174', '#F8F7F3'),
@@ -112,7 +114,7 @@ def phone(png_dir, out, pages):
     """Simulate a 390-pt-wide phone showing a page fitted to width (status bar + page, no zoom)."""
     files = []
     for n in pages:
-        im = Image.open(png_dir / f'p{n:02d}.png')
+        im = Image.open(png_dir / f'p{n:03d}.png')
         W = 1170  # 390 pt × 3
         im = im.resize((W, round(im.height * W / im.width)), Image.LANCZOS)
         frame = Image.new('RGB', (W + 60, 2532 + 60), '#0B0F17')
@@ -129,9 +131,9 @@ def phone(png_dir, out, pages):
 def main(out):
     out = Path(out)
     rep = json.loads((out / 'render-report.json').read_text())
-    book = out / 'proof' / 'ZeroToHero_AR_sample-spreads_proof.pdf'
+    book = out / 'proof' / build.BOOK_PDF
     covers = out / 'covers' / 'ZeroToHero_cover-concepts_review.pdf'
-    set_metadata(book, 'From Zero to Hero — Arabic sample spreads (review proof)', 'ar')
+    set_metadata(book, 'From Zero to Hero — Arabic edition (review)', 'ar')
     set_metadata(covers, 'From Zero to Hero — cover concepts (review)', 'ar')
     qa = {'book': check_pdf(book, rep['book']), 'covers': check_pdf(covers, rep['covers']),
           'contrast': {k: {'ratio': contrast(*v), 'AA_small_text': contrast(*v) >= 4.5} for k, v in TEXT_PAIRS.items()},

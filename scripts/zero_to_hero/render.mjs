@@ -29,7 +29,7 @@ const report = await page.evaluate(() => {
 if (pdf !== '-') await page.pdf({ path: pdf, preferCSSPageSize: true, printBackground: true, outline: true, tagged: true });
 if (pngDir) {
   const pages = await page.$$('.page');
-  for (let i = 0; i < pages.length; i++) await pages[i].screenshot({ path: `${pngDir}/p${String(i + 1).padStart(2, '0')}.png` });
+  for (let i = 0; i < pages.length; i++) await pages[i].screenshot({ path: `${pngDir}/p${String(i + 1).padStart(3, '0')}.png` });
 }
 console.log(JSON.stringify(report));
 await browser.close();
