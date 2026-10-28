@@ -9,7 +9,7 @@ COPY=json.loads((ROOT/'assets/products/translations.json').read_text());c=COPY['
 def t(k,tag='span',cls=''):return f'<{tag} class="{cls}" data-i18n="{k}">{e(c[k])}</{tag}>'
 def btn(k,url,kind='primary'):return f'<a class="btn {kind}" href="{url}" data-language-route>{t(k)}<span aria-hidden="true">↗</span></a>'
 def header(path,title,desc):
- h=base.head(False).replace('<script src="/assets/site.js?v=v2-1" defer></script>','<script src="/assets/site.js?v=v2-3" defer></script><script src="/assets/products/store.js?v=4" defer></script><link rel="stylesheet" href="/assets/v3/guide.css?v=3"><link rel="stylesheet" href="/assets/v3/deck.css?v=3"><link rel="stylesheet" href="/assets/v3/store.css?v=4"><link rel="stylesheet" href="/assets/brand/zth-deck.css?v=1">')
+ h=base.head(False).replace('<script src="/assets/site.js?v=v2-1" defer></script>','<script src="/assets/site.js?v=v2-4" defer></script><script src="/assets/products/store.js?v=4" defer></script><link rel="stylesheet" href="/assets/v3/guide.css?v=3"><link rel="stylesheet" href="/assets/v3/deck.css?v=3"><link rel="stylesheet" href="/assets/v3/store.css?v=4"><link rel="stylesheet" href="/assets/brand/zth-deck.css?v=1">')
  h=h.replace('data-page="home"','data-page="product"').replace('https://alialkhuzaee.com/?lang=','https://alialkhuzaee.com'+path+'?lang=')
  # Accurate page-specific metadata; shared runtime localizes it.
  import re
