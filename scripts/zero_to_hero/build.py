@@ -18,12 +18,13 @@ import json, re, subprocess, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-import diagrams, covers
+import pdf_fonts, diagrams, covers
 
-FONTS = ('<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800'
+# Every face is inlined as a static, cleaned font (pdf_fonts.py) so text copied from the PDF reads correctly.
+FONTS = ('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800'
          '&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500'
          '&family=Manrope:wght@400;500;600;700;800&family=Geologica:wght@400;600;700'
-         '&family=Noto+Sans+Math&family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">')
+         '&family=Noto+Sans+Math&family=Noto+Sans+Symbols+2&display=swap')
 BOOK = 'FROM ZERO TO HERO'
 LANG = 'ar'
 TITLES = {'ar': 'From Zero to Hero — Arabic edition', 'en': 'From Zero to Hero — English edition', 'ru': 'From Zero to Hero — Russian edition'}
@@ -61,7 +62,7 @@ def book_pdf(lang=None):
 def head(title, extra_css='', lang='ar'):
     css = (HERE / 'design.css').read_text() + covers.CSS + extra_css + ('' if lang == 'ar' else LTR_CSS)
     return (f'<!doctype html><html lang="{lang}" dir="{'rtl' if lang == 'ar' else 'ltr'}"><head><meta charset="utf-8"><title>{title}</title>'
-            f'<meta name="author" content="Ali Alkhuzaee"><meta name="description" content="{title}">{FONTS}<style>{css}</style></head><body>')
+            f'<meta name="author" content="Ali Alkhuzaee"><meta name="description" content="{title}"><style>{pdf_fonts.css(FONTS)}</style><style>{css}</style></head><body>')
 
 
 def fill(html):
