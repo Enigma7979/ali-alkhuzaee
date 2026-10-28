@@ -25,6 +25,7 @@ python scripts/zero_to_hero/build.py /mnt/project-files/creator-guide-private/ze
 python scripts/zero_to_hero/build.py /mnt/project-files/creator-guide-private/zero-to-hero/pages-en OUT/en en
 python scripts/zero_to_hero/build.py /mnt/project-files/creator-guide-private/zero-to-hero/pages-ru OUT/ru ru
 python scripts/zero_to_hero/qa.py OUT/ar ar   # and en, ru
+python scripts/zero_to_hero/text_edition.py OUT/ar ar   # Markdown text of the book, for proofreading and copying
 ```
 
 English and Russian run longer than Arabic, so a few pages carry `data-fit` (content zoom, floor 0.8).
