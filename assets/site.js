@@ -9,7 +9,7 @@
  nav.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();menu.focus()}});
  try{
   const files=await Promise.all(['/assets/translations.json?v=v2-1','/media-kit/data.json?v=short-3',...(kit?['/media-kit/translations.json?v=v2-1']:[])].map(async url=>{const r=await fetch(url);if(!r.ok)throw Error(url);return r.json()}));
-  [translations,data]=files;if(kit)kitCopy=files[2];if(product){const r=await fetch('/assets/products/translations.json?v=4');if(!r.ok)throw Error('product copy');productCopy=await r.json()}
+  [translations,data]=files;if(kit)kitCopy=files[2];if(product){const r=await fetch('/assets/products/translations.json?v=5');if(!r.ok)throw Error('product copy');productCopy=await r.json()}
  }catch{document.documentElement.dataset.translationError='true';return}
  function setLanguage(lang,updateUrl=true){
   if(!supported.includes(lang))lang='en';current=lang;const c={...translations[lang],...(product?productCopy[lang]:{})};if(kit)for(const key of ['eyebrow','hero','name','lead','intro','cta','pill1','pill2','pill3','whyLabel','why','whyIntro','whyCards','formatsLabel','formatsTitle','formatsIntro','formats','statsLabel','statsTitle','statsIntro'])c[key]=kitCopy[lang][key];

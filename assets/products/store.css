@@ -41,3 +41,46 @@ html[lang=ar] .product-hero h1{line-height:1.4}
  .catalog-cover{width:min(70%,240px);margin-inline:auto}
  .chapter-grid{grid-template-columns:1fr}
 }
+/* Sales sections of the product page (landing copy approved 2026-10-28). */
+.narrow{max-width:860px}
+#problem h2,#solution h2,#faq h2{margin-bottom:22px}
+.pain-list,.check-list,.cross-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.pain-list li,.check-list li,.cross-list li{position:relative;padding-inline-start:30px;line-height:1.6}
+.pain-list li::before,.check-list li::before,.cross-list li::before{position:absolute;inset-inline-start:0;top:0;font-weight:700}
+.pain-list li::before{content:"✕";color:var(--rec)}
+.check-list li::before{content:"✓";color:var(--electric)}
+.cross-list li::before{content:"–";color:var(--ink-3)}
+.lead-close{margin-top:24px;padding:18px 22px;border-inline-start:4px solid var(--electric);border-radius:var(--r-m);background:var(--paper-card);font-weight:600;line-height:1.6}
+.method-line{margin-top:16px;font-weight:600;color:var(--ink)}
+.compare-title{margin-top:36px;margin-bottom:14px}
+.compare-wrap{overflow-x:auto}
+.compare{width:100%;border-collapse:collapse;font-size:.95rem}
+.compare th,.compare td{padding:12px 14px;text-align:start;vertical-align:top;border-bottom:1px solid var(--line)}
+.compare th{color:var(--ink-2);font-weight:600}
+.compare th:last-child{color:var(--electric)}
+.compare td:first-child{color:var(--ink-3)}
+.value-list{list-style:none;margin:0 0 28px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.value-list li{display:grid;gap:4px;padding:16px 18px;border-radius:var(--r-m);border:1px solid var(--paper-line);background:var(--paper-card)}
+.value-list b{font-weight:700}
+.value-list span{color:var(--paper-2);line-height:1.55}
+#inside .chapter-grid li{border-color:var(--paper-line);background:var(--paper-card)}
+.book-previews{grid-template-columns:repeat(3,minmax(0,1fr))}
+.book-previews figure{margin:0;display:grid;gap:10px}
+.book-previews figcaption{font-size:.88rem;line-height:1.5;color:var(--paper-2)}
+.audience-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.audience-card{display:grid;gap:16px;align-content:start;padding:clamp(20px,3vw,32px);border-radius:var(--r-l);border:1px solid var(--line);background:var(--glass)}
+.audience-card.yes{border-color:var(--line-2)}
+.author-grid{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(24px,5vw,56px);align-items:center}
+.author-grid img{width:100%;height:auto;border-radius:var(--r-l)}
+.guarantee{display:grid;gap:8px;padding:18px 20px;border-radius:var(--r-m);border:1px solid var(--line-2);background:var(--glass)}
+.soon-badge{justify-self:start;padding:6px 14px;border-radius:999px;background:var(--electric);color:var(--night);font-weight:700}
+.purchase-box h3{margin-top:6px}
+.faq-list{display:grid;gap:10px;margin-bottom:28px}
+.faq-list details{padding:16px 20px;border-radius:var(--r-m);border:1px solid var(--paper-line);background:var(--paper-card)}
+.faq-list summary{cursor:pointer;font-weight:700}
+.faq-list details p{margin-top:10px;line-height:1.65}
+@media(max-width:760px){
+ .value-list,.audience-grid,.book-previews{grid-template-columns:1fr}
+ .author-grid{grid-template-columns:1fr}
+ .author-grid img{max-width:220px}
+}

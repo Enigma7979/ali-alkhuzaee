@@ -23,9 +23,9 @@ import build, covers  # noqa: E402
 
 OUT = ROOT / 'assets/products'
 LANGS = ('ar', 'en', 'ru')
-# contents, the stop ladders (unit 02), three-point lighting plan (unit 04), prompt anatomy (library).
+# cover, contents, three-point lighting plan (unit 04), prompts 01-05, hooks 01-10, the 30-day plan (unit 12).
 # Page numbers of the final edition; all three languages share the same pagination.
-PREVIEW_PAGES = (4, 12, 25, 70)
+PREVIEW_PAGES = (1, 4, 25, 73, 86, 66)
 
 
 def main():
