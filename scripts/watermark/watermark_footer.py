@@ -85,7 +85,7 @@ def main():
             # 8 px (6 pt), grey, in the strip under the page numbers: 47 pt side margins, 6 pt from the bottom.
             m.insert_htmlbox(pymupdf.Rect(47, h - 20, w - 47, h - 6),
                              f'<div style="{style}"><span style="font-size:6pt;color:#6b7380">{line}</span></div>',
-                             css=CSS, archive=archive, opacity=0.85)
+                             css=CSS, archive=archive, opacity=0.85, scale_low=0)
             marks[size] = mark
         page.show_pdf_page(page.rect, marks[size], 0)
 

@@ -47,7 +47,7 @@ Replace hash descriptions with actual file hashes. The source package is present
 
 ## Provider configuration
 
-Stripe: create a test secret and signed webhook endpoint for `/store/webhooks/stripe/`. Subscribe to `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.expired`, `charge.refunded`, `charge.dispute.created`. Checkout is a single EUR2.99 card payment, server priced; the server retrieves the Session and expanded settled charge before fulfilment. Metadata binds order/product/language. Refund and dispute events revoke links. Do not use test events to fulfil live orders.
+Stripe: create a test secret and signed webhook endpoint for `/store/webhooks/stripe/`. Subscribe to `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.expired`, `charge.refunded`, `charge.dispute.created`. Checkout is a single EUR 14.00 card payment (VAT included, `PRICE_CENTS` in settings), server priced; the server retrieves the Session and expanded settled charge before fulfilment. Metadata binds order/product/language. Refund and dispute events revoke links. Do not use test events to fulfil live orders.
 
 PayPal: configure a sandbox REST application, merchant ID and webhook ID for `/store/webhooks/paypal/`. Subscribe to `PAYMENT.CAPTURE.COMPLETED`, `PAYMENT.CAPTURE.REFUNDED`, `PAYMENT.CAPTURE.REVERSED`. Browser approval is followed by a CSRF-protected capture POST; only the verified server response/retrieved completed order can fulfil. Webhooks are verified with PayPal's signature-verification API. Capture amount, payee, custom/invoice ID and currency must match.
 

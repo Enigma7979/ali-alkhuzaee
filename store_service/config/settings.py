@@ -45,8 +45,8 @@ PDF_MANIFEST=Path(os.getenv('PRIVATE_PDF_MANIFEST',str(PDF_ROOT/'release.json'))
 STRIPE_SECRET_KEY=os.getenv('STRIPE_SECRET_KEY','');STRIPE_WEBHOOK_SECRET=os.getenv('STRIPE_WEBHOOK_SECRET','')
 PAYPAL_CLIENT_ID=os.getenv('PAYPAL_CLIENT_ID','');PAYPAL_CLIENT_SECRET=os.getenv('PAYPAL_CLIENT_SECRET','');PAYPAL_WEBHOOK_ID=os.getenv('PAYPAL_WEBHOOK_ID','');PAYPAL_MERCHANT_ID=os.getenv('PAYPAL_MERCHANT_ID','')
 PAYPAL_ORIGIN='https://api-m.paypal.com' if PAYMENT_MODE=='live' else 'https://api-m.sandbox.paypal.com'
-# All-in EUR 2.99; no unapproved VAT calculator. Owner must approve gross tax treatment and receipts before live mode.
-PRICE_CENTS=299;CURRENCY='EUR';DOWNLOAD_MAX_AGE=7*86400
+# All-in EUR 14.00, VAT included; no VAT calculator. Owner must approve gross tax treatment and receipts before live mode.
+PRICE_CENTS=1400;CURRENCY='EUR';DOWNLOAD_MAX_AGE=7*86400
 DATA_UPLOAD_MAX_MEMORY_SIZE=1024*1024;DATA_UPLOAD_MAX_NUMBER_FIELDS=25
 if CHECKOUT_ENABLED and PAYMENT_MODE=='live':
  if not all((LEGAL_APPROVED,TAX_APPROVED,PROVIDER_TESTS_APPROVED,EMAIL_HOST,STRIPE_SECRET_KEY.startswith('sk_live_'),STRIPE_WEBHOOK_SECRET,PAYPAL_CLIENT_ID,PAYPAL_CLIENT_SECRET,PAYPAL_WEBHOOK_ID,PAYPAL_MERCHANT_ID)):

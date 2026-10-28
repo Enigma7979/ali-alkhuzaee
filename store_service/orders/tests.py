@@ -20,8 +20,8 @@ class StoreTests(TestCase):
   self.settings_override=override_settings(PDF_ROOT=self.root,PDF_MANIFEST=self.manifest,PAYMENT_MODE='test',PUBLIC_ORIGIN='http://testserver',PAYPAL_MERCHANT_ID='merchant-test',EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
   self.settings_override.enable();self.addCleanup(self.settings_override.disable);self.addCleanup(self.tmp.cleanup)
   self.order=Order.objects.create(name='علي الخزاعي',email='buyer@example.test',language='ar',provider='stripe',provider_order_id='cs_test_1')
- def stripe(self):return {'id':'cs_test_1','mode':'payment','payment_status':'paid','amount_total':299,'currency':'eur','livemode':False,'metadata':{'order_id':str(self.order.id),'language':'ar','product':'creator-guide'},'payment_intent':{'id':'pi_1','status':'succeeded','latest_charge':{'id':'ch_1','paid':True,'amount_refunded':0,'disputed':False}}}
- def pp(self,o):return {'id':o.provider_order_id,'status':'COMPLETED','purchase_units':[{'custom_id':str(o.id),'invoice_id':str(o.id),'payee':{'merchant_id':'merchant-test'},'amount':{'value':'2.99','currency_code':'EUR'},'payments':{'captures':[{'id':'CAP1','status':'COMPLETED','final_capture':True,'amount':{'value':'2.99','currency_code':'EUR'}}]}}]}
+ def stripe(self):return {'id':'cs_test_1','mode':'payment','payment_status':'paid','amount_total':1400,'currency':'eur','livemode':False,'metadata':{'order_id':str(self.order.id),'language':'ar','product':'creator-guide'},'payment_intent':{'id':'pi_1','status':'succeeded','latest_charge':{'id':'ch_1','paid':True,'amount_refunded':0,'disputed':False}}}
+ def pp(self,o):return {'id':o.provider_order_id,'status':'COMPLETED','purchase_units':[{'custom_id':str(o.id),'invoice_id':str(o.id),'payee':{'merchant_id':'merchant-test'},'amount':{'value':'14.00','currency_code':'EUR'},'payments':{'captures':[{'id':'CAP1','status':'COMPLETED','final_capture':True,'amount':{'value':'14.00','currency_code':'EUR'}}]}}]}
  def test_checkout_closed_by_default(self):self.assertEqual(self.client.get('/store/checkout/').status_code,503)
  def test_availability_false_without_credentials(self):self.assertFalse(self.client.get('/store/availability/').json()['available'])
  def test_availability_readable_by_site_origin_only(self):
@@ -53,7 +53,7 @@ class StoreTests(TestCase):
   d=self.stripe();d['metadata']['language']='ru'
   with self.assertRaises(VerificationError):validate_stripe(self.order,d)
  def test_stripe_refunded_disputed_charge_cannot_fulfill(self):
-  for field,value in [('amount_refunded',299),('disputed',True),('paid',False)]:
+  for field,value in [('amount_refunded',1400),('disputed',True),('paid',False)]:
    d=self.stripe();d['payment_intent']['latest_charge'][field]=value
    with self.assertRaises(VerificationError):validate_stripe(self.order,d)
  def test_duplicate_events_and_distinct_events_one_fulfillment(self):
@@ -133,7 +133,7 @@ class StoreTests(TestCase):
  def test_checkout_server_sets_price_and_language(self):
   with patch('orders.views.ready',return_value=True),patch('orders.payments.stripe_session',return_value={'id':'cs_new','url':'https://checkout.stripe.com/c/pay/cs_new'}) as start:
    r=self.client.post('/store/checkout/?lang=ru',{'name':'Анна Петрова','email':'another@example.test','language':'ru','provider':'stripe','terms':'on','immediate':'on','amount':'1'})
-  self.assertEqual(r.status_code,302);o=start.call_args.args[0];self.assertEqual(o.amount_cents,299);self.assertEqual(o.language,'ru');self.assertEqual(o.mode,'test');self.assertEqual(o.name,'Анна Петрова')
+  self.assertEqual(r.status_code,302);o=start.call_args.args[0];self.assertEqual(o.amount_cents,1400);self.assertEqual(o.language,'ru');self.assertEqual(o.mode,'test');self.assertEqual(o.name,'Анна Петрова')
  def test_checkout_requires_separate_consents_and_blocks_honeypot(self):
   with patch('orders.views.ready',return_value=True),patch('orders.payments.stripe_session') as start:
    for data in [{'email':'another@example.test','language':'ru','provider':'stripe','terms':'on'}, {'email':'another@example.test','language':'ru','provider':'stripe','terms':'on','immediate':'on','website':'spam'}]:
@@ -158,7 +158,7 @@ class StoreTests(TestCase):
    self.assertEqual(self.client.post('/store/paypal/capture/').status_code,302)
   o.refresh_from_db();self.assertEqual(o.status,'paid')
  def test_refund_webhook_before_checkout_event_remains_revoked(self):
-  event={'id':'evt_refund','livemode':False,'type':'charge.refunded','data':{'object':{'payment_intent':'pi_1','amount_refunded':299}}}
+  event={'id':'evt_refund','livemode':False,'type':'charge.refunded','data':{'object':{'payment_intent':'pi_1','amount_refunded':1400}}}
   with patch('orders.payments.stripe_verify',return_value=event),patch('orders.payments.stripe_intent',return_value={'metadata':{'order_id':str(self.order.id)}}):
    self.assertEqual(self.client.post('/store/webhooks/stripe/',b'{}',content_type='application/json').status_code,200)
   self.order.refresh_from_db();self.assertEqual(self.order.status,'refunded')

@@ -7,6 +7,7 @@ from django.db import transaction
 from django.utils import timezone
 from .models import Order,PaymentEvent,DownloadGrant,EmailJob
 class VerificationError(Exception):pass
+def price():return Decimal(settings.PRICE_CENTS)/100
 def digest(token):return hashlib.sha256(token.encode()).hexdigest()
 def release_path(language):
  if language not in ('en','ar','ru'):raise VerificationError('Invalid language')
@@ -50,7 +51,7 @@ def revoke(order_id,event_id,provider,kind,status='refunded'):
 
 def validate_stripe(order,session):
  if session.get('id')!=order.provider_order_id or session.get('mode')!='payment' or session.get('payment_status')!='paid':raise VerificationError('Unpaid session')
- if session.get('amount_total')!=299 or session.get('currency','').upper()!='EUR':raise VerificationError('Amount/currency mismatch')
+ if session.get('amount_total')!=settings.PRICE_CENTS or session.get('currency','').upper()!='EUR':raise VerificationError('Amount/currency mismatch')
  meta=session.get('metadata',{})
  if meta.get('order_id')!=str(order.id) or meta.get('language')!=order.language or meta.get('product')!='creator-guide':raise VerificationError('Metadata mismatch')
  if bool(session.get('livemode'))!=(order.mode=='live'):raise VerificationError('Mode mismatch')
@@ -65,10 +66,10 @@ def validate_paypal(order,data):
  if len(units)!=1:raise VerificationError('Unexpected units')
  u=units[0];amount=u.get('amount',{})
  if u.get('custom_id')!=str(order.id) or u.get('invoice_id')!=str(order.id) or u.get('payee',{}).get('merchant_id')!=settings.PAYPAL_MERCHANT_ID:raise VerificationError('Identity mismatch')
- if Decimal(amount.get('value','0'))!=Decimal('2.99') or amount.get('currency_code')!='EUR':raise VerificationError('Amount mismatch')
+ if Decimal(amount.get('value','0'))!=price() or amount.get('currency_code')!='EUR':raise VerificationError('Amount mismatch')
  captures=u.get('payments',{}).get('captures',[])
  if len(captures)!=1:raise VerificationError('Unexpected captures')
  cap=captures[0]
  if cap.get('status')!='COMPLETED' or not cap.get('final_capture'):raise VerificationError('Unsettled capture')
- if Decimal(cap.get('amount',{}).get('value','0'))!=Decimal('2.99') or cap.get('amount',{}).get('currency_code')!='EUR':raise VerificationError('Capture amount mismatch')
+ if Decimal(cap.get('amount',{}).get('value','0'))!=price() or cap.get('amount',{}).get('currency_code')!='EUR':raise VerificationError('Capture amount mismatch')
  return cap['id']

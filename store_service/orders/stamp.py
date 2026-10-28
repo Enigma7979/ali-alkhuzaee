@@ -18,7 +18,7 @@ CSS=('@font-face{font-family:plex;src:url(IBMPlexSans-Regular.ttf)}'
  '@font-face{font-family:plexar;src:url(IBMPlexSansArabic-Regular.ttf)}'
  '*{font-family:plex;margin:0;padding:0}.ar{font-family:plexar}')
 ARABIC=re.compile('[؀-ۿݐ-ݿࢠ-ࣿ]')
-OWNER={'en':'© Ali Alkhuzaee · Study UA Plus · alialkhuzaee.com','ar':'© علي الخزاعي · Study UA Plus · alialkhuzaee.com','ru':'© Али Альхузаи · Study UA Plus · alialkhuzaee.com'}
+OWNER={'en':'© Ali Alkhuzaee · alialkhuzaee.com','ar':'© علي الخزاعي · alialkhuzaee.com','ru':'© Али Альхузаи · alialkhuzaee.com'}
 LICENSED={'en':'Licensed to','ar':'مرخّصة لـ','ru':'Лицензия для'}
 ORDER={'en':'Order','ar':'الطلب','ru':'Заказ'}
 # Personal licence block for the empty top half of page 2 (the copyright page).
@@ -78,7 +78,7 @@ def _mark(width,height,rect,body,rtl,**kw):
 def footer_mark(language,name,email,ref,size):
  # One small line under the page number band (body text and page numbers end above y=685 on a 709 pt page).
  w,h=size;line=t(OWNER[language])+' — '+t(LICENSED[language]+':')+' '+t(name)+' · '+t(email)+' · '+t(ORDER[language])+' '+t(ref)
- return _mark(w,h,pymupdf.Rect(47,h-20,w-47,h-6),'<span style="font-size:6pt;color:#6b7380">'+line+'</span>',language=='ar',opacity=0.85)
+ return _mark(w,h,pymupdf.Rect(47,h-20,w-47,h-6),'<span style="font-size:6pt;color:#6b7380">'+line+'</span>',language=='ar',opacity=0.85,scale_low=0)
 
 def diagonal_mark(language,name,email,size):
  # A long strip, placed on every page turned by 45 degrees: light grey at about 12% opacity,

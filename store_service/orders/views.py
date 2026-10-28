@@ -37,7 +37,7 @@ def ready():
  return True
 @require_GET
 def availability(request):
- r=JsonResponse({'available':ready(),'mode':settings.PAYMENT_MODE,'currency':'EUR','amount':299,'languages':['en','ar','ru']})
+ r=JsonResponse({'available':ready(),'mode':settings.PAYMENT_MODE,'currency':'EUR','amount':settings.PRICE_CENTS,'languages':['en','ar','ru']})
  r['Access-Control-Allow-Origin']=settings.SITE_ORIGIN;r['Vary']='Origin'
  return r
 @require_http_methods(['GET','POST'])
@@ -48,7 +48,7 @@ def checkout(request):
   if not limit(request,'checkout'):return notice(request,'rateLimited',429)
   if form.is_valid() and not form.cleaned_data['website']:
    d=form.cleaned_data;release_path(d['language'])
-   order=Order.objects.create(name=' '.join(d['name'].split()),email=d['email'].strip().lower(),language=d['language'],provider=d['provider'],mode=settings.PAYMENT_MODE,terms_version='v1-approved' if settings.LEGAL_APPROVED else 'v1-draft')
+   order=Order.objects.create(amount_cents=settings.PRICE_CENTS,name=' '.join(d['name'].split()),email=d['email'].strip().lower(),language=d['language'],provider=d['provider'],mode=settings.PAYMENT_MODE,terms_version='v1-approved' if settings.LEGAL_APPROVED else 'v1-draft')
    request.session['order_id']=str(order.id)
    try:
     if order.provider=='stripe':

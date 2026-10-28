@@ -11,7 +11,7 @@ class Order(models.Model):
  provider=models.CharField(max_length=10,choices=[('stripe','Stripe'),('paypal','PayPal')])
  mode=models.CharField(max_length=4,default='test')
  status=models.CharField(max_length=15,choices=[('pending','Pending'),('paid','Paid'),('refunded','Refunded'),('disputed','Disputed'),('failed','Failed')],default='pending',db_index=True)
- amount_cents=models.PositiveIntegerField(default=299)
+ amount_cents=models.PositiveIntegerField(default=1400)
  currency=models.CharField(max_length=3,default='EUR')
  provider_order_id=models.CharField(max_length=255,unique=True,null=True,blank=True)
  capture_id=models.CharField(max_length=255,unique=True,null=True,blank=True)
