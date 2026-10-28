@@ -61,6 +61,17 @@ Run `python manage.py send_order_emails` from a private scheduled worker each mi
 
 Run `python manage.py cleanup_rate_buckets` hourly. Operationally confirm retention periods and delete/anonymize customer records according to the approved policy and tax retention obligations; no arbitrary production-order deletion job is enabled.
 
+## Personalised PDF (buyer stamp)
+
+Each download is stamped at request time by `orders/stamp.py` (PyMuPDF): a small footer line on every page
+(`© Ali Alkhuzaee · alialkhuzaee.com — Licensed to: name · email · Order REF`), a personal licence block in the
+empty top half of page 2, and hidden copies of the order reference in the document info, catalog (`/AAK_License`)
+and every page object (`/AAK_Order`). REF is the first 8 characters of the order id (search it in the admin).
+The book's own fonts and text layer are not rewritten. The stamp uses IBM Plex Sans and the cleaned IBM Plex Sans
+Arabic (OFL, `orders/fonts/`), with a full ToUnicode map so stamped Arabic copies correctly. About 0.5-0.8 s per
+106-page copy; the approved file on the Volume stays unchanged and its hash is still checked. The checkout asks for
+the buyer's full name and tells them the copy is personalised. Standalone scripts: `scripts/watermark/`.
+
 ## Administration and refunds
 
 Provision an administrator with `python manage.py createsuperuser` directly in the server console, using a strong unique credential. No owner credentials are seeded or hardcoded. `/store/admin/` is staff-only; order/event/grant/mail records are read-only to prevent manual payment grants. Use the provider dashboard for refunds after the owner's approval; signed events revoke access. Automated refund initiation and tax invoicing are not implemented. Payment confirmation email is not a VAT invoice.

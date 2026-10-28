@@ -4,6 +4,8 @@ from django.utils import timezone
 class Order(models.Model):
  id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
  email=models.EmailField()
+ # Printed with the email on every page of the delivered PDF (orders/stamp.py).
+ name=models.CharField(max_length=80,blank=True,default='')
  language=models.CharField(max_length=2,choices=[('en','English'),('ar','العربية'),('ru','Русский')])
  product=models.CharField(max_length=60,default='creator-guide')
  provider=models.CharField(max_length=10,choices=[('stripe','Stripe'),('paypal','PayPal')])
@@ -17,6 +19,8 @@ class Order(models.Model):
  fulfilled_at=models.DateTimeField(null=True,blank=True)
  consent_at=models.DateTimeField(default=timezone.now)
  terms_version=models.CharField(max_length=30,default='draft-v1')
+ @property
+ def licence_ref(self):return str(self.id)[:8].upper()
 class PaymentEvent(models.Model):
  provider=models.CharField(max_length=10)
  event_id=models.CharField(max_length=255)

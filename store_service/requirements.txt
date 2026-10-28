@@ -2,11 +2,13 @@ asgiref==3.13.0
 certifi==2026.10.23
 charset-normalizer==3.5.2
 Django==5.2.18
+fonttools==4.68.0
 gunicorn==23.0.0
 idna==3.20
 packaging==26.3
 psycopg==3.3.6
 psycopg-binary==3.3.6
+PyMuPDF==2.0
 requests==2.34.2
 sqlparse==0.6.0
 stripe==16.0.0
