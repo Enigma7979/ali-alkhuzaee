@@ -31,7 +31,8 @@ English and Russian run longer than Arabic, so a few pages carry `data-fit` (con
 `fit.py PAGES OUT STATE.json` sets those values after a build; repeat build + fit until it prints `pending 0`.
 LTR typography overrides live in `build.py` (`LTR_CSS`), diagram labels in `diagram_i18n.json`.
 
-Needs network for Google Fonts. Writes the proof PDF, cover PDF, per-page PNGs, RTL spread sheets, phone previews,
+Needs network for Google Fonts. `pdf_fonts.py` inlines every face as a static font (no Type 3) and strips
+Arabic presentation-form mappings, so text copied from the PDF reads correctly (cached in `~/.cache/zero_to_hero_fonts`). Writes the proof PDF, cover PDF, per-page PNGs, RTL spread sheets, phone previews,
 `ZeroToHero_{AR,EN,RU}_prompts.md` (copyable prompts) and `qa-report.json`.
 
 Page source format: each `<section class="pg" data-run="running head" data-id="anchor">` is one B5 page;
