@@ -18,8 +18,8 @@
     "viewProduct": "View the guide",
     "inside": "Inside the guide",
     "insideIntro": "Twelve units, then a toolkit: 60 prompt templates, 40 hook examples, five Reel scripts, a weekly plan, DaVinci in eight steps, projects with a 100-point rubric and a troubleshooting appendix.",
-    "previewTitle": "Pages from the new edition.",
-    "previewNote": "Pages from the final edition, in the page language. The book comes in Arabic, English and Russian: 106 pages, PDF.",
+    "previewTitle": "See the quality before you buy",
+    "previewNote": "Real pages from the final edition, in this page's language.",
     "previewAlt": "A page from From Zero to Hero",
     "previousSlide": "Previous section",
     "nextSlide": "Next section",
@@ -32,7 +32,7 @@
     "deliveryTerms": "After verified payment, the selected language edition is delivered through an expiring private link. A confirmation email provides the same access. Lost-link recovery uses the purchase email.",
     "refundTerms": "For download problems or refund requests, contact ali@alialkhuzaee.com. Statutory rights for defective or non-conforming digital content remain applicable. Early digital delivery requires a separate, explicit consent and acknowledgement at checkout; it is not a blanket “no refunds” policy. Final withdrawal terms require owner/legal review before launch.",
     "privacyTerms": "Guest checkout collects the email and payment information needed to process and deliver the order. Card details are handled by the payment provider. The site does not require an account or enable marketing email. Final processor, retention and tax disclosures require owner confirmation.",
-    "taxTerms": "€2.99 is the intended final consumer price. VAT treatment, selling territories, seller business details and receipt requirements must be confirmed before live checkout opens.",
+    "taxTerms": "€14.00 is the final price including 21% Belgian VAT. Checkout opens when the store launches.",
     "contactProduct": "Questions about the guide?",
     "email": "Email address",
     "provider": "Payment method",
@@ -155,7 +155,159 @@
       "Final project and a 30-day plan"
     ],
     "comingSoon": "Coming soon",
-    "comingSoonNote": "The book is ready in Arabic, English and Russian. Purchasing opens soon."
+    "comingSoonNote": "The book is ready in Arabic, English and Russian. Purchasing opens soon.",
+    "lpBadge": "From Zero to Hero · Practical guide · 106 pages · Arabic, English and Russian",
+    "lpTitle": "Shoot your first 3 clear, confident videos in 30 days, with your phone and the gear you already have",
+    "lpSub": "A step-by-step guide for beginner creators and small business owners: understand why your picture looks dark, your voice sounds distant and your light looks harsh, then fix it with an exercise you film yourself. Plus 60 editable prompt templates and 40 ready-to-adapt hooks.",
+    "lpFollowCta": "Coming soon · Follow me for the launch date",
+    "lpPagesCta": "See pages from the book",
+    "lpTrust": "One-time purchase · No subscription · Instant PDF after payment",
+    "lpProblemTitle": "Does this sound familiar?",
+    "lpProblems": [
+      "You buy a new mic or light, and the video looks the same.",
+      "Your face comes out dark or orange, and you don't know why.",
+      "Your voice sounds far away or echoey, even though the picture is sharp.",
+      "You spend hours editing, and the result feels “just okay”.",
+      "You ask ChatGPT for an idea or a script and get something generic that doesn't sound like you.",
+      "You've watched dozens of YouTube tutorials, and each one says something different."
+    ],
+    "lpProblemClose": "The problem usually isn't your gear. It's working by trial and error, with no way to know what changed and why.",
+    "lpSolutionTitle": "From Zero to Hero: from idea to published video, by understanding, not saved presets",
+    "lpSolutionText": "A 106-page practical book that takes you in order: from choosing your idea and audience, to camera, light and sound, then story and editing in DaVinci Resolve, then writing Reels and using AI in your workflow.",
+    "lpSolutionMethod": "Every unit follows the same path: goal → idea → apply → an exercise you film → progress check. You keep a before and after, and note what you changed and why. That way you learn from your own videos.",
+    "lpCompareTitle": "Why not free YouTube videos?",
+    "lpCompareHead": [
+      "Free YouTube",
+      "From Zero to Hero"
+    ],
+    "lpCompare": [
+      [
+        "Scattered clips in random order",
+        "One path from zero: 12 units, then a toolkit"
+      ],
+      [
+        "“Use these settings”",
+        "You understand why, so you know what to do when the room or the light changes"
+      ],
+      [
+        "Watch and forget",
+        "An exercise to film in every unit, a test card and a progress check"
+      ],
+      [
+        "Generic prompts",
+        "60 templates with editable fields, the expected output and how to check it"
+      ],
+      [
+        "Promises of going viral",
+        "No promises of views or followers. A result you measure: 3 documented videos"
+      ],
+      [
+        "Searching from scratch each time",
+        "A reference you return to: diagrams, fault tables, a glossary"
+      ]
+    ],
+    "lpInsideTitle": "What's inside",
+    "lpInside": [
+      [
+        "12 hands-on units",
+        "From idea and audience to camera, light, sound, story, editing, Reels, AI and a capstone project."
+      ],
+      [
+        "60 editable prompt templates",
+        "In 8 groups: research and ideas, hooks and scripts, shooting, editing, publishing and analysis, and more."
+      ],
+      [
+        "40 hooks",
+        "In 8 types, each with the first visual proof that supports it."
+      ],
+      [
+        "Original diagrams",
+        "Top-down three-point lighting, the inverse-square law, colour temperature, the audio signal chain, the episode map and more."
+      ],
+      [
+        "5 complete Reel scripts",
+        "From 15 to 60 seconds, with shot lists and sound."
+      ],
+      [
+        "A 30-day plan",
+        "4 weeks, 3 videos and a learning report."
+      ],
+      [
+        "DaVinci Resolve in 8 steps",
+        "From organised import to archive."
+      ],
+      [
+        "Projects at three levels",
+        "With a 100-point scoring rubric."
+      ],
+      [
+        "A troubleshooting appendix",
+        "Plus a glossary and a verified sources log."
+      ],
+      [
+        "3 languages",
+        "Arabic, English and Russian. Choose yours at checkout."
+      ]
+    ],
+    "lpPreviewCaps": [
+      "Cover: 106 pages, designed to read well on a phone or a computer.",
+      "Contents: 12 units in order, then a library you come back to while you work.",
+      "Three-point lighting: a top-down plan of every light, with lighting ratios and the mood each one gives.",
+      "Prompts 01–05: every template has fields to edit, the expected output and how to check it.",
+      "Hooks 01–10: every hook comes with the first visual proof that supports it.",
+      "30-day plan: four weeks, three videos and a clear success criterion."
+    ],
+    "lpForTitle": "This book is for you if:",
+    "lpFor": [
+      "You're starting to create content with your phone and want clear picture and sound.",
+      "You run a small business and want to film your product or service yourself.",
+      "You've been creating for a while and want to understand why one video works and another doesn't.",
+      "You want to use AI to save time, with a human review."
+    ],
+    "lpNotForTitle": "It's not for you if:",
+    "lpNotFor": [
+      "You want a quick way to “guarantee” reach or thousands of followers.",
+      "You don't plan to film any exercise. The book is built on practice.",
+      "You're an advanced cinematographer looking for professional gear detail."
+    ],
+    "lpOfferTitle": "Everything you need to start, for the price of one meal",
+    "lpOffer": [
+      "A 106-page PDF in the language you choose",
+      "60 prompt templates + 40 hooks + 5 Reel scripts",
+      "A 30-day plan + projects with a scoring rubric + a troubleshooting appendix",
+      "A download link in your inbox right after payment",
+      "A personal copy: your name is printed on it to protect the book"
+    ],
+    "lpPriceLabel": "Price at launch",
+    "lpPrice": "€14",
+    "lpPriceNote": "Including VAT · One-time payment, no subscription, no account",
+    "lpGuaranteeTitle": "Quality promise",
+    "lpGuaranteeText": "You've seen real pages before buying. If the file doesn't work or doesn't match what's described here, write to me and I'll fix it, send a new copy or refund you.",
+    "lpFollowTitle": "Follow me for the launch date",
+    "lpAboutTitle": "The story of this book",
+    "lpAboutText": "I'm Ali Alkhuzaee, a creator who makes content about AI, technology and automation. I saw so many people spend money on gear before they understood light and sound, so I brought together my own research sources, trusted studies by other specialists and ideas from my practical experience. The book was prepared with the help of AI tools and reviewed until we reached the final edition. The result is one ordered method, with exercises you try yourself.",
+    "lpFaqTitle": "FAQ",
+    "lpFaq": [
+      [
+        "Do I need a professional camera?",
+        "No. Every exercise starts with a phone, and each unit has a beginner level you can do with what you have. The book explains when a new tool is worth buying and when it isn't."
+      ],
+      [
+        "Which language will I get?",
+        "You choose at checkout: Arabic, English or Russian. You receive one PDF in that language; the content is the same in all three."
+      ],
+      [
+        "How do I receive the book, and what if I lose the link?",
+        "After payment you get an email with a private download link. If you lose it, request a new one with your purchase email. The file stays on your devices."
+      ],
+      [
+        "Can I use the prompts in my work?",
+        "Yes. The prompts and checklists are yours to use in your work. Sharing or reselling the book itself is not allowed."
+      ]
+    ],
+    "lpInterestCta": "I want the book at launch",
+    "lpInterestNote": "Opens your email with a ready message to Ali. I'll write to you once when sales open, and won't use your email for anything else.",
+    "lpFollowIg": "Follow me on Instagram"
   },
   "ar": {
     "navProducts": "المنتجات الرقمية",
@@ -176,8 +328,8 @@
     "viewProduct": "شاهد الدليل",
     "inside": "داخل الدليل",
     "insideIntro": "اثنتا عشرة وحدة، ثم مكتبة أدوات: 60 قالب برومبت، و40 مثال افتتاحية، وخمسة سيناريوهات ريلز، وخطة أسبوعية، وDaVinci في ثماني خطوات، ومشاريع بسلم تقييم من 100 نقطة، وملحق للأخطاء والحلول.",
-    "previewTitle": "صفحات من الإصدار الجديد.",
-    "previewNote": "صفحات من الطبعة النهائية بلغة الصفحة. الكتاب متوفر بالعربية والإنجليزية والروسية، 106 صفحات بصيغة PDF.",
+    "previewTitle": "شاهد الجودة قبل أن تشتري",
+    "previewNote": "صفحات حقيقية من النسخة النهائية، بلغة هذه الصفحة.",
     "previewAlt": "صفحة من كتاب From Zero to Hero",
     "previousSlide": "القسم السابق",
     "nextSlide": "القسم التالي",
@@ -190,7 +342,7 @@
     "deliveryTerms": "بعد التحقق من الدفع، تُسلَّم النسخة المختارة برابط خاص ينتهي مفعوله، ويُرسل التأكيد بالبريد. استعادة الرابط بالبريد المستخدم للشراء.",
     "refundTerms": "لمشكلات التنزيل وطلبات الاسترداد تواصل مع ali@alialkhuzaee.com. تبقى الحقوق النظامية للمحتوى الرقمي المعيب أو غير المطابق. يتطلب التسليم الفوري موافقة وإقرارًا صريحين منفصلين عند الدفع؛ وليس هذا منعًا مطلقًا للاسترداد. شروط العدول النهائية تحتاج مراجعة قبل الإطلاق.",
     "privacyTerms": "يجمع الدفع دون حساب البريد والبيانات اللازمة لمعالجة الطلب وتسليمه. يعالج مزود الدفع بيانات البطاقة. لا يُطلب حساب ولا تُفعّل رسائل تسويقية. تتطلب بيانات المعالجين والاحتفاظ والضرائب تأكيد المالك.",
-    "taxTerms": "€2.99 هو السعر النهائي المقصود للمستهلك. يجب تأكيد معالجة الضريبة ومناطق البيع وبيانات المنشأة ومتطلبات الإيصال قبل فتح الدفع.",
+    "taxTerms": "السعر 14.00 يورو، وهو السعر النهائي شاملاً ضريبة القيمة المضافة البلجيكية بنسبة 21%. يُفتح الدفع عند إطلاق المتجر.",
     "contactProduct": "سؤال عن الدليل؟",
     "email": "البريد الإلكتروني",
     "provider": "طريقة الدفع",
@@ -313,7 +465,159 @@
       "مشروع التخرج وخطة 30 يومًا"
     ],
     "comingSoon": "قريبًا",
-    "comingSoonNote": "الكتاب جاهز بالعربية والإنجليزية والروسية. يُفتح الشراء قريبًا."
+    "comingSoonNote": "الكتاب جاهز بالعربية والإنجليزية والروسية. يُفتح الشراء قريبًا.",
+    "lpBadge": "From Zero to Hero · دليل عملي · 106 صفحات · بالعربية والإنجليزية والروسية",
+    "lpTitle": "صوّر أول 3 فيديوهات بجودة واضحة خلال 30 يوماً، بهاتفك وما تملكه من أدوات",
+    "lpSub": "دليل خطوة بخطوة لصنّاع المحتوى المبتدئين وأصحاب المشاريع الصغيرة: تفهم لماذا تبدو صورتك مظلمة وصوتك بعيداً وإضاءتك قاسية، ثم تصلحها بتمرين تصوّره بنفسك. ومعه 60 قالب برومبت و40 افتتاحية جاهزة للتعديل.",
+    "lpFollowCta": "قريباً · تابعني لتعرف موعد الإطلاق",
+    "lpPagesCta": "شاهد صفحات من الكتاب",
+    "lpTrust": "شراء لمرة واحدة · بدون اشتراك · PDF فوري بعد الدفع",
+    "lpProblemTitle": "هل يحدث معك هذا؟",
+    "lpProblems": [
+      "تشتري ميكروفوناً أو ضوءاً جديداً، ويبقى الفيديو كما هو.",
+      "وجهك يظهر مظلماً أو برتقالياً، ولا تعرف السبب.",
+      "صوتك يبدو بعيداً أو فيه صدى، رغم أن الصورة واضحة.",
+      "تقضي ساعات في المونتاج، والنتيجة «عادية».",
+      "تطلب من ChatGPT فكرة أو سكربت، فيعطيك كلاماً عاماً لا يشبهك.",
+      "تشاهد عشرات الفيديوهات على يوتيوب، وكل واحد يقول شيئاً مختلفاً."
+    ],
+    "lpProblemClose": "المشكلة غالباً ليست في معداتك. المشكلة أنك تعمل بالتجربة العشوائية بدون طريقة تعرف بها ماذا تغيّر ولماذا.",
+    "lpSolutionTitle": "From Zero to Hero: من الفكرة إلى فيديو منشور، بفهم وليس بإعدادات محفوظة",
+    "lpSolutionText": "كتاب عملي من 106 صفحات يأخذك بالترتيب: من اختيار الفكرة والجمهور، إلى الكاميرا والإضاءة والصوت، ثم القصة والمونتاج في DaVinci Resolve، ثم كتابة الريلز واستخدام الذكاء الاصطناعي في سير العمل.",
+    "lpSolutionMethod": "كل وحدة تسير بنفس الطريقة: هدف ← فكرة ← تطبيق ← تمرين تصوّره ← فحص تقدّم. تحتفظ بنسخة قبل وبعد، وتكتب ماذا غيّرت ولماذا. هكذا تتعلم من فيديوهاتك أنت.",
+    "lpCompareTitle": "لماذا ليس فيديوهات يوتيوب المجانية؟",
+    "lpCompareHead": [
+      "يوتيوب المجاني",
+      "From Zero to Hero"
+    ],
+    "lpCompare": [
+      [
+        "مقاطع متفرقة بترتيب عشوائي",
+        "مسار واحد مرتب من الصفر: 12 وحدة ثم مكتبة أدوات"
+      ],
+      [
+        "«استخدم هذه الإعدادات»",
+        "تفهم السبب، فتعرف ماذا تفعل حين تتغير الغرفة أو الضوء"
+      ],
+      [
+        "تشاهد ثم تنسى",
+        "تمرين تصوّره في كل وحدة + بطاقة اختبار + فحص تقدّم"
+      ],
+      [
+        "برومبتات عامة",
+        "60 قالباً بحقول تعدّلها + المخرج المتوقع + طريقة التحقق"
+      ],
+      [
+        "وعود بالانتشار",
+        "لا وعود بمشاهدات أو متابعين. نتيجة تقيسها أنت: 3 فيديوهات موثّقة"
+      ],
+      [
+        "تبحث كل مرة من جديد",
+        "مرجع تعود إليه: مخططات، جداول أعطال، قاموس مصطلحات"
+      ]
+    ],
+    "lpInsideTitle": "ماذا يوجد داخل الكتاب",
+    "lpInside": [
+      [
+        "12 وحدة عملية",
+        "من الفكرة والجمهور إلى الكاميرا والإضاءة والصوت والقصة والمونتاج والريلز والذكاء الاصطناعي ومشروع التخرج."
+      ],
+      [
+        "60 قالب برومبت قابل للتعديل",
+        "في 8 مجموعات: البحث والأفكار، الافتتاحيات والسكربتات، التصوير، المونتاج، النشر والتحليل، وغيرها."
+      ],
+      [
+        "40 افتتاحية (Hook)",
+        "في 8 أنواع، لكل واحدة «أول دليل بصري» يدعمها."
+      ],
+      [
+        "مخططات أصلية",
+        "الإضاءة الثلاثية من الأعلى، قانون التربيع العكسي، حرارة اللون، سلسلة الصوت، خريطة الحلقة، وغيرها."
+      ],
+      [
+        "5 سكربتات ريلز كاملة",
+        "من 15 إلى 60 ثانية، مع قائمة اللقطات والصوت."
+      ],
+      [
+        "خطة 30 يوماً",
+        "4 أسابيع، 3 فيديوهات، وتقرير تعلّم."
+      ],
+      [
+        "DaVinci Resolve في 8 خطوات",
+        "من الاستيراد المرتب إلى الأرشفة."
+      ],
+      [
+        "مشاريع بثلاثة مستويات",
+        "مع سلّم تقييم من 100 نقطة."
+      ],
+      [
+        "ملحق حل الأعطال",
+        "وقاموس مصطلحات وسجل مصادر موثّق."
+      ],
+      [
+        "3 لغات",
+        "العربية والإنجليزية والروسية. اختر لغتك عند الشراء."
+      ]
+    ],
+    "lpPreviewCaps": [
+      "الغلاف: 106 صفحات بتصميم واضح للقراءة على الهاتف والكمبيوتر.",
+      "الفهرس: 12 وحدة بالترتيب، ثم مكتبة تعود إليها أثناء العمل.",
+      "الإضاءة الثلاثية: مخطط من الأعلى لمكان كل ضوء، ونسبة الإضاءة وما تعطيه من إحساس.",
+      "البرومبتات 01–05: كل قالب فيه حقول تعدّلها، والمخرج المتوقع، وطريقة التحقق.",
+      "الافتتاحيات 01–10: كل افتتاحية مع أول دليل بصري يدعمها.",
+      "خطة 30 يوماً: أربعة أسابيع، ثلاثة فيديوهات، ومعيار نجاح واضح."
+    ],
+    "lpForTitle": "هذا الكتاب لك إذا:",
+    "lpFor": [
+      "كنت تبدأ صناعة المحتوى بهاتفك وتريد صورة وصوتاً واضحين.",
+      "لديك مشروع صغير وتريد تصوير منتجك أو خدمتك بنفسك.",
+      "تصنع محتوى منذ فترة وتريد أن تفهم لماذا ينجح فيديو ويفشل آخر.",
+      "تريد استخدام الذكاء الاصطناعي لتوفير الوقت، مع مراجعة بشرية."
+    ],
+    "lpNotForTitle": "وليس لك إذا:",
+    "lpNotFor": [
+      "كنت تبحث عن طريقة سريعة لـ«ضمان» الانتشار أو آلاف المتابعين.",
+      "لا تنوي تصوير أي تمرين. الكتاب مبني على التطبيق.",
+      "كنت محترفاً متقدماً في التصوير السينمائي وتبحث عن تفاصيل معدات احترافية."
+    ],
+    "lpOfferTitle": "كل ما تحتاجه للبدء، بسعر وجبة واحدة",
+    "lpOffer": [
+      "كتاب PDF من 106 صفحات باللغة التي تختارها",
+      "60 قالب برومبت + 40 افتتاحية + 5 سكربتات ريلز",
+      "خطة 30 يوماً + مشاريع وسلّم تقييم + ملحق الأعطال",
+      "رابط تحميل يصلك على بريدك فور الدفع",
+      "نسخة شخصية: يُطبع اسمك على نسختك لحماية الكتاب"
+    ],
+    "lpPriceLabel": "السعر عند الإطلاق",
+    "lpPrice": "14 يورو",
+    "lpPriceNote": "شاملاً ضريبة القيمة المضافة · دفع لمرة واحدة، بدون اشتراك ولا حساب",
+    "lpGuaranteeTitle": "وعد الجودة",
+    "lpGuaranteeText": "شاهدت الصفحات الحقيقية قبل الشراء. وإذا لم يعمل الملف أو لم يطابق ما وُصف هنا، راسلني وسأصلحه أو أرسل نسخة جديدة أو أعيد لك المبلغ.",
+    "lpFollowTitle": "تابعني لتعرف موعد الإطلاق",
+    "lpAboutTitle": "قصة هذا الكتاب",
+    "lpAboutText": "أنا علي الخزاعي، صانع محتوى عن الذكاء الاصطناعي والتقنية والأتمتة. رأيت كثيرين ينفقون المال على المعدات قبل أن يفهموا الضوء والصوت، فجمعت في هذا الكتاب مصادر بحثي ودراسات موثوقة لمختصين آخرين وأفكاري من التجربة العملية، وأعددته بمساعدة أدوات الذكاء الاصطناعي ثم راجعته حتى وصلنا إلى النسخة النهائية. النتيجة طريقة مرتبة، مع تمارين تجرّبها بنفسك.",
+    "lpFaqTitle": "الأسئلة الشائعة",
+    "lpFaq": [
+      [
+        "هل أحتاج كاميرا احترافية؟",
+        "لا. كل التمارين تبدأ بالهاتف، ولكل وحدة مستوى مبتدئ تنفّذه بما تملكه. الكتاب يشرح متى تستحق أداة جديدة الشراء ومتى لا."
+      ],
+      [
+        "بأي لغة سأحصل على الكتاب؟",
+        "تختار لغتك عند الدفع: العربية أو الإنجليزية أو الروسية. تحصل على نسخة PDF واحدة بتلك اللغة، والمحتوى نفسه في اللغات الثلاث."
+      ],
+      [
+        "كيف أستلم الكتاب؟ وماذا لو فقدت الرابط؟",
+        "بعد الدفع يصلك بريد فيه رابط تحميل خاص. إذا فقدته، تطلب رابطاً جديداً ببريد الشراء. الملف يبقى معك على أجهزتك."
+      ],
+      [
+        "هل أستطيع استخدام البرومبتات في عملي؟",
+        "نعم. البرومبتات وقوائم الفحص لاستخدامك في عملك. الممنوع هو مشاركة الكتاب نفسه أو إعادة بيعه."
+      ]
+    ],
+    "lpInterestCta": "أريد الكتاب عند الإطلاق",
+    "lpInterestNote": "يفتح بريدك برسالة جاهزة إلى علي. سأراسلك مرة واحدة عند فتح الشراء، ولا أستخدم بريدك لأي شيء آخر.",
+    "lpFollowIg": "تابعني على إنستغرام"
   },
   "ru": {
     "navProducts": "Цифровые продукты",
@@ -334,8 +638,8 @@
     "viewProduct": "Посмотреть руководство",
     "inside": "Внутри руководства",
     "insideIntro": "Двенадцать модулей и набор инструментов: 60 шаблонов промптов, 40 примеров зацепок, пять сценариев Reels, недельный план, DaVinci за восемь шагов, проекты со шкалой на 100 баллов и приложение с ошибками и решениями.",
-    "previewTitle": "Страницы нового издания.",
-    "previewNote": "Страницы итогового издания на языке страницы. Книга доступна на арабском, английском и русском: 106 страниц, PDF.",
+    "previewTitle": "Оцените качество до покупки",
+    "previewNote": "Настоящие страницы финального издания на языке этой страницы.",
     "previewAlt": "Страница книги From Zero to Hero",
     "previousSlide": "Предыдущий раздел",
     "nextSlide": "Следующий раздел",
@@ -348,7 +652,7 @@
     "deliveryTerms": "После проверки оплаты выбранное издание доступно по временной частной ссылке, также отправленной по почте. Восстановление — через почту покупки.",
     "refundTerms": "При проблемах загрузки и запросах возврата пишите на ali@alialkhuzaee.com. Законные права при дефектном или несоответствующем цифровом контенте сохраняются. Немедленная доставка требует отдельного согласия и подтверждения при оплате; это не общий запрет возврата. Условия отказа требуют проверки до запуска.",
     "privacyTerms": "Гостевая оплата использует почту и необходимые данные заказа. Карточные реквизиты обрабатывает платёжный провайдер. Аккаунт и маркетинговая рассылка не требуются. Сведения о процессорах, хранении и налогах должен подтвердить владелец.",
-    "taxTerms": "€2.99 — предполагаемая итоговая цена. НДС, территории продаж, реквизиты продавца и требования к чеку подтверждаются до запуска.",
+    "taxTerms": "€14.00 — итоговая цена, включая НДС Бельгии 21%. Оплата откроется при запуске магазина.",
     "contactProduct": "Вопросы о руководстве?",
     "email": "Электронная почта",
     "provider": "Способ оплаты",
@@ -471,6 +775,158 @@
       "Итоговый проект и план на 30 дней"
     ],
     "comingSoon": "Скоро",
-    "comingSoonNote": "Книга готова на арабском, английском и русском. Покупка откроется скоро."
+    "comingSoonNote": "Книга готова на арабском, английском и русском. Покупка откроется скоро.",
+    "lpBadge": "From Zero to Hero · Практическое руководство · 106 страниц · на арабском, английском и русском",
+    "lpTitle": "Снимите свои первые 3 чётких видео за 30 дней на телефон и с тем, что у вас уже есть",
+    "lpSub": "Пошаговое руководство для начинающих авторов и владельцев малого бизнеса: вы поймёте, почему картинка выходит тёмной, голос звучит издалека, а свет выглядит жёстким, и исправите это с помощью упражнения, которое снимете сами. Плюс 60 редактируемых шаблонов промптов и 40 готовых хуков.",
+    "lpFollowCta": "Скоро · Подпишитесь, чтобы узнать дату запуска",
+    "lpPagesCta": "Посмотреть страницы книги",
+    "lpTrust": "Разовая покупка · Без подписки · PDF сразу после оплаты",
+    "lpProblemTitle": "Знакомо?",
+    "lpProblems": [
+      "Вы покупаете новый микрофон или свет, а видео остаётся прежним.",
+      "Лицо выходит тёмным или оранжевым, и непонятно почему.",
+      "Голос звучит издалека или с эхом, хотя картинка чёткая.",
+      "Вы часами монтируете, а результат «так себе».",
+      "Просите ChatGPT об идее или сценарии и получаете общие слова, не похожие на вас.",
+      "Вы посмотрели десятки уроков на YouTube, и каждый говорит своё."
+    ],
+    "lpProblemClose": "Чаще всего дело не в технике, а в работе наугад, без способа понять, что изменилось и почему.",
+    "lpSolutionTitle": "From Zero to Hero: от идеи до опубликованного видео — через понимание, а не сохранённые настройки",
+    "lpSolutionText": "Практическая книга на 106 страниц, которая ведёт по порядку: от выбора идеи и аудитории к камере, свету и звуку, затем к истории и монтажу в DaVinci Resolve, затем к сценариям Reels и ИИ в рабочем процессе.",
+    "lpSolutionMethod": "Каждый раздел устроен одинаково: цель → идея → применение → упражнение, которое вы снимаете → проверка прогресса. Вы сохраняете версию «до» и «после» и записываете, что изменили и почему. Так вы учитесь на собственных видео.",
+    "lpCompareTitle": "Почему не бесплатные видео на YouTube?",
+    "lpCompareHead": [
+      "Бесплатный YouTube",
+      "From Zero to Hero"
+    ],
+    "lpCompare": [
+      [
+        "Разрозненные ролики в случайном порядке",
+        "Один путь с нуля: 12 разделов, затем набор инструментов"
+      ],
+      [
+        "«Поставьте такие настройки»",
+        "Вы понимаете причину и знаете, что делать, когда меняется комната или свет"
+      ],
+      [
+        "Посмотрел и забыл",
+        "Упражнение для съёмки в каждом разделе, тестовая карточка и проверка прогресса"
+      ],
+      [
+        "Общие промпты",
+        "60 шаблонов с полями для замены, ожидаемым результатом и способом проверки"
+      ],
+      [
+        "Обещания вирусности",
+        "Никаких обещаний просмотров и подписчиков. Измеримый результат: 3 задокументированных видео"
+      ],
+      [
+        "Каждый раз искать заново",
+        "Справочник: схемы, таблицы неисправностей, глоссарий"
+      ]
+    ],
+    "lpInsideTitle": "Что внутри",
+    "lpInside": [
+      [
+        "12 практических разделов",
+        "От идеи и аудитории к камере, свету, звуку, истории, монтажу, Reels, ИИ и итоговому проекту."
+      ],
+      [
+        "60 редактируемых шаблонов промптов",
+        "В 8 группах: исследование и идеи, хуки и сценарии, съёмка, монтаж, публикация и анализ и другие."
+      ],
+      [
+        "40 хуков",
+        "8 типов, у каждого — первое визуальное доказательство."
+      ],
+      [
+        "Оригинальные схемы",
+        "Трёхточечный свет сверху, закон обратных квадратов, цветовая температура, звуковой тракт, карта эпизода и другие."
+      ],
+      [
+        "5 готовых сценариев Reels",
+        "От 15 до 60 секунд, со списком кадров и звуком."
+      ],
+      [
+        "План на 30 дней",
+        "4 недели, 3 видео и отчёт об обучении."
+      ],
+      [
+        "DaVinci Resolve за 8 шагов",
+        "От упорядоченного импорта до архива."
+      ],
+      [
+        "Проекты трёх уровней",
+        "Со 100-балльной шкалой оценки."
+      ],
+      [
+        "Приложение по неисправностям",
+        "А также глоссарий и журнал проверенных источников."
+      ],
+      [
+        "3 языка",
+        "Арабский, английский и русский. Выберите свой при оплате."
+      ]
+    ],
+    "lpPreviewCaps": [
+      "Обложка: 106 страниц, удобных для чтения на телефоне и компьютере.",
+      "Содержание: 12 разделов по порядку, затем библиотека, к которой вы возвращаетесь в работе.",
+      "Трёхточечный свет: схема сверху для каждого источника, соотношения света и настроение, которое они дают.",
+      "Промпты 01–05: в каждом шаблоне — поля для замены, ожидаемый результат и способ проверки.",
+      "Хуки 01–10: каждый хук — с первым визуальным доказательством.",
+      "План на 30 дней: четыре недели, три видео и понятный критерий успеха."
+    ],
+    "lpForTitle": "Книга для вас, если:",
+    "lpFor": [
+      "вы начинаете снимать контент на телефон и хотите чёткую картинку и звук;",
+      "у вас малый бизнес и вы хотите сами снимать свой товар или услугу;",
+      "вы уже снимаете и хотите понять, почему одно видео работает, а другое нет;",
+      "вы хотите экономить время с помощью ИИ, но с проверкой человеком."
+    ],
+    "lpNotForTitle": "Не для вас, если:",
+    "lpNotFor": [
+      "вы ищете быстрый способ «гарантировать» охваты или тысячи подписчиков;",
+      "вы не планируете снимать упражнения — книга построена на практике;",
+      "вы опытный оператор и ищете детали профессионального оборудования."
+    ],
+    "lpOfferTitle": "Всё, что нужно для старта, по цене одного обеда",
+    "lpOffer": [
+      "PDF на 106 страниц на выбранном языке",
+      "60 шаблонов промптов + 40 хуков + 5 сценариев Reels",
+      "План на 30 дней + проекты со шкалой оценки + приложение по неисправностям",
+      "Ссылка для скачивания придёт на почту сразу после оплаты",
+      "Персональный экземпляр: ваше имя печатается в книге для её защиты"
+    ],
+    "lpPriceLabel": "Цена при запуске",
+    "lpPrice": "14 €",
+    "lpPriceNote": "С НДС · Разовый платёж, без подписки и без аккаунта",
+    "lpGuaranteeTitle": "Обещание качества",
+    "lpGuaranteeText": "Вы увидели настоящие страницы до покупки. Если файл не открывается или не соответствует описанию, напишите мне: я исправлю его, пришлю новый экземпляр или верну деньги.",
+    "lpFollowTitle": "Подпишитесь, чтобы узнать дату запуска",
+    "lpAboutTitle": "История этой книги",
+    "lpAboutText": "Я Али Альхузаи, автор контента об ИИ, технологиях и автоматизации. Я видел, как многие тратят деньги на технику, ещё не понимая свет и звук, поэтому собрал в этой книге свои исследовательские источники, проверенные работы других специалистов и идеи из практики. Книга подготовлена с помощью инструментов ИИ и проверена до финальной версии. Результат — один последовательный метод с упражнениями, которые вы пробуете сами.",
+    "lpFaqTitle": "Вопросы и ответы",
+    "lpFaq": [
+      [
+        "Нужна ли профессиональная камера?",
+        "Нет. Каждое упражнение начинается с телефона, и в каждом разделе есть начальный уровень, который можно выполнить тем, что у вас есть. Книга объясняет, когда новый инструмент стоит покупать, а когда нет."
+      ],
+      [
+        "На каком языке я получу книгу?",
+        "Вы выбираете при оплате: арабский, английский или русский. Вы получаете один PDF на этом языке; содержание одинаково на всех трёх."
+      ],
+      [
+        "Как я получу книгу и что, если ссылка потеряется?",
+        "После оплаты придёт письмо с личной ссылкой для скачивания. Если она потеряется, запросите новую по почте покупки. Файл остаётся на ваших устройствах."
+      ],
+      [
+        "Можно ли использовать промпты в работе?",
+        "Да. Промпты и чек-листы можно использовать в своей работе. Запрещено передавать или перепродавать саму книгу."
+      ]
+    ],
+    "lpInterestCta": "Хочу книгу при запуске",
+    "lpInterestNote": "Откроется ваша почта с готовым письмом Али. Я напишу вам один раз, когда откроются продажи, и не буду использовать вашу почту ни для чего другого.",
+    "lpFollowIg": "Подписаться в Instagram"
   }
 }
