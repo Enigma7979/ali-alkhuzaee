@@ -4,7 +4,7 @@ GUIDE={
 'en':dict(
  gBar='Creator Guide · presentation samples · not published',gBack='Back to the guide page',
  gCoverEyebrow='FREE INTERACTIVE GUIDE · 16 SECTIONS',gCoverLead='Learn to film, light, record and edit professional short videos at home with your phone and free AI tools.',
- gBy='By Ali Alkhuzaee',gByRole='AI & technology creator · PhD in Computer Engineering',gStart='Start the presentation',gLearn='What you will learn',
+ gBy='Prepared by Ali Alkhuzaee',gByRole='AI & technology creator · PhD in Computer Engineering',gStart='Start the presentation',gLearn='What you will learn',
  gMeta=['Free','No sign-up','Arabic · English · Russian','PDF guide: €2.99 one-time'],
  gLearnList=['A home studio from €0','Light that flatters a face and a product','Clear sound without echo','Hooks, prompts and a 30-day plan'],
  gStudioTitle='An affordable home studio',gStudioLead='Spend first on whatever fixes your biggest problem. Choose a budget level to see a real setup at that level.',
@@ -40,7 +40,7 @@ GUIDE={
 'ru':dict(
  gBar='Руководство автора · образцы презентации · не опубликовано',gBack='Назад к странице руководства',
  gCoverEyebrow='БЕСПЛАТНОЕ ИНТЕРАКТИВНОЕ РУКОВОДСТВО · 16 РАЗДЕЛОВ',gCoverLead='Научитесь снимать, ставить свет, записывать звук и монтировать профессиональные короткие видео дома — на телефон и с бесплатными ИИ-инструментами.',
- gBy='Автор: Али Альхузаи',gByRole='Автор об ИИ и технологиях · PhD в компьютерной инженерии',gStart='Начать презентацию',gLearn='Чему вы научитесь',
+ gBy='Подготовил: Али Альхузаи',gByRole='Автор об ИИ и технологиях · PhD в компьютерной инженерии',gStart='Начать презентацию',gLearn='Чему вы научитесь',
  gMeta=['Бесплатно','Без регистрации','Арабский · английский · русский','PDF-руководство: €2.99 разово'],
  gLearnList=['Домашняя студия от €0','Свет, который красит лицо и товар','Чистый звук без эха','Хуки, запросы и план на 30 дней'],
  gStudioTitle='Бюджетная домашняя студия',gStudioLead='Сначала вкладывайтесь в то, что решает главную проблему. Выберите бюджет, чтобы увидеть реальную студию этого уровня.',
