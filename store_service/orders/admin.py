@@ -6,7 +6,7 @@ class ReadOnly(admin.ModelAdmin):
  def get_readonly_fields(self,request,obj=None):return [f.name for f in self.model._meta.fields]
 @admin.register(Order)
 class OrderAdmin(ReadOnly):
- list_display=['id','created_at','provider','language','mode','status','fulfilled_at'];list_filter=['status','mode','provider','language'];search_fields=['email','id','provider_order_id'];ordering=['-created_at']
+ list_display=['id','created_at','provider','language','mode','status','fulfilled_at'];list_filter=['status','mode','provider','language'];search_fields=['email','name','id','provider_order_id'];ordering=['-created_at']
 @admin.register(PaymentEvent)
 class EventAdmin(ReadOnly):list_display=['provider','kind','event_id','created_at']
 @admin.register(DownloadGrant)

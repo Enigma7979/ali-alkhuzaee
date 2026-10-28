@@ -1,4 +1,5 @@
 import tempfile,json,hashlib
+import pymupdf
 from pathlib import Path
 from copy import deepcopy
 from datetime import timedelta
@@ -13,13 +14,14 @@ class StoreTests(TestCase):
   self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name)
   editions={}
   for lang in ['en','ar','ru']:
-   b=('%PDF-1.4 '+lang).encode();p=self.root/(lang+'.pdf');p.write_bytes(b);editions[lang]={'file':p.name,'sha256':hashlib.sha256(b).hexdigest()}
+   doc=pymupdf.open();[doc.new_page(width=499,height=709).insert_text((60,100),'Edition '+lang) for _ in range(3)];b=doc.tobytes()
+   p=self.root/(lang+'.pdf');p.write_bytes(b);editions[lang]={'file':p.name,'sha256':hashlib.sha256(b).hexdigest()}
   self.manifest=self.root/'release.json';self.manifest.write_text(json.dumps({'status':'approved','editions':editions}))
   self.settings_override=override_settings(PDF_ROOT=self.root,PDF_MANIFEST=self.manifest,PAYMENT_MODE='test',PUBLIC_ORIGIN='http://testserver',PAYPAL_MERCHANT_ID='merchant-test',EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
   self.settings_override.enable();self.addCleanup(self.settings_override.disable);self.addCleanup(self.tmp.cleanup)
-  self.order=Order.objects.create(email='buyer@example.test',language='ar',provider='stripe',provider_order_id='cs_test_1')
- def stripe(self):return {'id':'cs_test_1','mode':'payment','payment_status':'paid','amount_total':299,'currency':'eur','livemode':False,'metadata':{'order_id':str(self.order.id),'language':'ar','product':'creator-guide'},'payment_intent':{'id':'pi_1','status':'succeeded','latest_charge':{'id':'ch_1','paid':True,'amount_refunded':0,'disputed':False}}}
- def pp(self,o):return {'id':o.provider_order_id,'status':'COMPLETED','purchase_units':[{'custom_id':str(o.id),'invoice_id':str(o.id),'payee':{'merchant_id':'merchant-test'},'amount':{'value':'2.99','currency_code':'EUR'},'payments':{'captures':[{'id':'CAP1','status':'COMPLETED','final_capture':True,'amount':{'value':'2.99','currency_code':'EUR'}}]}}]}
+  self.order=Order.objects.create(name='علي الخزاعي',email='buyer@example.test',language='ar',provider='stripe',provider_order_id='cs_test_1')
+ def stripe(self):return {'id':'cs_test_1','mode':'payment','payment_status':'paid','amount_total':1400,'currency':'eur','livemode':False,'metadata':{'order_id':str(self.order.id),'language':'ar','product':'creator-guide'},'payment_intent':{'id':'pi_1','status':'succeeded','latest_charge':{'id':'ch_1','paid':True,'amount_refunded':0,'disputed':False}}}
+ def pp(self,o):return {'id':o.provider_order_id,'status':'COMPLETED','purchase_units':[{'custom_id':str(o.id),'invoice_id':str(o.id),'payee':{'merchant_id':'merchant-test'},'amount':{'value':'14.00','currency_code':'EUR'},'payments':{'captures':[{'id':'CAP1','status':'COMPLETED','final_capture':True,'amount':{'value':'14.00','currency_code':'EUR'}}]}}]}
  def test_checkout_closed_by_default(self):self.assertEqual(self.client.get('/store/checkout/').status_code,503)
  def test_availability_false_without_credentials(self):self.assertFalse(self.client.get('/store/availability/').json()['available'])
  def test_availability_readable_by_site_origin_only(self):
@@ -51,7 +53,7 @@ class StoreTests(TestCase):
   d=self.stripe();d['metadata']['language']='ru'
   with self.assertRaises(VerificationError):validate_stripe(self.order,d)
  def test_stripe_refunded_disputed_charge_cannot_fulfill(self):
-  for field,value in [('amount_refunded',299),('disputed',True),('paid',False)]:
+  for field,value in [('amount_refunded',1400),('disputed',True),('paid',False)]:
    d=self.stripe();d['payment_intent']['latest_charge'][field]=value
    with self.assertRaises(VerificationError):validate_stripe(self.order,d)
  def test_duplicate_events_and_distinct_events_one_fulfillment(self):
@@ -73,7 +75,15 @@ class StoreTests(TestCase):
   revoke(self.order.id,'refund','stripe','refund');paid(self.order.id,'evt','stripe','paid');self.assertEqual(DownloadGrant.objects.count(),0)
  def test_download_is_bound_to_order_language_not_query(self):
   paid(self.order.id,'evt','stripe','paid');token=EmailJob.objects.get().link.split('/download/')[1].split('/')[0]
-  r=self.client.post('/store/download/'+token+'/file/?lang=ru',{'language':'ru'});self.assertEqual(r.status_code,200);self.assertIn('Creator_Guide_AR.pdf',r['Content-Disposition']);self.assertEqual(b''.join(r.streaming_content),b'%PDF-1.4 ar')
+  r=self.client.post('/store/download/'+token+'/file/?lang=ru',{'language':'ru'});self.assertEqual(r.status_code,200);self.assertIn('Creator_Guide_AR.pdf',r['Content-Disposition']);doc=pymupdf.open(stream=r.content)
+  self.assertIn('Edition ar',doc[0].get_text());self.assertIn('علي الخزاعي · buyer@example.test',doc[0].get_text());self.assertIn(self.order.licence_ref,doc.metadata['subject'])
+ def test_stamped_copy_keeps_book_text_and_marks_every_page(self):
+  from .stamp import stamp
+  for lang,name in [('en',"Jane O'Brien"),('ar','عليّ عبد الله'),('ru','Анна Петрова')]:
+   doc=pymupdf.open(stream=stamp(self.root/(lang+'.pdf'),lang,name,'x@example.test','AB12CD34'))
+   for page in doc:self.assertIn('Edition '+lang,page.get_text());self.assertIn(name,page.get_text());self.assertIn('AB12CD34',page.get_text())
+   self.assertIn('x@example.test',doc[1].get_text())
+   doc=pymupdf.open(stream=stamp(self.root/(lang+'.pdf'),lang,name,'x@example.test','AB12CD34','diagonal'));self.assertIn(name,doc[2].get_text())
  def test_expired_and_forged_links_denied(self):
   paid(self.order.id,'evt','stripe','paid');g=DownloadGrant.objects.get();g.expires_at=timezone.now()-timedelta(seconds=1);g.save();token=EmailJob.objects.get().link.split('/download/')[1].split('/')[0]
   self.assertEqual(self.client.post('/store/download/'+token+'/file/').status_code,410);self.assertEqual(self.client.get('/store/download/forged/').status_code,410)
@@ -122,8 +132,8 @@ class StoreTests(TestCase):
   r=self.client.get('/store/recover/');self.assertEqual(r['Cache-Control'],'private, no-store');self.assertEqual(r['Referrer-Policy'],'no-referrer');self.assertIn('noindex',r['X-Robots-Tag']);self.assertIn("frame-ancestors 'none'",r['Content-Security-Policy'])
  def test_checkout_server_sets_price_and_language(self):
   with patch('orders.views.ready',return_value=True),patch('orders.payments.stripe_session',return_value={'id':'cs_new','url':'https://checkout.stripe.com/c/pay/cs_new'}) as start:
-   r=self.client.post('/store/checkout/?lang=ru',{'email':'another@example.test','language':'ru','provider':'stripe','terms':'on','immediate':'on','amount':'1'})
-  self.assertEqual(r.status_code,302);o=start.call_args.args[0];self.assertEqual(o.amount_cents,299);self.assertEqual(o.language,'ru');self.assertEqual(o.mode,'test')
+   r=self.client.post('/store/checkout/?lang=ru',{'name':'Анна Петрова','email':'another@example.test','language':'ru','provider':'stripe','terms':'on','immediate':'on','amount':'1'})
+  self.assertEqual(r.status_code,302);o=start.call_args.args[0];self.assertEqual(o.amount_cents,1400);self.assertEqual(o.language,'ru');self.assertEqual(o.mode,'test');self.assertEqual(o.name,'Анна Петрова')
  def test_checkout_requires_separate_consents_and_blocks_honeypot(self):
   with patch('orders.views.ready',return_value=True),patch('orders.payments.stripe_session') as start:
    for data in [{'email':'another@example.test','language':'ru','provider':'stripe','terms':'on'}, {'email':'another@example.test','language':'ru','provider':'stripe','terms':'on','immediate':'on','website':'spam'}]:
@@ -148,7 +158,7 @@ class StoreTests(TestCase):
    self.assertEqual(self.client.post('/store/paypal/capture/').status_code,302)
   o.refresh_from_db();self.assertEqual(o.status,'paid')
  def test_refund_webhook_before_checkout_event_remains_revoked(self):
-  event={'id':'evt_refund','livemode':False,'type':'charge.refunded','data':{'object':{'payment_intent':'pi_1','amount_refunded':299}}}
+  event={'id':'evt_refund','livemode':False,'type':'charge.refunded','data':{'object':{'payment_intent':'pi_1','amount_refunded':1400}}}
   with patch('orders.payments.stripe_verify',return_value=event),patch('orders.payments.stripe_intent',return_value={'metadata':{'order_id':str(self.order.id)}}):
    self.assertEqual(self.client.post('/store/webhooks/stripe/',b'{}',content_type='application/json').status_code,200)
   self.order.refresh_from_db();self.assertEqual(self.order.status,'refunded')

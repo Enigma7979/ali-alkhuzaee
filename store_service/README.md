@@ -47,7 +47,7 @@ Replace hash descriptions with actual file hashes. The source package is present
 
 ## Provider configuration
 
-Stripe: create a test secret and signed webhook endpoint for `/store/webhooks/stripe/`. Subscribe to `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.expired`, `charge.refunded`, `charge.dispute.created`. Checkout is a single EUR2.99 card payment, server priced; the server retrieves the Session and expanded settled charge before fulfilment. Metadata binds order/product/language. Refund and dispute events revoke links. Do not use test events to fulfil live orders.
+Stripe: create a test secret and signed webhook endpoint for `/store/webhooks/stripe/`. Subscribe to `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.expired`, `charge.refunded`, `charge.dispute.created`. Checkout is a single EUR 14.00 card payment (VAT included, `PRICE_CENTS` in settings), server priced; the server retrieves the Session and expanded settled charge before fulfilment. Metadata binds order/product/language. Refund and dispute events revoke links. Do not use test events to fulfil live orders.
 
 PayPal: configure a sandbox REST application, merchant ID and webhook ID for `/store/webhooks/paypal/`. Subscribe to `PAYMENT.CAPTURE.COMPLETED`, `PAYMENT.CAPTURE.REFUNDED`, `PAYMENT.CAPTURE.REVERSED`. Browser approval is followed by a CSRF-protected capture POST; only the verified server response/retrieved completed order can fulfil. Webhooks are verified with PayPal's signature-verification API. Capture amount, payee, custom/invoice ID and currency must match.
 
@@ -60,6 +60,17 @@ Only SHA256 hashes of random 256-bit bearer download tokens are used for downloa
 Run `python manage.py send_order_emails` from a private scheduled worker each minute. It sends only to paid order addresses. Failed sends retry (up to eight attempts); inspect failures without logging message bodies/tokens. Exactly-once SMTP transmission cannot be guaranteed if a process crashes after SMTP accepts a message but before the DB commits. Payment fulfilment and initial email-job creation are idempotent. Recovery is generic, rate-limited and at most one new email per order per UTC day.
 
 Run `python manage.py cleanup_rate_buckets` hourly. Operationally confirm retention periods and delete/anonymize customer records according to the approved policy and tax retention obligations; no arbitrary production-order deletion job is enabled.
+
+## Personalised PDF (buyer stamp)
+
+Each download is stamped at request time by `orders/stamp.py` (PyMuPDF): a small footer line on every page
+(`© Ali Alkhuzaee · alialkhuzaee.com — Licensed to: name · email · Order REF`), a personal licence block in the
+empty top half of page 2, and hidden copies of the order reference in the document info, catalog (`/AAK_License`)
+and every page object (`/AAK_Order`). REF is the first 8 characters of the order id (search it in the admin).
+The book's own fonts and text layer are not rewritten. The stamp uses IBM Plex Sans and the cleaned IBM Plex Sans
+Arabic (OFL, `orders/fonts/`), with a full ToUnicode map so stamped Arabic copies correctly. About 0.5-0.8 s per
+106-page copy; the approved file on the Volume stays unchanged and its hash is still checked. The checkout asks for
+the buyer's full name and tells them the copy is personalised. Standalone scripts: `scripts/watermark/`.
 
 ## Administration and refunds
 

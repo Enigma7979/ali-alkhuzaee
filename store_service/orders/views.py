@@ -4,12 +4,12 @@ from urllib.parse import urlparse
 from django.conf import settings
 from django.db import transaction
 from django.db.models import F
-from django.http import JsonResponse,HttpResponse,FileResponse,HttpResponseForbidden,HttpResponseNotFound
+from django.http import JsonResponse,HttpResponse,HttpResponseForbidden,HttpResponseNotFound
 from django.shortcuts import render,redirect,get_object_or_404
 from django.utils import timezone
 from django.views.decorators.http import require_GET,require_POST,require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-from . import payments
+from . import payments,stamp
 from .models import Order,RateBucket,EmailJob,DownloadGrant
 from .forms import CheckoutForm,RecoveryForm
 from .fulfillment import paid,revoke,validate_stripe,validate_paypal,release_path,VerificationError,digest,grant
@@ -37,7 +37,7 @@ def ready():
  return True
 @require_GET
 def availability(request):
- r=JsonResponse({'available':ready(),'mode':settings.PAYMENT_MODE,'currency':'EUR','amount':299,'languages':['en','ar','ru']})
+ r=JsonResponse({'available':ready(),'mode':settings.PAYMENT_MODE,'currency':'EUR','amount':settings.PRICE_CENTS,'languages':['en','ar','ru']})
  r['Access-Control-Allow-Origin']=settings.SITE_ORIGIN;r['Vary']='Origin'
  return r
 @require_http_methods(['GET','POST'])
@@ -48,7 +48,7 @@ def checkout(request):
   if not limit(request,'checkout'):return notice(request,'rateLimited',429)
   if form.is_valid() and not form.cleaned_data['website']:
    d=form.cleaned_data;release_path(d['language'])
-   order=Order.objects.create(email=d['email'].strip().lower(),language=d['language'],provider=d['provider'],mode=settings.PAYMENT_MODE,terms_version='v1-approved' if settings.LEGAL_APPROVED else 'v1-draft')
+   order=Order.objects.create(amount_cents=settings.PRICE_CENTS,name=' '.join(d['name'].split()),email=d['email'].strip().lower(),language=d['language'],provider=d['provider'],mode=settings.PAYMENT_MODE,terms_version='v1-approved' if settings.LEGAL_APPROVED else 'v1-draft')
    request.session['order_id']=str(order.id)
    try:
     if order.provider=='stripe':
@@ -163,8 +163,14 @@ def download_file(request,token):
   if not obj:return notice(request,'expired',410)
   try:path=release_path(obj.order.language)
   except VerificationError:return notice(request,'unavailable',503)
+  order=obj.order
+  # Every copy carries its buyer's name, email and order reference (footer, page 2 licence, metadata).
+  try:pdf=stamp.stamp(path,order.language,order.name,order.email,order.licence_ref)
+  except Exception:
+   logger.exception('PDF stamping failed; order=%s',order.id);return notice(request,'unavailable',503)
   obj.downloads=F('downloads')+1;obj.save(update_fields=['downloads'])
-  return FileResponse(path.open('rb'),as_attachment=True,filename='Creator_Guide_'+obj.order.language.upper()+'.pdf',content_type='application/pdf')
+  r=HttpResponse(pdf,content_type='application/pdf');r['Content-Disposition']='attachment; filename="Creator_Guide_'+order.language.upper()+'.pdf"'
+  return r
 @require_http_methods(['GET','POST'])
 def recover(request):
  form=RecoveryForm(request.POST or None)

@@ -19,7 +19,7 @@ class Command(BaseCommand):
     if not DownloadGrant.objects.filter(order=job.order,token_hash=digest(token),revoked=False,expires_at__gt=timezone.now()+timedelta(minutes=5)).exists():
      job.link=grant(job.order,job.kind);job.save(update_fields=['link'])
     job.attempts+=1;job.save(update_fields=['attempts']);c=COPY[job.order.language]
-    body=c['emailBody']+'\n\n'+job.link+'\n\n'+c['emailEdition']+' '+job.order.language.upper()+'\n'+c['immediate']+'\n\nOrder: '+str(job.order_id)+'\nEUR 2.99\nali@alialkhuzaee.com'
+    body=c['emailBody']+'\n\n'+job.link+'\n\n'+c['emailEdition']+' '+job.order.language.upper()+'\n'+c['immediate']+'\n\nOrder: '+str(job.order_id)+'\nEUR %.2f\nali@alialkhuzaee.com'%(job.order.amount_cents/100)
     try:send_mail(c['emailSubject'],body,None,[job.order.email],fail_silently=False)
     except Exception:continue
     job.sent_at=timezone.now();job.save(update_fields=['sent_at']);count+=1
